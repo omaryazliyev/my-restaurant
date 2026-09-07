@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Home.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -62,6 +62,7 @@ const whyUsRows = [
 const news = [{ img: rasm1 }, { img: rasm2 }, { img: rasm3 }];
 
 export default function Home() {
+  const navigate = useNavigate();
   const { addToCart } = useCart();
   const { isAuthenticated } = useAuth();
 
@@ -144,20 +145,33 @@ export default function Home() {
             <div className="cards-wrapper">
               <img src={leftArrow} alt="" style={{ width: 31, height: 31, cursor: 'pointer' }} />
               {popularDishes.map((dish) => (
-                <div key={dish.id} className={dish.type}>
+                <div
+                  key={dish.id}
+                  className={dish.type}
+                  onClick={() => navigate(`/product/${dish.id}`)}
+                  style={{ cursor: 'pointer' }}
+                >
                   <div className={dish.imgClass}>
                     <img src={dish.img} alt={dish.name} />
                   </div>
                   <div className="card-main">
                     <h3>{dish.name}</h3>
-                    <img src={heard} alt="Favorite" style={{ cursor: 'pointer' }} />
+                    <img
+                      src={heard}
+                      alt="Favorite"
+                      style={{ cursor: 'pointer' }}
+                      onClick={(e) => e.stopPropagation()}
+                    />
                   </div>
                   <p className="card-desc">{dish.desc}</p>
                   <div className="card-footer">
                     <span className="price">{dish.price}</span>
                     <div
                       className="magazin"
-                      onClick={() => addToCart(dish)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        addToCart(dish);
+                      }}
                       style={{ cursor: 'pointer' }}
                       title="Добавить в корзину"
                     >
