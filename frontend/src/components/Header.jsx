@@ -91,7 +91,7 @@ export default function Header({ showNav = true }) {
             <NavLink to="/menu" style={getLinkStyle}>Меню</NavLink>
             <NavLink to="/novosti" style={getLinkStyle}>Новости</NavLink>
             <NavLink to="/booking" style={getLinkStyle}>Бронирование</NavLink>
-            <Link to="/home#why-us">О нас</Link>
+            <NavLink to="/about" style={getLinkStyle}>О нас</NavLink>
             <a href="#footer-contacts">Контакты</a>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
