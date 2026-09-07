@@ -1,0 +1,28 @@
+# dependencies
+node_modules
+.pnpm-store
+
+# build outputs & bundles
+dist
+build
+dist-ssr
+*.local
+
+# environment variables & secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE & System files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.log

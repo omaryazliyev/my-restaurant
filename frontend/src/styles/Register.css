@@ -1,0 +1,163 @@
+.register-body {
+  margin: 0;
+  min-height: 100vh;
+  background: url("../assets/images/fon.png") center/cover;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  filter: blur(20px);
+  transform: scale(1.1);
+  z-index: -1;
+}
+
+.register-container {
+  width: 463px;
+  border-radius: 31px;
+  background-color: rgba(255, 255, 255, 0.4);
+  padding: 40px 73px;
+  margin: 30px auto;
+  box-sizing: border-box;
+}
+
+.register-container h1 {
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+.register-container .input-box {
+  position: relative;
+  margin: 20px 0;
+}
+
+.register-container .input-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  border: none;
+  border-bottom: 1px solid #000;
+  background: transparent;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.register-container .input-box label {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  color: #000;
+  font-size: 14px;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+.register-container .input-box input:focus ~ label,
+.register-container .input-box input:valid ~ label {
+  top: -10px;
+  font-size: 12px;
+  color: #000;
+}
+
+.register-container .checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.register-container .check {
+  transform: scale(1.5);
+  cursor: pointer;
+  background: transparent;
+  outline: none;
+  flex-shrink: 0;
+}
+
+.register-container .checkbox-row p {
+  font-size: 12px;
+  line-height: 150%;
+  font-weight: 400;
+}
+
+.register-container .foot {
+  text-align: center;
+  margin-top: 27px;
+}
+
+.register-container .foot button {
+  width: 169px;
+  height: 59px;
+  border-radius: 13px;
+  background-color: #000;
+  color: white;
+  font-family: "Roboto", sans-serif;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.register-container .foot button:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.register-container .foot .zabil {
+  display: block;
+  margin-top: 10px;
+  font-weight: 400;
+  font-size: 12px;
+  color: rgba(6, 0, 76, 1);
+  text-decoration: none;
+}
+
+.register-container .foot .zabil:hover {
+  text-decoration: underline;
+}
+
+/* ── Tablet: 480px – 768px ── */
+@media (max-width: 768px) {
+  .register-container {
+    width: 90%;
+    padding: 36px 48px;
+  }
+
+  .register-container h1 {
+    font-size: 26px;
+  }
+}
+
+/* ── Mobile: 480px va undan kichik ── */
+@media (max-width: 480px) {
+  .register-container {
+    width: 95%;
+    padding: 28px 24px;
+    border-radius: 20px;
+    margin: 16px auto;
+  }
+
+  .register-container h1 {
+    font-size: 22px;
+  }
+
+  .register-container .input-box {
+    margin: 16px 0;
+  }
+
+  .register-container .input-box input {
+    font-size: 14px;
+  }
+
+  .register-container .foot button {
+    width: 100%;
+    height: 52px;
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,199 @@
+.login-body {
+  margin: 0;
+  min-height: 100vh;
+  background: url("../assets/images/fon.png") center/cover;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  filter: blur(20px);
+  transform: scale(1.1);
+  z-index: -1;
+}
+
+.login-container {
+  width: 420px;
+  height: auto;
+  min-height: 480px;
+  border-radius: 31px;
+  background-color: rgba(255, 255, 255, 0.35);
+  padding: 20px 54px 44px;
+  position: relative;
+  margin-top: 70px;
+  box-sizing: border-box;
+}
+
+/* img1 - qora doira, markazda, yarim tashqarida */
+.login-container .img1 {
+  position: absolute;
+  top: -65px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 110px;
+  z-index: 2;
+}
+
+/* img2 - vilka img1 ichida ko'rinadi, img1 ustiga chiqarib qo'yamiz */
+.login-container .img2 {
+  position: absolute;
+  top: -45px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  z-index: 3;
+}
+
+.login-container h1 {
+  padding-top: 65px;
+  font-size: 28px;
+  line-height: 150%;
+  font-weight: 600;
+  width: auto;
+  height: auto;
+  margin: 0 0 8px 0;
+}
+
+.login-container .input-box {
+  position: relative;
+  margin: 28px 0;
+}
+
+.login-container .input-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  border: none;
+  border-bottom: 1px solid #000;
+  background: transparent;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.login-container .input-box label {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  color: #000;
+  font-size: 14px;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+.login-container .input-box input:focus ~ label,
+.login-container .input-box input:valid ~ label {
+  top: -14px;
+  font-size: 12px;
+  color: #000;
+}
+
+.login-container .ahref {
+  margin-top: -16px;
+  margin-bottom: 20px;
+}
+
+.login-container .ahref a {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 150%;
+  color: rgba(0, 0, 0, 1);
+  text-decoration: none;
+}
+
+.login-container .ahref a:hover {
+  text-decoration: underline;
+}
+
+.login-container .foot {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.login-container .foot button {
+  width: 169px;
+  height: 59px;
+  border-radius: 13px;
+  background-color: rgba(0, 0, 0, 1);
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.login-container .foot button:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.login-container .foot .zabil {
+  display: block;
+  font-weight: 400;
+  font-size: 12px;
+  color: rgba(6, 0, 76, 1);
+  margin-top: 14px;
+  text-decoration: none;
+}
+
+.login-container .foot .zabil:hover {
+  text-decoration: underline;
+}
+
+/* ── Tablet: 480px – 768px ── */
+@media (max-width: 768px) {
+  .login-container {
+    width: 90%;
+    padding: 20px 40px 44px;
+    margin-top: 70px;
+  }
+
+  .login-container h1 {
+    font-size: 24px;
+  }
+}
+
+/* ── Mobile: 480px va undan kichik ── */
+@media (max-width: 480px) {
+  .login-container {
+    width: 95%;
+    padding: 20px 24px 36px;
+    border-radius: 20px;
+    margin-top: 70px;
+    min-height: auto;
+  }
+
+  .login-container .img1 {
+    width: 90px;
+    height: 90px;
+    top: -50px;
+  }
+
+  .login-container .img2 {
+    width: 40px;
+    top: -35px;
+  }
+
+  .login-container h1 {
+    font-size: 22px;
+    padding-top: 55px;
+  }
+
+  .login-container .input-box {
+    margin: 22px 0;
+  }
+
+  .login-container .foot button {
+    width: 100%;
+    height: 52px;
+    font-size: 14px;
+  }
+}

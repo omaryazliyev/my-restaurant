@@ -1,0 +1,363 @@
+.menu-body {
+  margin: 0;
+  min-height: 100vh;
+  background: url("../assets/images/fon2.png") center/cover;
+  position: relative;
+}
+
+.menu-body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  filter: blur(20px);
+  transform: scale(1.1);
+  z-index: -1;
+}
+
+.menu-container {
+  max-width: 1513px;
+  position: relative;
+}
+
+.menu-header {
+  padding: 20px 70px;
+}
+
+.menu-header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.s1-menu {
+  width: calc(100% - 220px);
+  max-width: 1300px;
+  border-radius: 50px;
+  background-color: rgba(255, 255, 255, 0.4);
+  margin: 44px 110px;
+  padding: 55px 70px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.s1-menu .s1-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.s1-menu .home-nav {
+  display: flex;
+  gap: 43px;
+}
+
+.s1-menu .home-nav a {
+  color: rgba(0, 0, 0, 1);
+  font-size: 18px;
+  line-height: 150%;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.s1-menu .home-nav a:hover {
+  color: darkorange;
+}
+
+.page-breadcrumb {
+  display: flex;
+  gap: 5px;
+  margin-top: 160px;
+}
+
+.page-breadcrumb .glavni {
+  color: rgba(98, 100, 100, 1);
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.page-breadcrumb .menu-link {
+  color: rgba(0, 0, 0, 1);
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.s1-menu h1 {
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 150%;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.menyu1 {
+  display: flex;
+  justify-content: center;
+}
+
+.menyu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  gap: 36px;
+  margin-top: 58px;
+  width: 656px;
+  height: 58px;
+  border-radius: 27px;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.menyu a {
+  color: rgba(0, 0, 0, 1);
+  font-size: 20px;
+  line-height: 150%;
+  font-weight: 400;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.menyu a:hover {
+  color: darkorange;
+}
+
+.menyu .pervi {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 133px;
+  height: 36px;
+  border-radius: 27px;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.menu-cards {
+  margin-top: 85px;
+  display: grid;
+  grid-template-columns: repeat(4, 263px);
+  gap: 45px;
+  justify-content: center;
+}
+
+.menu-cards .card1 {
+  margin-top: 80px;
+  border-radius: 38px;
+  background-color: rgba(255, 255, 255, 0.4);
+  padding: 20px;
+}
+
+.menu-cards .card1 .big {
+  margin-top: -155px;
+  margin-left: -13px;
+}
+
+.menu-card-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -10px;
+}
+
+.menu-card-main h3 {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+.menu-cards p {
+  font-weight: 400;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.menu-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 20px;
+}
+
+.menu-card-footer .price {
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 150%;
+}
+
+.menu-card-footer .magazin {
+  width: 49px;
+  height: 45px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.barg4-menu {
+  position: absolute;
+  top: 1366px;
+  left: 544px;
+}
+
+/* ── Large tablet: 1200px ── */
+@media (max-width: 1200px) {
+  .s1-menu {
+    width: calc(100% - 80px);
+    margin: 44px 40px;
+    padding: 55px 40px;
+  }
+
+  .menu-cards {
+    grid-template-columns: repeat(3, 263px);
+  }
+
+  .menyu {
+    width: 100%;
+    max-width: 600px;
+  }
+}
+
+/* ── Tablet: 900px ── */
+@media (max-width: 900px) {
+  .menu-header {
+    padding: 20px 30px;
+  }
+
+  .s1-menu {
+    width: calc(100% - 40px);
+    margin: 30px 20px;
+    padding: 40px 30px;
+    border-radius: 30px;
+  }
+
+  .s1-menu .home-nav {
+    gap: 20px;
+  }
+
+  .s1-menu .home-nav a {
+    font-size: 15px;
+  }
+
+  .page-breadcrumb {
+    margin-top: 80px;
+  }
+
+  .s1-menu h1 {
+    font-size: 36px;
+  }
+
+  .menu-cards {
+    grid-template-columns: repeat(2, 263px);
+    gap: 30px;
+  }
+
+  .menyu {
+    width: 100%;
+    max-width: 500px;
+    gap: 16px;
+    padding: 0 16px;
+  }
+
+  .menyu a {
+    font-size: 16px;
+  }
+
+  .barg4-menu {
+    display: none;
+  }
+}
+
+/* ── Mobile: 600px ── */
+@media (max-width: 600px) {
+  .menu-header {
+    padding: 16px 16px;
+  }
+
+  .s1-menu {
+    width: calc(100% - 24px);
+    margin: 16px 12px;
+    padding: 30px 16px;
+    border-radius: 20px;
+  }
+
+  .s1-menu .s1-head {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .s1-menu .home-nav {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .page-breadcrumb {
+    margin-top: 40px;
+  }
+
+  .page-breadcrumb .glavni,
+  .page-breadcrumb .menu-link {
+    font-size: 14px;
+  }
+
+  .s1-menu h1 {
+    font-size: 26px;
+    margin-top: 16px;
+  }
+
+  .menyu {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px 16px;
+    margin-top: 30px;
+  }
+
+  .menyu .pervi {
+    width: auto;
+    padding: 6px 14px;
+  }
+
+  .menyu a {
+    font-size: 14px;
+  }
+
+  .menu-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 50px;
+  }
+
+  .menu-cards .card1 {
+    margin-top: 60px;
+  }
+
+  .menu-cards .card1 .big {
+    width: 100%;
+    margin-top: -120px;
+    margin-left: 0;
+  }
+
+  .menu-card-main h3 {
+    font-size: 16px;
+  }
+
+  .menu-card-footer .price {
+    font-size: 18px;
+  }
+
+  .menu-card-footer .magazin {
+    width: 38px;
+    height: 36px;
+  }
+}
+
+/* ── Kichik mobile: 400px ── */
+@media (max-width: 400px) {
+  .menu-cards {
+    grid-template-columns: 1fr;
+  }
+}
