@@ -502,11 +502,13 @@
   background: #fff;
   border-radius: 28px;
   width: 100%;
-  max-width: 700px;
+  max-width: 860px;
   padding: 35px;
   box-shadow: 0 25px 60px rgba(0,0,0,0.3);
   position: relative;
   animation: modalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  max-height: 92vh;
+  overflow-y: auto;
 }
 
 @keyframes modalFadeIn {

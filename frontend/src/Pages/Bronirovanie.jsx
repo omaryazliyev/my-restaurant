@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import CustomSelect from '../components/CustomSelect';
+import RestaurantFloorPlan, { FLOOR_TABLES } from '../components/RestaurantFloorPlan';
 import { useAuth } from '../context/AuthContext';
 import { reservationApi } from '../services/api';
 import '../styles/Bronirovanie.css';
@@ -17,12 +18,16 @@ import barg1 from '../assets/images/barg1.png';
 import barg2 from '../assets/images/barg2.png';
 import barg7 from '../assets/images/barg7.png';
 
-// Available Table locations mapping to backend table IDs
+// All table options (synced with RestaurantFloorPlan IDs)
 const TABLE_OPTIONS = [
-  { id: 1, name: 'Столик у окна (Зал 1)', capacity: '2-4 чел', type: 'Window' },
-  { id: 2, name: 'Основной зал (Центр)', capacity: '4-6 чел', type: 'Main Hall' },
-  { id: 3, name: 'VIP кабина (Кабинет)', capacity: '6-10 чел', type: 'VIP Room' },
-  { id: 4, name: 'Летняя Терраса', capacity: '2-4 чел', type: 'Terrace' },
+  // Circle tables
+  { id: 1,  name: 'Стол 1 (Центр)', capacity: '2–4 чел' },
+  { id: 2,  name: 'Стол 2 (Центр)', capacity: '2–4 чел' },
+  { id: 4,  name: 'Стол 4 (Центр)', capacity: '2–4 чел' },
+  { id: 8,  name: 'Стол 8 (Центр)', capacity: '2–4 чел' },
+  { id: 9,  name: 'Стол 9 (Центр)', capacity: '2–4 чел' },
+  // Booths
+  { id: 11, name: 'Кабинет (Левый)', capacity: '4–6 чел' },
 ];
 
 export default function Bronirovanie() {
@@ -396,42 +401,48 @@ export default function Bronirovanie() {
         </div>
       </div>
 
-      {/* Table Map Interactive Modal */}
+      {/* Table Map Interactive Modal — Floor Plan */}
       {isMapModalOpen && (
         <div className="table-modal-overlay" onClick={() => setIsMapModalOpen(false)}>
-          <div className="table-modal-content" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="table-modal-content"
+            onClick={(e) => e.stopPropagation()}
+            style={{ maxWidth: '820px', padding: '30px 30px 24px' }}
+          >
+            {/* Header */}
             <div className="table-modal-header">
-              <h3>Интерактивная карта залов</h3>
-              <button
-                className="table-modal-close"
-                onClick={() => setIsMapModalOpen(false)}
-              >
-                ✕
-              </button>
+              <div>
+                <h3 style={{ fontSize: '22px', fontWeight: '800', margin: 0 }}>Выберите место</h3>
+                {form.tableId && (() => {
+                  const sel = FLOOR_TABLES.find((t) => String(t.id) === String(form.tableId));
+                  return sel ? (
+                    <p style={{ margin: '4px 0 0 0', fontSize: '13px', color: '#2980b9', fontWeight: '600' }}>
+                      ✓ Выбрано: {sel.label} (стол {sel.id})
+                    </p>
+                  ) : null;
+                })()}
+              </div>
+              <button className="table-modal-close" onClick={() => setIsMapModalOpen(false)}>✕</button>
             </div>
-            <p style={{ color: '#666', fontSize: '14px', marginBottom: '20px' }}>
-              Выберите понравившуюся зону и столик на виртуальной схеме ресторана:
-            </p>
-            <div className="table-grid">
-              {TABLE_OPTIONS.map((tbl) => (
-                <div
-                  key={tbl.id}
-                  className={`table-item ${String(form.tableId) === String(tbl.id) ? 'selected' : ''}`}
-                  onClick={() => handleSelectTableFromMap(tbl.id)}
-                >
-                  <div className="table-item-title">🪑 {tbl.name}</div>
-                  <div className="table-item-desc">Вместимость: {tbl.capacity}</div>
-                  <span className="table-item-badge">
-                    {String(form.tableId) === String(tbl.id) ? '✓ Выбрано' : 'Выбрать стол'}
-                  </span>
-                </div>
-              ))}
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+
+            {/* Floor Plan */}
+            <RestaurantFloorPlan
+              selectedTableId={form.tableId}
+              onSelect={(tbl) => {
+                setForm((p) => ({ ...p, tableId: String(tbl.id) }));
+              }}
+            />
+
+            {/* Footer buttons */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '20px' }}>
+              <span style={{ fontSize: '13px', color: '#888' }}>
+                Нажмите на зелёный стол, чтобы выбрать
+              </span>
               <button
                 style={{
                   backgroundColor: '#000', color: '#fff', border: 'none',
-                  padding: '10px 24px', borderRadius: '10px', fontWeight: '600', cursor: 'pointer'
+                  padding: '11px 28px', borderRadius: '10px', fontWeight: '700',
+                  cursor: 'pointer', fontSize: '15px',
                 }}
                 onClick={() => setIsMapModalOpen(false)}
               >
