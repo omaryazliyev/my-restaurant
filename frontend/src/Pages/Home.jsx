@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import '../styles/Home.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import CustomSelect from '../components/CustomSelect';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { reservationApi } from '../services/api';
@@ -241,16 +242,17 @@ export default function Home() {
                     </div>
 
                     <div className="input-box">
-                      <select
-                        name="tableId"
-                        value={bookingForm.tableId}
-                        onChange={handleBookingChange}
-                        style={{ width: '100%', padding: '12px', borderRadius: '8px', backgroundColor: 'transparent', color: '#fff', border: '1px solid rgba(255,255,255,0.3)' }}
-                      >
-                        <option value="1" style={{ color: '#000' }}>Стол #1 (VIP)</option>
-                        <option value="2" style={{ color: '#000' }}>Стол #2 (Окна)</option>
-                        <option value="3" style={{ color: '#000' }}>Стол #3 (Терраса)</option>
-                      </select>
+                      <CustomSelect
+                        value={String(bookingForm.tableId)}
+                        onChange={(val) => setBookingForm((p) => ({ ...p, tableId: Number(val) }))}
+                        variant="light"
+                        placeholder="Выберите стол"
+                        options={[
+                          { value: '1', label: '🪑 Стол #1 (VIP)' },
+                          { value: '2', label: '🪟 Стол #2 (У окна)' },
+                          { value: '3', label: '🌿 Стол #3 (Терраса)' },
+                        ]}
+                      />
                     </div>
 
                     <a href="#s3-booking" className="map-link">Выбрать места на карте</a>

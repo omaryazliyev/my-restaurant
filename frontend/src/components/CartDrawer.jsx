@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { ordersApi } from '../services/api';
+import CustomSelect from './CustomSelect';
 
 export default function CartDrawer() {
   const { cartItems, isCartOpen, setIsCartOpen, updateQuantity, removeFromCart, clearCart, totalAmount, totalCount } = useCart();
@@ -160,16 +161,17 @@ export default function CartDrawer() {
                 {/* Options & Checkout */}
                 <div style={{ borderTop: '1px solid #2e303b', paddingTop: '16px' }}>
                   <div style={{ marginBottom: '12px' }}>
-                    <label style={{ fontSize: '13px', color: '#a0a5b5', display: 'block', marginBottom: '6px' }}>Способ доставки:</label>
-                    <select
+                    <label style={{ fontSize: '13px', color: '#a0a5b5', display: 'block', marginBottom: '8px', fontWeight: '600' }}>Способ доставки:</label>
+                    <CustomSelect
                       value={deliveryMethod}
-                      onChange={(e) => setDeliveryMethod(e.target.value)}
-                      style={{ width: '100%', padding: '10px', borderRadius: '8px', backgroundColor: '#272932', color: '#fff', border: '1px solid #3b3e4d' }}
-                    >
-                      <option value="DOOR_DELIVERY">🚚 Доставка курьером</option>
-                      <option value="PICKUP">🏃 Забрать самому (Самовывоз)</option>
-                      <option value="ADDRESS">📍 По точному адресу</option>
-                    </select>
+                      onChange={setDeliveryMethod}
+                      variant="dark"
+                      options={[
+                        { value: 'DOOR_DELIVERY', label: '🚚 Доставка курьером' },
+                        { value: 'PICKUP',        label: '🏃 Самовывоз' },
+                        { value: 'ADDRESS',       label: '📍 По точному адресу' },
+                      ]}
+                    />
                   </div>
 
                   {deliveryMethod === 'ADDRESS' && (
@@ -185,15 +187,16 @@ export default function CartDrawer() {
                   )}
 
                   <div style={{ marginBottom: '16px' }}>
-                    <label style={{ fontSize: '13px', color: '#a0a5b5', display: 'block', marginBottom: '6px' }}>Способ оплаты:</label>
-                    <select
+                    <label style={{ fontSize: '13px', color: '#a0a5b5', display: 'block', marginBottom: '8px', fontWeight: '600' }}>Способ оплаты:</label>
+                    <CustomSelect
                       value={paymentMethod}
-                      onChange={(e) => setPaymentMethod(e.target.value)}
-                      style={{ width: '100%', padding: '10px', borderRadius: '8px', backgroundColor: '#272932', color: '#fff', border: '1px solid #3b3e4d' }}
-                    >
-                      <option value="ONLINE_CARD">💳 Карта (Online)</option>
-                      <option value="CASH_ON_DELIVERY">💵 Наличными при получении</option>
-                    </select>
+                      onChange={setPaymentMethod}
+                      variant="dark"
+                      options={[
+                        { value: 'ONLINE_CARD',       label: '💳 Карта (Online)' },
+                        { value: 'CASH_ON_DELIVERY',  label: '💵 Наличными при получении' },
+                      ]}
+                    />
                   </div>
 
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
