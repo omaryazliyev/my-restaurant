@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Menu.css';
 import '../styles/Home.css';
 import Header from '../components/Header';
@@ -29,6 +29,7 @@ const fallbackMenuItems = Array(12).fill({
 const news = [{ img: rasm1 }, { img: rasm2 }, { img: rasm3 }];
 
 export default function Menu() {
+  const navigate = useNavigate();
   const [categories, setCategories] = useState(fallbackCategories);
   const [activeCategory, setActiveCategory] = useState('Первые');
   const [items, setItems] = useState(fallbackMenuItems);
@@ -116,20 +117,33 @@ export default function Menu() {
             ) : (
               <div className="menu-cards">
                 {items.map((item, i) => (
-                  <div className="card1" key={item.id || i}>
+                  <div
+                    className="card1"
+                    key={item.id || i}
+                    onClick={() => navigate(`/product/${item.id || i}`)}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <div className="big">
                       <img src={item.img || food2} alt={item.name} />
                     </div>
                     <div className="menu-card-main">
                       <h3>{item.name}</h3>
-                      <img src={heard} alt="Favorite" style={{ cursor: 'pointer' }} />
+                      <img
+                        src={heard}
+                        alt="Favorite"
+                        style={{ cursor: 'pointer' }}
+                        onClick={(e) => e.stopPropagation()}
+                      />
                     </div>
                     <p>{item.description || item.desc}</p>
                     <div className="menu-card-footer">
                       <span className="price">{item.price}</span>
                       <div
                         className="magazin"
-                        onClick={() => addToCart(item)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          addToCart(item);
+                        }}
                         style={{ cursor: 'pointer' }}
                         title="Добавить в корзину"
                       >

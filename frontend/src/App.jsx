@@ -8,6 +8,7 @@ import Bronirovanie from './Pages/Bronirovanie';
 import Novosti from './Pages/Novosti';
 import AboutUs from './Pages/AboutUs';
 import Contacts from './Pages/Contacts';
+import ProductDetail from './Pages/ProductDetail';
 import './styles/global.css';
 import './index.css';
 
@@ -23,6 +24,8 @@ export default function App() {
         <Route path="/novosti" element={<Novosti />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/contacts" element={<Contacts />} />
+        <Route path="/product" element={<ProductDetail />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
