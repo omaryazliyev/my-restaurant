@@ -92,7 +92,7 @@ export default function Header({ showNav = true }) {
             <NavLink to="/novosti" style={getLinkStyle}>Новости</NavLink>
             <NavLink to="/booking" style={getLinkStyle}>Бронирование</NavLink>
             <NavLink to="/about" style={getLinkStyle}>О нас</NavLink>
-            <a href="#footer-contacts">Контакты</a>
+            <NavLink to="/contacts" style={getLinkStyle}>Контакты</NavLink>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <img src={heard} alt="Favorites" style={{ cursor: 'pointer', width: '22px', height: '22px' }} title="Избранное" />

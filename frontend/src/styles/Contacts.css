@@ -1,0 +1,285 @@
+/* ============================================================ */
+/* Contacts Page Styles                                         */
+/* ============================================================ */
+
+.contacts-page-wrapper {
+  min-height: 100vh;
+  background: url('../assets/images/fon2.png') no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+  overflow-x: hidden;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: #1a1a1a;
+}
+
+.contacts-container {
+  max-width: 1100px;
+  margin: 40px auto 80px;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Decorative Leaves ─────────────────────────────────────── */
+.contacts-leaf-left {
+  position: absolute;
+  left: -80px;
+  top: 250px;
+  width: 160px;
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 3;
+  animation: floatLeaf 6s ease-in-out infinite alternate;
+}
+
+.contacts-leaf-right {
+  position: absolute;
+  right: -90px;
+  top: 180px;
+  width: 180px;
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 3;
+  animation: floatLeaf 7s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes floatLeaf {
+  from { transform: translateY(0px) rotate(0deg); }
+  to { transform: translateY(15px) rotate(4deg); }
+}
+
+/* ── Glass Card ─────────────────────────────────────────────── */
+.contacts-glass-card {
+  background: rgba(230, 225, 215, 0.78);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-radius: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  padding: 50px 70px 60px;
+  position: relative;
+  margin-bottom: 50px;
+}
+
+/* Breadcrumb */
+.contacts-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.contacts-breadcrumb a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.contacts-breadcrumb a:hover {
+  color: #000;
+}
+
+.contacts-breadcrumb span:last-child {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+/* Page Title */
+.contacts-page-title {
+  text-align: center;
+  font-size: 44px;
+  font-weight: 800;
+  color: #000;
+  margin-bottom: 50px;
+  letter-spacing: -0.5px;
+}
+
+/* ── 3 Info Cards Row ───────────────────────────────────────── */
+.contacts-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+.contacts-info-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+.contacts-info-card:hover {
+  transform: translateY(-5px);
+}
+
+.contacts-info-icon-wrap {
+  width: 68px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  color: #1a1a1a;
+}
+
+.contacts-info-icon-wrap svg {
+  width: 42px;
+  height: 42px;
+}
+
+.contacts-info-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 12px;
+}
+
+.contacts-info-text {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.contacts-info-text a {
+  color: #444;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.contacts-info-text a:hover {
+  color: #e63946;
+}
+
+/* ── Form Section ───────────────────────────────────────────── */
+.contacts-form-title {
+  text-align: center;
+  font-size: 38px;
+  font-weight: 800;
+  color: #000;
+  margin-bottom: 40px;
+  letter-spacing: -0.5px;
+}
+
+.contacts-form {
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.contacts-input-group {
+  width: 100%;
+}
+
+.contacts-input-group input,
+.contacts-input-group textarea {
+  width: 100%;
+  background: rgba(210, 205, 195, 0.45);
+  border: 1px solid rgba(120, 120, 120, 0.4);
+  border-radius: 12px;
+  padding: 16px 22px;
+  font-size: 15px;
+  color: #1a1a1a;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+}
+
+.contacts-input-group input::placeholder,
+.contacts-input-group textarea::placeholder {
+  color: #666;
+  font-weight: 400;
+}
+
+.contacts-input-group input:focus,
+.contacts-input-group textarea:focus {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: #000;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+}
+
+.contacts-input-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contacts-btn-wrap {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.contacts-submit-btn {
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 14px 44px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.contacts-submit-btn:hover {
+  background: #222;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.contacts-submit-btn:active {
+  transform: translateY(0);
+}
+
+/* Toast alert */
+.contacts-toast {
+  background: #2e7d32;
+  color: #fff;
+  padding: 14px 24px;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .contacts-glass-card {
+    padding: 35px 25px 40px;
+  }
+
+  .contacts-info-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .contacts-leaf-left,
+  .contacts-leaf-right {
+    display: none;
+  }
+
+  .contacts-page-title {
+    font-size: 34px;
+  }
+
+  .contacts-form-title {
+    font-size: 28px;
+  }
+}

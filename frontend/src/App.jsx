@@ -7,6 +7,7 @@ import Menu from './Pages/Menu';
 import Bronirovanie from './Pages/Bronirovanie';
 import Novosti from './Pages/Novosti';
 import AboutUs from './Pages/AboutUs';
+import Contacts from './Pages/Contacts';
 import './styles/global.css';
 import './index.css';
 
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/booking" element={<Bronirovanie />} />
         <Route path="/novosti" element={<Novosti />} />
         <Route path="/about" element={<AboutUs />} />
+        <Route path="/contacts" element={<Contacts />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
