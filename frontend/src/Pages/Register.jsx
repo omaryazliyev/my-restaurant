@@ -74,11 +74,13 @@ export default function Register() {
                 type={field.type}
                 name={field.name}
                 required
+                placeholder=" "
                 value={form[field.name]}
                 onChange={handleChange}
               />
               <label>{field.label}</label>
             </div>
+
           ))}
 
           <div className="checkbox-row">

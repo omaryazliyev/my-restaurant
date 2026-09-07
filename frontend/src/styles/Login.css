@@ -72,28 +72,45 @@
   padding: 10px 0;
   font-size: 16px;
   border: none;
-  border-bottom: 1px solid #000;
+  border-bottom: 2px solid #000;
   background: transparent;
   outline: none;
   box-sizing: border-box;
+  color: #000;
+}
+
+/* Chrome Autofill oq/ko'k fonini yo'qotish va shaffof qilish */
+.login-container .input-box input:-webkit-autofill,
+.login-container .input-box input:-webkit-autofill:hover,
+.login-container .input-box input:-webkit-autofill:focus,
+.login-container .input-box input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #000000 !important;
+  transition: background-color 50000s ease-in-out 0s;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.3) !important;
+  border-radius: 4px;
 }
 
 .login-container .input-box label {
   position: absolute;
   left: 0;
   top: 10px;
-  color: #000;
+  color: #333;
   font-size: 14px;
   pointer-events: none;
-  transition: 0.3s;
+  transition: 0.25s ease all;
 }
 
+/* Input fokuslanganda yoki ichida yozuv bo'lganda label yuqoriga ko'tarilishi */
 .login-container .input-box input:focus ~ label,
-.login-container .input-box input:valid ~ label {
-  top: -14px;
+.login-container .input-box input:not(:placeholder-shown) ~ label,
+.login-container .input-box input:-webkit-autofill ~ label {
+  top: -16px;
   font-size: 12px;
+  font-weight: bold;
   color: #000;
 }
+
 
 .login-container .ahref {
   margin-top: -16px;

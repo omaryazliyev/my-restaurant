@@ -54,12 +54,18 @@ export class AuthService {
 
   async login(dto: LoginDto) {
     const user = await this.prisma.user.findFirst({
-      where: { username: dto.username },
+      where: {
+        OR: [
+          { username: dto.username },
+          { phone: dto.username },
+        ],
+      },
     });
 
     if (!user) {
-      throw new UnauthorizedException('Username yoki parol noto\'g\'ri');
+      throw new UnauthorizedException('Username, telefon raqami yoki parol noto\'g\'ri');
     }
+
 
     const isPasswordValid = await bcrypt.compare(dto.password, user.password);
 

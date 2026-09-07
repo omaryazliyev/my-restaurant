@@ -47,6 +47,7 @@ export default function Login() {
             <input
               type="text"
               required
+              placeholder=" "
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
@@ -57,11 +58,13 @@ export default function Login() {
             <input
               type="password"
               required
+              placeholder=" "
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             <label>Пароль</label>
           </div>
+
 
           <div className="ahref">
             <a href="#">Забыли пароль?</a>
