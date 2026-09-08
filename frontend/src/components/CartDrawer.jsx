@@ -31,17 +31,8 @@ export default function CartDrawer() {
       setErrorMsg(t.cartEmpty2);
       return;
     }
-    if (deliveryMethod === 'ADDRESS' && !address.trim()) {
-      setErrorMsg(t.enterAddress);
-      return;
-    }
-
-    setSubmitting(true);
-    setTimeout(() => {
-      setOrderSuccess(t.successOrder);
-      clearCart();
-      setSubmitting(false);
-    }, 400);
+    setIsCartOpen(false);
+    navigate('/checkout');
   };
 
   const deliveryOptions = [

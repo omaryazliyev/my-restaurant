@@ -10,6 +10,7 @@ import AboutUs from './Pages/AboutUs';
 import Contacts from './Pages/Contacts';
 import ProductDetail from './Pages/ProductDetail';
 import Profile from './Pages/Profile';
+import Checkout from './Pages/Checkout';
 import './styles/global.css';
 import './index.css';
 
@@ -22,6 +23,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/booking" element={<Bronirovanie />} />
         <Route path="/novosti" element={<Novosti />} />
