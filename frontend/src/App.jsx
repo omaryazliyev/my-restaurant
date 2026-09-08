@@ -9,6 +9,7 @@ import Novosti from './Pages/Novosti';
 import AboutUs from './Pages/AboutUs';
 import Contacts from './Pages/Contacts';
 import ProductDetail from './Pages/ProductDetail';
+import Profile from './Pages/Profile';
 import './styles/global.css';
 import './index.css';
 
@@ -16,9 +17,11 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/booking" element={<Bronirovanie />} />
         <Route path="/novosti" element={<Novosti />} />

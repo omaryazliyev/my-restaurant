@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import CustomSelect from '../components/CustomSelect';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 import { reservationApi } from '../services/api';
 
 import fod from '../assets/images/fod.png';
@@ -40,22 +41,108 @@ import rasm3 from '../assets/images/rasm3.png';
 import sergey from '../assets/images/sergey.png';
 
 const popularDishes = [
-  { id: 1, name: 'Chicken Soup', desc: 'Spicy with garlic', price: '$10.00', img: food1, type: 'card', imgClass: 'mini' },
-  { id: 2, name: 'Beef Special', desc: 'Fresh & Tender', price: '$14.00', img: food2, type: 'card1', imgClass: 'big' },
-  { id: 3, name: 'Pasta Carbonara', desc: 'Italian style', price: '$12.50', img: food3, type: 'card1', imgClass: 'big1' },
-  { id: 4, name: 'Grilled Fish', desc: 'Lemon & Herbs', price: '$16.00', img: food4, type: 'card', imgClass: 'mini' },
+  {
+    id: 1,
+    name: { ru: 'Куриный суп', uz: "Tovuq sho'rva", en: 'Chicken Soup' },
+    desc: { ru: 'Острый с чесноком', uz: 'Sarimsoqli achchiq', en: 'Spicy with garlic' },
+    usdPrice: 10.00,
+    img: food1,
+    type: 'card',
+    imgClass: 'mini',
+  },
+  {
+    id: 2,
+    name: { ru: 'Говядина-Специал', uz: "Maxsus mol go'shti", en: 'Beef Special' },
+    desc: { ru: 'Нежная и сочная', uz: 'Yumshoq va mazali', en: 'Fresh & Tender' },
+    usdPrice: 14.00,
+    img: food2,
+    type: 'card1',
+    imgClass: 'big',
+  },
+  {
+    id: 3,
+    name: { ru: 'Паста Карбонара', uz: 'Pasta Karbonara', en: 'Pasta Carbonara' },
+    desc: { ru: 'В итальянском стиле', uz: 'Italyancha uslubda', en: 'Italian style' },
+    usdPrice: 12.50,
+    img: food3,
+    type: 'card1',
+    imgClass: 'big1',
+  },
+  {
+    id: 4,
+    name: { ru: 'Рыба на гриле', uz: 'Grilda baliq', en: 'Grilled Fish' },
+    desc: { ru: 'С лимоном и травами', uz: 'Limon va ko\'katlar', en: 'Lemon & Herbs' },
+    usdPrice: 16.00,
+    img: food4,
+    type: 'card',
+    imgClass: 'mini',
+  },
 ];
 
 const whyUsRows = [
   [
-    { img: soup, style: {} },
-    { img: soup1, style: { marginTop: '14px' } },
-    { img: vector, style: { marginTop: '10px' } },
+    {
+      img: soup,
+      style: {},
+      title: { ru: 'Свежая еда', uz: 'Yangi taomlar', en: 'Fresh Food' },
+      desc: {
+        ru: 'Качественные и натуральные продукты высшего качества для каждого блюда',
+        uz: 'Har bir taom uchun yuqori sifatli va tabiiy yangi mahsulotlar',
+        en: 'Quality and natural ingredients of the highest standard for every dish',
+      },
+    },
+    {
+      img: soup1,
+      style: { marginTop: '14px' },
+      title: { ru: 'Быстрая доставка', uz: 'Tezkor yetkazib berish', en: 'Fast Delivery' },
+      desc: {
+        ru: 'Быстрая и аккуратная доставка прямо к вашему порогу в горячем виде',
+        uz: 'Issiq va xushbo\'y holda to\'g\'ridan-to\'g\'ri eshigingizgacha yetkazish',
+        en: 'Fast and careful delivery right to your door while still hot',
+      },
+    },
+    {
+      img: vector,
+      style: { marginTop: '10px' },
+      title: { ru: 'Авторские рецепты', uz: 'Mualliflik retseptlari', en: 'Signature Recipes' },
+      desc: {
+        ru: 'Уникальные блюда от наших шеф-поваров с неповторимым вкусом',
+        uz: 'Bosh oshpazlarimizdan betakror ta\'mga ega o\'ziga xos taomlar',
+        en: 'Unique dishes from our executive chefs with extraordinary flavor',
+      },
+    },
   ],
   [
-    { img: soup2, style: {} },
-    { img: soup3, style: { marginTop: '-12px' } },
-    { img: soup4, style: {} },
+    {
+      img: soup2,
+      style: {},
+      title: { ru: 'Уютная атмосфера', uz: 'Shinam muhit', en: 'Cozy Atmosphere' },
+      desc: {
+        ru: 'Комфортный интерьер и приятная музыка для отдыха с близкими',
+        uz: 'Yaqinlaringiz bilan hordiq chiqarish uchun qulay interyer va yoqimli musiqa',
+        en: 'Comfortable interior and pleasant music for relaxing with loved ones',
+      },
+    },
+    {
+      img: soup3,
+      style: { marginTop: '-12px' },
+      title: { ru: 'Лучшие повара', uz: 'Eng yaxshi oshpazlar', en: 'Master Chefs' },
+      desc: {
+        ru: 'Профессиональная команда с многолетним кулинарным опытом',
+        uz: 'Ko\'p yillik oshpazlik tajribasiga ega professional jamoa',
+        en: 'Professional team with many years of culinary experience',
+      },
+    },
+    {
+      img: soup4,
+      style: {},
+      title: { ru: 'Забота о клиентах', uz: 'Mijozlarga g\'amxo\'rlik', en: 'Caring Service' },
+      desc: {
+        ru: 'Внимательный персонал и индивидуальный подход к каждому гостю',
+        uz: 'Har bir mehmonga e\'tiborli xodimlar va individual yondashuv',
+        en: 'Attentive staff and a personalized approach for every guest',
+      },
+    },
   ],
 ];
 
@@ -65,6 +152,7 @@ export default function Home() {
   const navigate = useNavigate();
   const { addToCart } = useCart();
   const { isAuthenticated } = useAuth();
+  const { t, lang, priceFormat } = useLanguage();
 
   const [bookingForm, setBookingForm] = useState({
     phone: '',
@@ -88,7 +176,7 @@ export default function Home() {
     setBookingStatus(null);
 
     if (!isAuthenticated) {
-      setBookingError('Стол бронировать могут только авторизованные пользователи!');
+      setBookingError(t.needLoginToBook);
       return;
     }
     if (!bookingForm.phone || !bookingForm.date) {
@@ -97,6 +185,8 @@ export default function Home() {
     }
 
     setSubmittingBooking(true);
+    /*
+    // Backend API vaqtincha izohga olindi:
     try {
       const payload = {
         phone: bookingForm.phone,
@@ -105,30 +195,28 @@ export default function Home() {
         date: bookingForm.date,
         startTime: `${bookingForm.date}T${bookingForm.time}:00.000Z`,
       };
-
       await reservationApi.createReservation(payload);
+    } catch (err) { ... }
+    */
+    setTimeout(() => {
       setBookingStatus('🎉 Стол успешно забронирован!');
       setBookingForm({ phone: '', guests: 2, date: '', time: '18:00', tableId: 1 });
-    } catch (err) {
-      setBookingError(err.message || 'Ошибка при бронировании стола');
-    } finally {
       setSubmittingBooking(false);
-    }
+    }, 400);
   };
 
   return (
     <div className="home-body">
+      <Header />
       <div className="home-container">
-        <Header />
-
         <main>
           {/* Section 1 - Hero */}
           <section className="s1">
             <div className="s1-main" style={{ marginTop: '79px' }}>
               <div className="s1-main-left">
-                <h1>Вкусная еда ждет тебя!</h1>
+                <h1>{t.heroTitle}</h1>
                 <Link to="/menu">
-                  <button>Посмотреть меню</button>
+                  <button>{t.viewMenuBtn}</button>
                 </Link>
               </div>
               <img src={fod} alt="food" />
@@ -141,7 +229,7 @@ export default function Home() {
 
           {/* Section 2 - Popular Dishes */}
           <section className="s2">
-            <h2>Популярные блюда</h2>
+            <h2>{t.popularDishes}</h2>
             <div className="cards-wrapper">
               <img src={leftArrow} alt="" style={{ width: 31, height: 31, cursor: 'pointer' }} />
               {popularDishes.map((dish) => (
@@ -152,28 +240,26 @@ export default function Home() {
                   style={{ cursor: 'pointer' }}
                 >
                   <div className={dish.imgClass}>
-                    <img src={dish.img} alt={dish.name} />
+                    <img src={dish.img} alt={dish.name[lang] || dish.name.ru} />
                   </div>
                   <div className="card-main">
-                    <h3>{dish.name}</h3>
-                    <img
-                      src={heard}
-                      alt="Favorite"
-                      style={{ cursor: 'pointer' }}
-                      onClick={(e) => e.stopPropagation()}
-                    />
+                    <h3>{dish.name[lang] || dish.name.ru}</h3>
                   </div>
-                  <p className="card-desc">{dish.desc}</p>
+                  <p className="card-desc">{dish.desc[lang] || dish.desc.ru}</p>
                   <div className="card-footer">
-                    <span className="price">{dish.price}</span>
+                    <span className="price">{priceFormat(dish.usdPrice)}</span>
                     <div
                       className="magazin"
                       onClick={(e) => {
                         e.stopPropagation();
-                        addToCart(dish);
+                        addToCart({
+                          ...dish,
+                          name: dish.name[lang] || dish.name.ru,
+                          price: dish.usdPrice,
+                        });
                       }}
                       style={{ cursor: 'pointer' }}
-                      title="Добавить в корзину"
+                      title={t.addToCart}
                     >
                       <img src={magazin} alt="Cart" />
                     </div>
@@ -184,7 +270,7 @@ export default function Home() {
             </div>
             <div className="s2-btn-row">
               <Link to="/menu">
-                <button>Посмотреть меню</button>
+                <button>{t.viewMenuBtn}</button>
               </Link>
             </div>
           </section>
@@ -195,7 +281,7 @@ export default function Home() {
               <div className="s3-left">
                 <div className="im"><img src={krug} alt="" /></div>
                 <div className="imm"><img src={vilka} alt="" /></div>
-                <h4>Забронировать стол</h4>
+                <h4>{t.bookTable}</h4>
 
                 {bookingStatus && (
                   <div style={{ color: '#4caf50', backgroundColor: 'rgba(76, 175, 80, 0.15)', padding: '10px 14px', borderRadius: '8px', marginBottom: '15px', fontWeight: 'bold' }}>
@@ -204,8 +290,21 @@ export default function Home() {
                 )}
 
                 {bookingError && (
-                  <div style={{ color: '#ff4d4f', backgroundColor: 'rgba(255, 77, 79, 0.15)', padding: '10px 14px', borderRadius: '8px', marginBottom: '15px' }}>
-                    {bookingError}
+                  <div style={{ color: '#ff4d4f', backgroundColor: 'rgba(255, 77, 79, 0.15)', padding: '12px 16px', borderRadius: '10px', marginBottom: '15px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
+                    <span>{bookingError}</span>
+                    {!isAuthenticated && (
+                      <button
+                        type="button"
+                        onClick={() => navigate('/login')}
+                        style={{
+                          backgroundColor: '#000', color: '#fff', border: 'none',
+                          padding: '6px 14px', borderRadius: '8px', cursor: 'pointer',
+                          fontSize: '13px', fontWeight: 'bold',
+                        }}
+                      >
+                        {t.login} →
+                      </button>
+                    )}
                   </div>
                 )}
 
@@ -218,7 +317,7 @@ export default function Home() {
                         required
                         value={bookingForm.phone}
                         onChange={handleBookingChange}
-                        placeholder="Ваш номер"
+                        placeholder={t.yourNumber}
                       />
                     </div>
 
@@ -231,7 +330,7 @@ export default function Home() {
                         required
                         value={bookingForm.guests}
                         onChange={handleBookingChange}
-                        placeholder="На сколько человек?"
+                        placeholder={t.howManyGuests}
                       />
                     </div>
 
@@ -260,19 +359,19 @@ export default function Home() {
                         value={String(bookingForm.tableId)}
                         onChange={(val) => setBookingForm((p) => ({ ...p, tableId: Number(val) }))}
                         variant="light"
-                        placeholder="Выберите стол"
+                        placeholder={t.selectTable}
                         options={[
-                          { value: '1', label: '🪑 Стол #1 (VIP)' },
-                          { value: '2', label: '🪟 Стол #2 (У окна)' },
-                          { value: '3', label: '🌿 Стол #3 (Терраса)' },
+                          { value: '1', label: `🪑 ${t.table} #1 (VIP)` },
+                          { value: '2', label: `🪟 ${t.table} #2` },
+                          { value: '3', label: `🌿 ${t.table} #3` },
                         ]}
                       />
                     </div>
 
-                    <a href="#s3-booking" className="map-link">Выбрать места на карте</a>
+                    <a href="#s3-booking" className="map-link">{t.chooseOnMap}</a>
                   </div>
                   <button type="submit" disabled={submittingBooking}>
-                    {submittingBooking ? 'Бронирование...' : 'Забронировать'}
+                    {submittingBooking ? t.sending : t.bookBtn}
                   </button>
                 </form>
               </div>
@@ -288,14 +387,14 @@ export default function Home() {
 
           {/* Section 4 - Why Us */}
           <section className="s4" id="s4-why-us">
-            <h2>Почему именно мы?</h2>
+            <h2>{t.whyUs || 'Почему именно мы?'}</h2>
             {whyUsRows.map((row, ri) => (
               <div className="items-row" key={ri}>
                 {row.map((item, ii) => (
                   <div className="item" key={ii} style={item.style}>
                     <img src={item.img} alt="" />
-                    <h4>Качественные продукты</h4>
-                    <p>Входные билеты в музеи, для посещения достопримечательностей, памятников</p>
+                    <h4>{item.title ? (item.title[lang] || item.title.ru) : (t.qualityProducts || 'Качественные продукты')}</h4>
+                    <p>{item.desc ? (item.desc[lang] || item.desc.ru) : (t.qualityDesc || 'Входные билеты в музеи, для посещения достопримечательностей, памятников')}</p>
                   </div>
                 ))}
               </div>
@@ -304,27 +403,27 @@ export default function Home() {
 
           {/* Section 5 - News */}
           <section className="s5">
-            <h2>Новости/Галерея</h2>
+            <h2>{t.newsTitle}</h2>
             <div className="galareya">
               {news.map((n, i) => (
                 <div className="gala" key={i}>
                   <div className="gala-img"><img src={n.img} alt="" /></div>
-                  <p>Используйте гибкие структуры, чтобы предоставить надежный обзор для обзоров высокого уровня. Итеративные подходы к данным корпоративной.</p>
+                  <p>{t.newsCardText}</p>
                   <div className="gala-author">
                     <img src={sergey} alt="" />
-                    <h5>Сергей</h5>
+                    <h5>Sergey</h5>
                   </div>
                 </div>
               ))}
             </div>
             <div className="pros">
-              <button>Посмотреть все</button>
+              <button>{t.viewAll}</button>
             </div>
           </section>
         </main>
-
-        <Footer />
       </div>
+
+      <Footer />
     </div>
   );
 }

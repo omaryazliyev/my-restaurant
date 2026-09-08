@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 import '../styles/Register.css';
 
 export default function Register() {
@@ -10,6 +11,7 @@ export default function Register() {
   });
   const [errorMsg, setErrorMsg] = useState('');
   const { register, loading } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -22,15 +24,15 @@ export default function Register() {
     setErrorMsg('');
 
     if (!form.firstName || !form.lastName || !form.phone || !form.username || !form.password) {
-      setErrorMsg('Пожалуйста, заполните все обязательные поля!');
+      setErrorMsg(t.fillAllFields);
       return;
     }
     if (form.password !== form.confirmPassword) {
-      setErrorMsg('Пароли не совпадают!');
+      setErrorMsg(t.passwordMismatch);
       return;
     }
     if (!form.agree) {
-      setErrorMsg('Вы должны принять Условия пользования!');
+      setErrorMsg(t.mustAgree);
       return;
     }
 
@@ -45,14 +47,23 @@ export default function Register() {
     if (res.success) {
       navigate('/home');
     } else {
-      setErrorMsg(res.message || 'Ошибка регистрации');
+      setErrorMsg(res.message || t.registerError);
     }
   };
+
+  const fields = [
+    { name: 'firstName',       type: 'text',     label: t.firstName },
+    { name: 'lastName',        type: 'text',     label: t.lastName },
+    { name: 'phone',           type: 'text',     label: t.phone },
+    { name: 'username',        type: 'text',     label: t.username },
+    { name: 'password',        type: 'password', label: t.password },
+    { name: 'confirmPassword', type: 'password', label: t.confirmPassword },
+  ];
 
   return (
     <div className="register-body">
       <div className="register-container">
-        <h1>Зарегистрироваться</h1>
+        <h1>{t.registerTitle}</h1>
 
         {errorMsg && (
           <div style={{ color: '#ff4d4f', backgroundColor: 'rgba(255, 77, 79, 0.1)', padding: '10px 14px', borderRadius: '8px', marginBottom: '15px', fontSize: '14px', textAlign: 'center' }}>
@@ -61,14 +72,7 @@ export default function Register() {
         )}
 
         <form onSubmit={handleSubmit}>
-          {[
-            { name: 'firstName', type: 'text', label: 'Ваше имя' },
-            { name: 'lastName', type: 'text', label: 'Фамилия' },
-            { name: 'phone', type: 'text', label: 'Ваш номер телефона' },
-            { name: 'username', type: 'text', label: 'Ваше имя пользователя' },
-            { name: 'password', type: 'password', label: 'Пароль' },
-            { name: 'confirmPassword', type: 'password', label: 'Подтвердите пароль' },
-          ].map((field) => (
+          {fields.map((field) => (
             <div className="input-box" key={field.name}>
               <input
                 type={field.type}
@@ -80,7 +84,6 @@ export default function Register() {
               />
               <label>{field.label}</label>
             </div>
-
           ))}
 
           <div className="checkbox-row">
@@ -91,19 +94,18 @@ export default function Register() {
               checked={form.agree}
               onChange={handleChange}
             />
-            <p>Я прочитал и принял Политику конфиденциальности и Условия*</p>
+            <p>{t.agreeText}</p>
           </div>
 
           <div className="foot">
             <button type="submit" disabled={loading}>
-              {loading ? 'Регистрация...' : 'Зарегистрироваться'}
+              {loading ? t.registerLoading : t.registerBtn}
             </button>
             <br />
-            <Link className="zabil" to="/">Уже есть аккаунт?</Link>
+            <Link className="zabil" to="/login">{t.hasAccount}</Link>
           </div>
         </form>
       </div>
     </div>
   );
 }
-

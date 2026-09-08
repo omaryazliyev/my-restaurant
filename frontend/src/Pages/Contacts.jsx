@@ -2,22 +2,17 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { useLanguage } from '../context/LanguageContext';
 import '../styles/Contacts.css';
 
-// Leaf Images
 import barg1 from '../assets/images/barg1.png';
 import barg2 from '../assets/images/barg2.png';
 import barg3 from '../assets/images/barg3.png';
 import barg4 from '../assets/images/barg4.png';
 
 export default function Contacts() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
-  });
-
+  const { t } = useLanguage();
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e) => {
@@ -27,7 +22,7 @@ export default function Contacts() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email) {
-      alert('Пожалуйста, заполните имя и E-mail!');
+      alert(t.contactsFillError);
       return;
     }
     setSubmitted(true);
@@ -40,41 +35,24 @@ export default function Contacts() {
       <Header />
 
       <div className="contacts-container">
-        {/* ── Decorative Leaves ────────────────────────────────── */}
         <img src={barg1} alt="" className="contacts-leaf-left" />
         <img src={barg2} alt="" className="contacts-leaf-right" />
 
         <div className="contacts-glass-card">
-          <img
-            src={barg3}
-            alt=""
-            style={{
-              position: 'absolute', right: '-25px', top: '70px',
-              width: '110px', opacity: 0.85, pointerEvents: 'none', zIndex: 0
-            }}
-          />
-          <img
-            src={barg4}
-            alt=""
-            style={{
-              position: 'absolute', left: '-25px', bottom: '50px',
-              width: '90px', opacity: 0.8, pointerEvents: 'none', zIndex: 0
-            }}
-          />
+          <img src={barg3} alt="" style={{ position: 'absolute', right: '-25px', top: '70px', width: '110px', opacity: 0.85, pointerEvents: 'none', zIndex: 0 }} />
+          <img src={barg4} alt="" style={{ position: 'absolute', left: '-25px', bottom: '50px', width: '90px', opacity: 0.8, pointerEvents: 'none', zIndex: 0 }} />
 
           {/* Breadcrumb */}
           <div className="contacts-breadcrumb">
-            <Link to="/home">Главная</Link>
+            <Link to="/home">{t.home}</Link>
             <span>›</span>
-            <span>Контакты</span>
+            <span>{t.contacts}</span>
           </div>
 
-          {/* Page Title */}
-          <h1 className="contacts-page-title">Контакты</h1>
+          <h1 className="contacts-page-title">{t.contactsTitle}</h1>
 
-          {/* 3 Info Cards Grid */}
+          {/* 3 Info Cards */}
           <div className="contacts-info-grid">
-            {/* Card 1 — Mail */}
             <div className="contacts-info-card">
               <div className="contacts-info-icon-wrap">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -84,14 +62,13 @@ export default function Contacts() {
                   <polyline points="9,14 12,17 15,14" />
                 </svg>
               </div>
-              <div className="contacts-info-card-title">Напишите нам</div>
+              <div className="contacts-info-card-title">{t.writeUs}</div>
               <div className="contacts-info-text">
                 <div><a href="mailto:info@bmgsoft.com">info@bmgsoft.com</a></div>
                 <div><a href="https://t.me/bmgsoft.com" target="_blank" rel="noreferrer">t.me/bmgsoft.com</a></div>
               </div>
             </div>
 
-            {/* Card 2 — Phone */}
             <div className="contacts-info-card">
               <div className="contacts-info-icon-wrap">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -100,14 +77,13 @@ export default function Contacts() {
                   <line x1="14" y1="10" x2="21" y2="3" />
                 </svg>
               </div>
-              <div className="contacts-info-card-title">Позвоните нам</div>
+              <div className="contacts-info-card-title">{t.callUs}</div>
               <div className="contacts-info-text">
                 <div><a href="tel:+9998908767888">+9998908767888</a></div>
                 <div><a href="tel:+9989865332322">+9989865332322</a></div>
               </div>
             </div>
 
-            {/* Card 3 — Location */}
             <div className="contacts-info-card">
               <div className="contacts-info-icon-wrap">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -115,71 +91,37 @@ export default function Contacts() {
                   <circle cx="12" cy="10" r="3" />
                 </svg>
               </div>
-              <div className="contacts-info-card-title">Посетите нас</div>
+              <div className="contacts-info-card-title">{t.visitUs}</div>
               <div className="contacts-info-text">
-                <div>Узбекистан, Ташкент</div>
-                <div>Улица, 24</div>
+                <div>{t.addressText.split('\n')[0]}</div>
+                <div>{t.addressText.split('\n')[1]}</div>
               </div>
             </div>
           </div>
 
-          {/* Form Title */}
-          <h2 className="contacts-form-title">Написать нам</h2>
+          <h2 className="contacts-form-title">{t.contactsWriteUs}</h2>
 
           {submitted && (
-            <div className="contacts-toast">
-              ✓ Ваше сообщение успешно отправлено! Мы свяжемся с вами в ближайшее время.
-            </div>
+            <div className="contacts-toast">{t.contactsSent}</div>
           )}
 
-          {/* Form */}
           <form className="contacts-form" onSubmit={handleSubmit}>
             <div className="contacts-input-group">
-              <input
-                type="text"
-                name="name"
-                placeholder="Ваше имя"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
+              <input type="text" name="name" placeholder={t.yourName} value={formData.name} onChange={handleChange} required />
             </div>
             <div className="contacts-input-group">
-              <input
-                type="email"
-                name="email"
-                placeholder="Ваш E-mail"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
+              <input type="email" name="email" placeholder={t.yourEmail} value={formData.email} onChange={handleChange} required />
             </div>
             <div className="contacts-input-group">
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Ваш номер телефона"
-                value={formData.phone}
-                onChange={handleChange}
-              />
+              <input type="tel" name="phone" placeholder={t.yourPhone} value={formData.phone} onChange={handleChange} />
             </div>
             <div className="contacts-input-group">
-              <textarea
-                name="message"
-                placeholder="Ваше сообщение"
-                rows="4"
-                value={formData.message}
-                onChange={handleChange}
-              />
+              <textarea name="message" placeholder={t.yourMessage} rows="4" value={formData.message} onChange={handleChange} />
             </div>
-
             <div className="contacts-btn-wrap">
-              <button type="submit" className="contacts-submit-btn">
-                Отправить
-              </button>
+              <button type="submit" className="contacts-submit-btn">{t.send}</button>
             </div>
           </form>
-
         </div>
       </div>
 

@@ -5,10 +5,14 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem('user');
-    return savedUser ? JSON.parse(savedUser) : null;
+    try {
+      const savedUser = localStorage.getItem('user');
+      return savedUser ? JSON.parse(savedUser) : null;
+    } catch {
+      return null;
+    }
   });
-  const [token, setToken] = useState(() => localStorage.getItem('token'));
+  const [token, setToken] = useState(() => localStorage.getItem('token') || null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -29,6 +33,9 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     setLoading(true);
+
+    /*
+    // --- BACKEND API (Vaqtincha izohga olindi) ---
     try {
       const res = await authApi.login(credentials);
       const authToken = res.accessToken || res.token;
@@ -37,16 +44,33 @@ export const AuthProvider = ({ children }) => {
         setUser(res.user || { username: credentials.username });
         return { success: true };
       }
-      return { success: false, message: res.message || 'Kirishda xatolik юз berdi' };
+      return { success: false, message: res.message || 'Kirishda xatolik yuz berdi' };
     } catch (err) {
       return { success: false, message: err.message || 'Server bilan aloqa xatosi' };
     } finally {
       setLoading(false);
     }
+    // ---------------------------------------------
+    */
+
+    // Standalone Frontend kirish:
+    const loggedUser = {
+      id: 1,
+      username: credentials?.username || 'Oybek',
+      role: 'ADMIN',
+    };
+    const mockToken = 'mock-demo-token';
+    setUser(loggedUser);
+    setToken(mockToken);
+    setLoading(false);
+    return { success: true };
   };
 
   const register = async (userData) => {
     setLoading(true);
+
+    /*
+    // --- BACKEND API (Vaqtincha izohga olindi) ---
     try {
       const res = await authApi.register(userData);
       const authToken = res.accessToken || res.token;
@@ -61,6 +85,22 @@ export const AuthProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
+    // ---------------------------------------------
+    */
+
+    // Standalone Frontend ro'yxatdan o'tish:
+    const registeredUser = {
+      id: 1,
+      username: userData?.username || 'Oybek',
+      firstName: userData?.firstName || 'Oybek',
+      lastName: userData?.lastName || '',
+      role: 'CLIENT',
+    };
+    const mockToken = 'mock-demo-token';
+    setUser(registeredUser);
+    setToken(mockToken);
+    setLoading(false);
+    return { success: true };
   };
 
   const logout = () => {
@@ -70,8 +110,10 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('token');
   };
 
+  const isAuthenticated = !!user;
+
   return (
-    <AuthContext.Provider value={{ user, token, loading, login, register, logout, isAuthenticated: !!token }}>
+    <AuthContext.Provider value={{ user, token, loading, login, register, logout, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );

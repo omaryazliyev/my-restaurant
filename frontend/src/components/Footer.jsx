@@ -1,47 +1,74 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
+import { useLanguage } from '../context/LanguageContext';
+import '../styles/Footer.css';
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
-    <footer className="w-full bg-white/50 backdrop-blur-md py-[76px] px-[20px] md:px-[140px]">
-      <div className="flex flex-col md:flex-row justify-between items-start w-full">
-        
-        {/* LOGO Column */}
-        <div className="flex flex-col mb-8 md:mb-0">
-          <img src={logo} alt="Logo" className="w-[120px] object-contain" />
+    <footer className="site-footer">
+      <div className="footer-inner">
+        <div className="footer-grid">
+
+          {/* Logo Column */}
+          <div className="footer-col-brand">
+            <Link to="/home">
+              <img src={logo} alt="Logo" className="footer-logo" />
+            </Link>
+          </div>
+
+          {/* Services */}
+          <div className="footer-col">
+            <h3 className="footer-col-title">{t.services}</h3>
+            <ul className="footer-links-list">
+              <li><a href="#" className="footer-link-item">{t.prices}</a></li>
+              <li><a href="#" className="footer-link-item">{t.tracking}</a></li>
+              <li><a href="#" className="footer-link-item">{t.report}</a></li>
+              <li><a href="#" className="footer-link-item">{t.terms}</a></li>
+            </ul>
+          </div>
+
+          {/* Company */}
+          <div className="footer-col">
+            <h3 className="footer-col-title">{t.company}</h3>
+            <ul className="footer-links-list">
+              <li><a href="#" className="footer-link-item">{t.accounting}</a></li>
+              <li><Link to="/contacts" className="footer-link-item">{t.contactUs}</Link></li>
+              <li><a href="#" className="footer-link-item">{t.governance}</a></li>
+            </ul>
+          </div>
+
+          {/* Address */}
+          <div className="footer-col">
+            <h3 className="footer-col-title">{t.address}</h3>
+            <ul className="footer-contacts-list">
+              <li className="footer-contact-item">
+                <span>
+                  {t.addressText.split('\n')[0]}<br />
+                  {t.addressText.split('\n')[1]}
+                </span>
+              </li>
+              <li className="footer-contact-item">
+                <a href="tel:+998907583833" className="footer-contact-link">+998 (90) 758-38-33</a>
+              </li>
+              <li className="footer-contact-item">
+                <a href="mailto:info@bmgsoft.com" className="footer-contact-link">info@bmgsoft.com</a>
+              </li>
+            </ul>
+          </div>
+
         </div>
 
-        {/* Наши услуги Column */}
-        <div className="flex flex-col gap-4">
-          <h3 className="text-[20px] font-bold text-black">Наши услуги</h3>
-          <ul className="flex flex-col gap-2">
-            <li><a href="#" className="text-[14px] font-medium text-black hover:text-black/70">Цены</a></li>
-            <li><a href="#" className="text-[14px] font-medium text-black hover:text-black/70">Отслеживание</a></li>
-            <li><a href="#" className="text-[14px] font-medium text-black hover:text-black/70">Cообщить об ошибке</a></li>
-            <li><a href="#" className="text-[14px] font-medium text-black hover:text-black/70">Условия услуг</a></li>
-          </ul>
+        {/* Bottom Bar */}
+        <div className="footer-bottom">
+          <p className="footer-copyright">{t.copyright}</p>
+          <div className="footer-legal-links">
+            <a href="#" className="footer-legal-link">{t.privacy}</a>
+            <a href="#" className="footer-legal-link">{t.termsOfService}</a>
+          </div>
         </div>
-
-        {/* Наша компания Column */}
-        <div className="flex flex-col gap-4">
-          <h3 className="text-[20px] font-bold text-black">Наша компания</h3>
-          <ul className="flex flex-col gap-2">
-            <li><a href="#" className="text-[14px] font-medium text-black hover:text-black/70">Отчетность</a></li>
-            <li><a href="#" className="text-[14px] font-medium text-black hover:text-black/70">Cвяжитесь с нами</a></li>
-            <li><a href="#" className="text-[14px] font-medium text-black hover:text-black/70">Управление</a></li>
-          </ul>
-        </div>
-
-        {/* Адрес Column */}
-        <div className="flex flex-col gap-4">
-          <h3 className="text-[20px] font-bold text-black">Адрес</h3>
-          <ul className="flex flex-col gap-2">
-            <li><span className="text-[14px] font-medium text-black">Узбекистан, Ташкент <br /> Улица, 24</span></li>
-            <li><a href="tel:+99894848844848" className="text-[14px] font-medium text-black hover:text-black/70">+99894848844848</a></li>
-            <li><a href="mailto:info@bmgsoft.com" className="text-[14px] font-medium text-black hover:text-black/70">info@bmgsoft.com</a></li>
-          </ul>
-        </div>
-
       </div>
     </footer>
   );

@@ -2,56 +2,81 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { useLanguage } from '../context/LanguageContext';
 import rasm1 from '../assets/images/rasm1.png';
 import rasm2 from '../assets/images/rasm2.png';
 import rasm3 from '../assets/images/rasm3.png';
 import sergey from '../assets/images/sergey.png';
 import '../styles/Bronirovanie.css';
 
-const newsItems = [
-  { id: 1, img: rasm1, author: 'Сергей', title: 'Премиальное кулинарное искусство', desc: 'Используйте гибкие структуры, чтобы предоставить надежный обзор для обзоров высокого уровня. Итеративные подходы к данным корпоративной.' },
-  { id: 2, img: rasm2, author: 'Сергей', title: 'Уютная атмосфера и живая музыка', desc: 'Используйте гибкие структуры, чтобы предоставить надежный обзор для обзоров высокого уровня. Итеративные подходы к данным корпоративной.' },
-  { id: 3, img: rasm3, author: 'Сергей', title: 'Новое сезонное меню от Шефа', desc: 'Используйте гибкие структуры, чтобы предоставить надежный обзор для обзоров высокого уровня. Итеративные подходы к данным корпоративной.' },
-  { id: 4, img: rasm1, author: 'Сергей', title: 'Винная карта и дегустационные вечера', desc: 'Используйте гибкие структуры, чтобы предоставить надежный обзор для обзоров высокого уровня. Итеративные подходы к данным корпоративной.' },
-  { id: 5, img: rasm2, author: 'Сергей', title: 'Банкеты и корпоративные мероприятия', desc: 'Используйте гибкие структуры, чтобы предоставить надежный обзор для обзоров высокого уровня. Итеративные подходы к данным корпоративной.' },
-  { id: 6, img: rasm3, author: 'Сергей', title: 'Свежие ингредиенты каждый день', desc: 'Используйте гибкие структуры, чтобы предоставить надежный обзор для обзоров высокого уровня. Итеративные подходы к данным корпоративной.' },
-];
+// News titles per language
+const NEWS_TITLES = {
+  ru: [
+    'Премиальное кулинарное искусство',
+    'Уютная атмосфера и живая музыка',
+    'Новое сезонное меню от Шефа',
+    'Винная карта и дегустационные вечера',
+    'Банкеты и корпоративные мероприятия',
+    'Свежие ингредиенты каждый день',
+  ],
+  uz: [
+    'Premium oshpazlik san\'ati',
+    'Qulay muhit va jonli musiqa',
+    'Oshpazdan yangi mavsumiy menyu',
+    'Vino kartasi va tatib ko\'rish kechalari',
+    'Ziyofatlar va korporativ tadbirlar',
+    'Har kuni yangi ingredientlar',
+  ],
+  en: [
+    'Premium Culinary Art',
+    'Cozy Atmosphere & Live Music',
+    'New Seasonal Menu from the Chef',
+    'Wine List & Tasting Evenings',
+    'Banquets & Corporate Events',
+    'Fresh Ingredients Every Day',
+  ],
+};
+
+const NEWS_IMAGES = [rasm1, rasm2, rasm3, rasm1, rasm2, rasm3];
 
 export default function Novosti() {
+  const { t, lang } = useLanguage();
+  const titles = NEWS_TITLES[lang] || NEWS_TITLES['ru'];
+
   return (
     <div className="bron-page-wrapper">
       <Header />
 
       <div className="bron-content-container">
         <div className="bron-glass-card">
-          
+
           {/* Breadcrumbs */}
           <div className="bron-breadcrumb">
-            <Link to="/home">Главная</Link>
+            <Link to="/home">{t.home}</Link>
             <span>›</span>
-            <span>Новости/Галерея</span>
+            <span>{t.newsTitle}</span>
           </div>
 
-          <h1 className="bron-main-title">Новости и Галерея ресторана</h1>
+          <h1 className="bron-main-title">{t.newsTitle}</h1>
 
           <p style={{ textAlign: 'center', color: '#555', maxWidth: '600px', margin: '-20px auto 40px auto', fontSize: '16px' }}>
-            Следите за последними новостями нашего ресторана, обновлениями авторского меню и яркими событиями.
+            {t.newsSubtitle}
           </p>
 
           {/* Grid of news cards */}
           <div className="bron-news-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
-            {newsItems.map((item) => (
-              <div key={item.id} className="bron-news-card">
+            {titles.map((title, i) => (
+              <div key={i} className="bron-news-card">
                 <div className="bron-news-img-wrapper">
-                  <img src={item.img} alt={item.title} className="bron-news-img" />
+                  <img src={NEWS_IMAGES[i]} alt={title} className="bron-news-img" />
                 </div>
                 <h3 style={{ fontSize: '18px', fontWeight: '700', margin: '0 0 10px 0', color: '#000' }}>
-                  {item.title}
+                  {title}
                 </h3>
-                <p className="bron-news-desc">{item.desc}</p>
+                <p className="bron-news-desc">{t.newsCardText}</p>
                 <div className="bron-news-author">
-                  <img src={sergey} alt={item.author} />
-                  <span>{item.author}</span>
+                  <img src={sergey} alt="Sergey" />
+                  <span>Sergey</span>
                 </div>
               </div>
             ))}

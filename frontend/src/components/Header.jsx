@@ -1,28 +1,45 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
+import { useLanguage } from '../context/LanguageContext';
 import CartDrawer from './CartDrawer';
 import tel from '../assets/images/tel.png';
 import mail from '../assets/images/mail.png';
-import rus from '../assets/images/rus.png';
 import logo from '../assets/images/logo.png';
-import icon from '../assets/images/icon.png';
-import heard from '../assets/images/heard.png';
+import FlagIcon from './FlagIcon';
+import '../styles/Header.css';
+
+const LANGUAGES = [
+  { code: 'uz', label: "O'zbekcha" },
+  { code: 'ru', label: 'Русский' },
+  { code: 'en', label: 'English' },
+];
 
 export default function Header({ showNav = true }) {
   const navigate = useNavigate();
   const { user, isAuthenticated, logout } = useAuth();
   const { totalCount, setIsCartOpen, notification } = useCart();
+  const { lang, setLang, t } = useLanguage();
 
-  const getLinkStyle = ({ isActive }) => ({
-    color: isActive ? '#e63946' : 'inherit',
-    fontWeight: isActive ? '700' : '500',
-    transition: 'color 0.2s ease',
-  });
+  const [langOpen, setLangOpen] = useState(false);
+  const langRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (langRef.current && !langRef.current.contains(e.target)) {
+        setLangOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const currentLang = LANGUAGES.find((l) => l.code === lang) || LANGUAGES[1];
 
   return (
-    <>
+    <div className="site-header">
       {/* Toast notification */}
       {notification && (
         <div style={{
@@ -35,84 +52,110 @@ export default function Header({ showNav = true }) {
         </div>
       )}
 
-      <header className="home-header">
-        <nav>
-          <div className="tel-mail">
-            <div className="tel">
+      {/* TOP INFO BAR */}
+      <div className="header-top-bar">
+        <div className="header-top-inner">
+          <div className="header-contact-info">
+            <div className="header-contact-item">
               <img src={tel} alt="" />
-              <a href="tel:+9989075838333">+998(90)758383833</a>
+              <a href="tel:+998907583833">+998(90)7583833</a>
             </div>
-            <div className="mail">
+            <div className="header-contact-item">
               <img src={mail} alt="" />
               <a href="mailto:info@bmgsoft.com">info@bmgsoft.com</a>
             </div>
           </div>
-          <div className="nav-right" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', fontSize: '14px', color: '#333' }}>
-              <img src={rus} alt="RU" style={{ width: '18px', height: '14px', borderRadius: '2px' }} />
-              <span>Русский ▾</span>
+
+          <div className="header-user-controls">
+            {/* ── Language Selector ── */}
+            <div className="header-lang-picker" ref={langRef} onClick={() => setLangOpen((v) => !v)}>
+              <span className="lang-flag">
+                <FlagIcon code={currentLang.code} width={20} height={14} />
+              </span>
+              <span className="lang-label">{currentLang.label}</span>
+              <span className="lang-arrow">{langOpen ? '▴' : '▾'}</span>
+
+              {langOpen && (
+                <div className="lang-dropdown">
+                  {LANGUAGES.map((l) => (
+                    <div
+                      key={l.code}
+                      className={`lang-option ${l.code === lang ? 'lang-option--active' : ''}`}
+                      onClick={(e) => { e.stopPropagation(); setLang(l.code); setLangOpen(false); }}
+                    >
+                      <span className="lang-flag">
+                        <FlagIcon code={l.code} width={20} height={14} />
+                      </span>
+                      <span className="lang-label">{l.label}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
+
+            {/* ── User / Auth ── */}
             {isAuthenticated ? (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span style={{ color: '#ffb703', fontWeight: 'bold', fontSize: '14px' }}>
-                  👤 {user?.username || 'Пользователь'}
-                </span>
-                <button
-                  onClick={logout}
-                  style={{
-                    backgroundColor: 'transparent', border: '1px solid #ff4d4f',
-                    color: '#ff4d4f', borderRadius: '8px', padding: '6px 12px',
-                    cursor: 'pointer', fontSize: '13px',
-                  }}
-                >
-                  Выйти
-                </button>
+              <div
+                onClick={() => navigate('/profile')}
+                className="header-profile-btn"
+                title={user?.username ? `${user.username} (${t.profile})` : t.profile}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </svg>
               </div>
             ) : (
-              <button
-                onClick={() => navigate('/')}
-                style={{
-                  backgroundColor: '#000', color: '#fff', border: 'none',
-                  borderRadius: '20px', padding: '8px 16px', fontSize: '13px',
-                  fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px'
-                }}
-              >
-                👤 Вход в аккаунт
+              <button onClick={() => navigate('/login')} className="header-login-btn">
+                👤 {t.login}
               </button>
             )}
           </div>
-        </nav>
-      </header>
+        </div>
+      </div>
 
+      {/* MAIN NAV BAR */}
       {showNav && (
-        <div className="s1-head">
-          <Link to="/home"><img src={logo} alt="logo" /></Link>
-          <div className="home-nav">
-            <NavLink to="/menu" style={getLinkStyle}>Меню</NavLink>
-            <NavLink to="/novosti" style={getLinkStyle}>Новости</NavLink>
-            <NavLink to="/booking" style={getLinkStyle}>Бронирование</NavLink>
-            <NavLink to="/about" style={getLinkStyle}>О нас</NavLink>
-            <NavLink to="/contacts" style={getLinkStyle}>Контакты</NavLink>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <img src={heard} alt="Favorites" style={{ cursor: 'pointer', width: '22px', height: '22px' }} title="Избранное" />
-            <div
-              onClick={() => setIsCartOpen(true)}
-              style={{ position: 'relative', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
-              title="Открыть корзину"
-            >
-              <img src={icon} alt="Cart" />
-              {totalCount > 0 && (
-                <span style={{
-                  position: 'absolute', top: '-6px', right: '-8px',
-                  backgroundColor: '#ffb703', color: '#1e1f25',
-                  borderRadius: '50%', padding: '2px 7px',
-                  fontSize: '12px', fontWeight: 'bold',
-                  boxShadow: '0 2px 5px rgba(0,0,0,0.3)',
-                }}>
-                  {totalCount}
-                </span>
-              )}
+        <div className="header-main-nav">
+          <div className="header-main-inner">
+            <Link to="/home" className="header-logo-link">
+              <img src={logo} alt="logo" className="header-logo" />
+            </Link>
+
+            <nav className="header-nav-links">
+              <NavLink to="/menu"     className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}>{t.menu}</NavLink>
+              <NavLink to="/novosti"  className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}>{t.news}</NavLink>
+              <NavLink to="/booking"  className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}>{t.booking}</NavLink>
+              <NavLink to="/about"    className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}>{t.about}</NavLink>
+              <NavLink to="/contacts" className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}>{t.contacts}</NavLink>
+            </nav>
+
+            <div className="header-actions">
+              <div
+                onClick={() => setIsCartOpen(true)}
+                className="header-cart-icon-wrapper"
+                title={t.cart}
+              >
+                <svg
+                  className="header-cart-icon-svg"
+                  width="26"
+                  height="26"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="9" cy="21" r="1" />
+                  <circle cx="20" cy="21" r="1" />
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                </svg>
+                {totalCount > 0 && (
+                  <span className="header-cart-badge">
+                    {totalCount}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -120,6 +163,6 @@ export default function Header({ showNav = true }) {
 
       {/* Cart Drawer Component */}
       <CartDrawer />
-    </>
+    </div>
   );
 }
