@@ -58,7 +58,7 @@ export default function CartDrawer() {
         backgroundColor: '#1e1f25', color: '#ffffff',
         display: 'flex', flexDirection: 'column',
         boxShadow: '-10px 0 30px rgba(0,0,0,0.5)',
-        padding: '24px', overflowY: 'auto',
+        padding: '24px', overflowY: 'auto', boxSizing: 'border-box',
       }}>
         {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #2e303b', paddingBottom: '16px', marginBottom: '20px' }}>

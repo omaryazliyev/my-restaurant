@@ -618,4 +618,49 @@
   .bron-main-title {
     font-size: 32px;
   }
+  .bron-leaf-1,
+  .bron-leaf-2 {
+    display: none !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .bron-content-container {
+    padding: 0 12px;
+    margin: 20px auto 40px;
+  }
+
+  .bron-glass-card {
+    padding: 24px 16px 30px;
+    border-radius: 24px;
+  }
+
+  .bron-main-title {
+    font-size: 26px;
+    margin-bottom: 24px;
+  }
+
+  .bron-hero-title {
+    font-size: 22px;
+  }
+
+  .bron-hero-right {
+    display: flex;
+    justify-content: center;
+  }
+
+  .bron-hero-right img {
+    max-width: 240px;
+    width: 80%;
+  }
+
+  .bron-submit-btn {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .table-modal-content {
+    padding: 24px 16px;
+    border-radius: 20px;
+  }
 }

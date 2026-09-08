@@ -300,12 +300,16 @@
 
 /* ── Responsive ─────────────────────────────────────────────── */
 @media (max-width: 900px) {
-  .about-glass-card { padding: 28px 20px; }
-  .about-split-row { grid-template-columns: 1fr; }
+  .about-container { padding: 20px 12px 60px; }
+  .about-glass-card { padding: 24px 16px; border-radius: 24px; }
+  .about-split-row { grid-template-columns: 1fr; gap: 30px; margin-top: 40px; }
   .about-split-row.reverse { direction: ltr; }
-  .about-team-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-split-img { height: 260px; border-radius: 20px; }
+  .about-team-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .about-news-grid { grid-template-columns: 1fr; }
-  .about-page-title { font-size: 32px; }
+  .about-page-title { font-size: 28px; margin-bottom: 24px; }
+  .about-section-title { font-size: 24px; }
+  .about-leaf-left, .about-leaf-right { display: none !important; }
 }
 @media (max-width: 560px) {
   .about-team-grid { grid-template-columns: 1fr; }

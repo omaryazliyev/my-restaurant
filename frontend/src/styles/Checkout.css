@@ -535,6 +535,11 @@
     font-size: 32px;
     margin-bottom: 35px;
   }
+
+  .checkout-leaf-1,
+  .checkout-leaf-2 {
+    display: none !important;
+  }
 }
 
 @media (max-width: 600px) {

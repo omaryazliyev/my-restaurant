@@ -302,21 +302,68 @@
   }
 
   .header-nav-links {
-    gap: 22px;
+    gap: 20px;
   }
 }
 
 @media (max-width: 768px) {
+  .header-top-inner {
+    padding: 10px 16px;
+    justify-content: space-between;
+  }
+
+  .header-contact-info {
+    font-size: 13px;
+    gap: 14px;
+  }
+
+  .header-contact-item a {
+    font-size: 13px;
+  }
+
   .header-main-inner {
-    flex-direction: column;
-    gap: 16px;
-    padding-bottom: 14px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "logo actions"
+      "nav nav";
+    gap: 12px;
+    padding: 10px 16px 14px;
+  }
+
+  .header-logo-link {
+    grid-area: logo;
+  }
+
+  .header-logo {
+    width: 105px;
+  }
+
+  .header-actions {
+    grid-area: actions;
+    justify-self: end;
   }
 
   .header-nav-links {
-    justify-content: center;
-    gap: 18px;
+    grid-area: nav;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 4px 2px;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .header-nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .header-nav-link {
     font-size: 15px;
+    flex-shrink: 0;
   }
 }
 
@@ -330,7 +377,10 @@
   }
 
   .header-nav-links {
-    gap: 14px;
+    gap: 12px;
+  }
+
+  .header-nav-link {
     font-size: 14px;
   }
 }

@@ -417,9 +417,12 @@
   }
 }
 
-/* ── Kichik mobile: 400px ── */
-@media (max-width: 400px) {
+/* ── Mobile: 550px va undan kichik ── */
+@media (max-width: 550px) {
   .menu-cards {
     grid-template-columns: 1fr;
+    max-width: 290px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

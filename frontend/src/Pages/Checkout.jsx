@@ -82,6 +82,7 @@ export default function Checkout() {
         <img
           src={barg1}
           alt=""
+          className="checkout-leaf-1"
           style={{
             position: 'absolute',
             left: '-60px',
@@ -95,6 +96,7 @@ export default function Checkout() {
         <img
           src={barg2}
           alt=""
+          className="checkout-leaf-2"
           style={{
             position: 'absolute',
             right: '-60px',

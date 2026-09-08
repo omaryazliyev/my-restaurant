@@ -96,8 +96,8 @@ export default function Profile() {
       <Header />
 
       <div className="profile-container">
-        <img src={barg1} alt="" style={{ position: 'absolute', left: '-50px', top: '40px', width: '100px', opacity: 0.85, pointerEvents: 'none', zIndex: 0 }} />
-        <img src={barg2} alt="" style={{ position: 'absolute', right: '-50px', bottom: '60px', width: '100px', opacity: 0.85, pointerEvents: 'none', zIndex: 0 }} />
+        <img src={barg1} alt="" className="profile-leaf-left" style={{ position: 'absolute', left: '-50px', top: '40px', width: '100px', opacity: 0.85, pointerEvents: 'none', zIndex: 0 }} />
+        <img src={barg2} alt="" className="profile-leaf-right" style={{ position: 'absolute', right: '-50px', bottom: '60px', width: '100px', opacity: 0.85, pointerEvents: 'none', zIndex: 0 }} />
 
         <div className="profile-glass-card">
           {/* Breadcrumb */}
