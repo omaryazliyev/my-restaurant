@@ -7,6 +7,7 @@ import CartDrawer from './CartDrawer';
 import tel from '../assets/images/tel.png';
 import mail from '../assets/images/mail.png';
 import logo from '../assets/images/logo.png';
+import heard from '../assets/images/heard.png';
 import FlagIcon from './FlagIcon';
 import '../styles/Header.css';
 
@@ -23,6 +24,7 @@ export default function Header({ showNav = true }) {
   const { lang, setLang, t } = useLanguage();
 
   const [langOpen, setLangOpen] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const langRef = useRef(null);
 
   // Close dropdown when clicking outside
@@ -121,7 +123,8 @@ export default function Header({ showNav = true }) {
               <img src={logo} alt="logo" className="header-logo" />
             </Link>
 
-            <nav className="header-nav-links">
+            {/* Desktop Navigation Links */}
+            <nav className="header-nav-links desktop-nav">
               <NavLink to="/menu"     className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}>{t.menu}</NavLink>
               <NavLink to="/novosti"  className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}>{t.news}</NavLink>
               <NavLink to="/booking"  className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}>{t.booking}</NavLink>
@@ -156,8 +159,43 @@ export default function Header({ showNav = true }) {
                   </span>
                 )}
               </div>
+
+              {/* Mobile Hamburger Button */}
+              <button
+                className="header-mobile-toggle"
+                onClick={() => setMobileNavOpen((v) => !v)}
+                aria-label="Toggle Navigation"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                  {mobileNavOpen ? (
+                    <>
+                      <line x1="18" y1="6" x2="6" y2="18" />
+                      <line x1="6" y1="6" x2="18" y2="18" />
+                    </>
+                  ) : (
+                    <>
+                      <line x1="3" y1="6" x2="21" y2="6" />
+                      <line x1="3" y1="12" x2="21" y2="12" />
+                      <line x1="3" y1="18" x2="21" y2="18" />
+                    </>
+                  )}
+                </svg>
+              </button>
             </div>
           </div>
+
+          {/* Mobile Overlay Menu Drawer */}
+          {mobileNavOpen && (
+            <div className="header-mobile-drawer">
+              <nav className="mobile-nav-links">
+                <NavLink to="/menu"     onClick={() => setMobileNavOpen(false)} className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}>{t.menu}</NavLink>
+                <NavLink to="/novosti"  onClick={() => setMobileNavOpen(false)} className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}>{t.news}</NavLink>
+                <NavLink to="/booking"  onClick={() => setMobileNavOpen(false)} className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}>{t.booking}</NavLink>
+                <NavLink to="/about"    onClick={() => setMobileNavOpen(false)} className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}>{t.about}</NavLink>
+                <NavLink to="/contacts" onClick={() => setMobileNavOpen(false)} className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}>{t.contacts}</NavLink>
+              </nav>
+            </div>
+          )}
         </div>
       )}
 
