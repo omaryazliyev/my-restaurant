@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -11,6 +11,17 @@ export default function CartDrawer() {
   const { t, priceFormat } = useLanguage();
 
   const [errorMsg, setErrorMsg] = useState('');
+
+  useEffect(() => {
+    if (isCartOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isCartOpen]);
 
   if (!isCartOpen) return null;
 
