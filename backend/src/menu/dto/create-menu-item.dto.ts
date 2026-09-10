@@ -1,5 +1,5 @@
-import { IsString, IsNotEmpty, IsNumber, IsInt } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { IsString, IsNotEmpty, IsNumber, IsOptional, IsInt } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateMenuItemDto {
   @ApiProperty({ example: 'Chicken soup', description: 'Taom nomi' })
@@ -7,22 +7,27 @@ export class CreateMenuItemDto {
   @IsNotEmpty()
   name: string;
 
-  @ApiProperty({ example: 'Spicy with garlic', description: 'Taom haqida ta\'rif' })
+  @ApiPropertyOptional({ example: 'Spicy with garlic', description: 'Taom haqida ta\'rif' })
   @IsString()
-  @IsNotEmpty()
-  description: string;
+  @IsOptional()
+  description?: string;
 
-  @ApiProperty({ example: 10.0, description: 'Taom narxi ($)' })
+  @ApiProperty({ example: 10.0, description: 'Taom narxi' })
   @IsNumber()
   price: number;
 
-  @ApiProperty({ example: '/images/food2.png', description: 'Taom rasmi URL manzili' })
+  @ApiPropertyOptional({ example: '/images/food2.png', description: 'Taom rasmi URL manzili' })
   @IsString()
-  @IsNotEmpty()
-  image: string;
+  @IsOptional()
+  image?: string;
 
-  @ApiProperty({ example: 1, description: 'Tegishli kategoriya ID si' })
+  @ApiPropertyOptional({ example: 1, description: 'Tegishli kategoriya ID si' })
   @IsInt()
-  categoryId: number;
-}
+  @IsOptional()
+  categoryId?: number;
 
+  @ApiPropertyOptional({ example: 'Birinchi taomlar', description: 'Kategoriya nomi' })
+  @IsString()
+  @IsOptional()
+  categoryName?: string;
+}

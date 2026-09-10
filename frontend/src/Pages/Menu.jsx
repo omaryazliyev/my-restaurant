@@ -31,27 +31,27 @@ const CAT_LABELS = {
 
 const DEFAULT_DISHES = {
   'Birinchi taomlar': [
-    { id: 1, usdPrice: 10.00, img: food1, name: { ru: 'Куриный суп', uz: "Tovuq sho'rva", en: 'Chicken Soup' }, desc: { ru: 'Острый с чесноком', uz: 'Sarimsoqli achchiq', en: 'Spicy with garlic' } },
-    { id: 2, usdPrice: 12.00, img: food2, name: { ru: 'Грибной крем-суп', uz: "Qo'ziqorin kremi", en: 'Creamy Mushroom Soup' }, desc: { ru: 'Лесные грибы со сливками', uz: "O'rmon qo'ziqorin", en: 'Forest mushrooms with cream' } },
-    { id: 3, usdPrice: 9.50, img: food3, name: { ru: 'Томатный суп', uz: 'Pomidor sho\'rva', en: 'Classic Tomato Soup' }, desc: { ru: 'Запечённые томаты', uz: 'Qovurilgan pomidor', en: 'Roasted tomatoes with basil' } },
-    { id: 4, usdPrice: 11.00, img: food4, name: { ru: 'Говяжий бульон', uz: "Mol go'shtli bulyon", en: 'Traditional Broth' }, desc: { ru: 'Медленно варёный', uz: 'Sekin qaynatilgan', en: 'Slow cooked beef broth' } },
+    { id: 1, usdPrice: 10.00, numericPrice: 127000, img: food1, name: { ru: 'Куриный суп', uz: "Tovuq sho'rva", en: 'Chicken Soup' }, desc: { ru: 'Острый с чесноком', uz: 'Sarimsoqli achchiq', en: 'Spicy with garlic' } },
+    { id: 2, usdPrice: 12.00, numericPrice: 152400, img: food2, name: { ru: 'Грибной крем-суп', uz: "Qo'ziqorin kremi", en: 'Creamy Mushroom Soup' }, desc: { ru: 'Лесные грибы со сливками', uz: "O'rmon qo'ziqorin", en: 'Forest mushrooms with cream' } },
+    { id: 3, usdPrice: 9.50, numericPrice: 120650, img: food3, name: { ru: 'Томатный суп', uz: 'Pomidor sho\'rva', en: 'Classic Tomato Soup' }, desc: { ru: 'Запечённые томаты', uz: 'Qovurilgan pomidor', en: 'Roasted tomatoes with basil' } },
+    { id: 4, usdPrice: 11.00, numericPrice: 139700, img: food4, name: { ru: 'Говяжий бульон', uz: "Mol go'shtli bulyon", en: 'Traditional Broth' }, desc: { ru: 'Медленно варёный', uz: 'Sekin qaynatilgan', en: 'Slow cooked beef broth' } },
   ],
   'Ikkinchi taomlar': [
-    { id: 101, usdPrice: 18.00, img: food2, name: { ru: 'Говядина-Специал', uz: "Maxsus mol go'shti", en: 'Beef Special' }, desc: { ru: 'Нежная говяжья вырезка', uz: "Yumshoq mol go'shti", en: 'Tender beef tenderloin' } },
-    { id: 102, usdPrice: 22.00, img: fod, name: { ru: 'Стейк из лосося', uz: 'Losos biftek', en: 'Grilled Salmon Steak' }, desc: { ru: 'Норвежский лосось', uz: 'Norvegiya lososi', en: 'Fresh Norwegian salmon' } },
-    { id: 103, usdPrice: 14.00, img: food3, name: { ru: 'Паста Карбонара', uz: 'Pasta Karbonara', en: 'Pasta Carbonara' }, desc: { ru: 'Сливочный соус', uz: 'Kremli sous', en: 'Creamy parmesan sauce' } },
+    { id: 101, usdPrice: 18.00, numericPrice: 228600, img: food2, name: { ru: 'Говядина-Специал', uz: "Maxsus mol go'shti", en: 'Beef Special' }, desc: { ru: 'Нежная говяжья вырезка', uz: "Yumshoq mol go'shti", en: 'Tender beef tenderloin' } },
+    { id: 102, usdPrice: 22.00, numericPrice: 279400, img: fod, name: { ru: 'Стейк из лосося', uz: 'Losos biftek', en: 'Grilled Salmon Steak' }, desc: { ru: 'Норвежский лосось', uz: 'Norvegiya lososi', en: 'Fresh Norwegian salmon' } },
+    { id: 103, usdPrice: 14.00, numericPrice: 177800, img: food3, name: { ru: 'Паста Карбонара', uz: 'Pasta Karbonara', en: 'Pasta Carbonara' }, desc: { ru: 'Сливочный соус', uz: 'Kremli sous', en: 'Creamy parmesan sauce' } },
   ],
   'Salatlar': [
-    { id: 201, usdPrice: 11.00, img: rasm1, name: { ru: 'Салат Цезарь', uz: 'Sezar salati', en: 'Caesar Salad' }, desc: { ru: 'Куриная грудка', uz: "Tovuq ko'kragi", en: 'Romaine, grilled chicken' } },
-    { id: 202, usdPrice: 9.50, img: food4, name: { ru: 'Греческий салат', uz: 'Grek salati', en: 'Greek Salad' }, desc: { ru: 'Фета и оливки', uz: 'Feta pishloq va zaytun', en: 'Feta cheese, olives' } },
+    { id: 201, usdPrice: 11.00, numericPrice: 114300, img: rasm1, name: { ru: 'Салат Цезарь', uz: 'Sezar salati', en: 'Caesar Salad' }, desc: { ru: 'Куриная грудка', uz: "Tovuq ko'kragi", en: 'Romaine, grilled chicken' } },
+    { id: 202, usdPrice: 9.50, numericPrice: 120650, img: food4, name: { ru: 'Греческий салат', uz: 'Grek salati', en: 'Greek Salad' }, desc: { ru: 'Фета и оливки', uz: 'Feta pishloq va zaytun', en: 'Feta cheese, olives' } },
   ],
   'Ichimliklar': [
-    { id: 301, usdPrice: 5.00, img: rasm2, name: { ru: 'Лимонад Цитрус', uz: 'Limon limonadi', en: 'Fresh Citrus Lemonade' }, desc: { ru: 'Мята и лимон', uz: 'Yalpiz va limon', en: 'Mint, lemon' } },
-    { id: 302, usdPrice: 6.50, img: food2, name: { ru: 'Ягодный Мохито', uz: "Mevali Mohito", en: 'Berry Mojito' }, desc: { ru: 'Лесные ягоды', uz: "O'rmon mevalar", en: 'Wild berries' } },
+    { id: 301, usdPrice: 5.00, numericPrice: 63500, img: rasm2, name: { ru: 'Лимонад Цитрус', uz: 'Limon limonadi', en: 'Fresh Citrus Lemonade' }, desc: { ru: 'Мята и лимон', uz: 'Yalpiz va limon', en: 'Mint, lemon' } },
+    { id: 302, usdPrice: 6.50, numericPrice: 82550, img: food2, name: { ru: 'Ягодный Мохито', uz: "Mevali Mohito", en: 'Berry Mojito' }, desc: { ru: 'Лесные ягоды', uz: "O'rmon mevalar", en: 'Wild berries' } },
   ],
   'Fast-Food': [
-    { id: 401, usdPrice: 14.00, img: pizza1, name: { ru: 'Пицца Маргарита', uz: 'Margarita Pitsa', en: 'Pizza Margherita' }, desc: { ru: 'Моцарелла и базилик', uz: 'Motsarella va rayhon', en: 'Mozzarella, basil' } },
-    { id: 402, usdPrice: 12.00, img: food2, name: { ru: 'BBQ Бургер', uz: 'BBQ Burger', en: 'BBQ Bacon Burger' }, desc: { ru: 'Сочная говядина', uz: "Shirali mol go'shti", en: 'Juicy beef patty' } },
+    { id: 401, usdPrice: 14.00, numericPrice: 177800, img: pizza1, name: { ru: 'Пицца Маргарита', uz: 'Margarita Pitsa', en: 'Pizza Margherita' }, desc: { ru: 'Моцарелла и базилик', uz: 'Motsarella va rayhon', en: 'Mozzarella, basil' } },
+    { id: 402, usdPrice: 12.00, numericPrice: 152400, img: food2, name: { ru: 'BBQ Бургер', uz: 'BBQ Burger', en: 'BBQ Bacon Burger' }, desc: { ru: 'Сочная говядина', uz: "Shirali mol go'shti", en: 'Juicy beef patty' } },
   ],
 };
 
@@ -73,9 +73,10 @@ export default function Menu() {
   const fetchMenuItems = async () => {
     setLoading(true);
     try {
-      const data = await menuApi.getMenuItems();
+      let formatted = [];
+      const data = await menuApi.getMenuItems().catch(() => null);
       if (Array.isArray(data) && data.length > 0) {
-        const formatted = data.map(item => {
+        formatted = data.map(item => {
           const catName = item.category?.name || 'Birinchi taomlar';
           return {
             id: item.id,
@@ -87,8 +88,32 @@ export default function Menu() {
             desc: { ru: item.description || '', uz: item.description || '', en: item.description || '' }
           };
         });
-        setApiDishes(formatted);
       }
+
+      // Check localStorage for admin added dishes
+      const cached = localStorage.getItem('custom_menu_items');
+      if (cached) {
+        try {
+          const parsed = JSON.parse(cached);
+          parsed.forEach(cItem => {
+            if (!formatted.some(f => f.id === cItem.id || f.name.uz === cItem.name)) {
+              formatted.push({
+                id: cItem.id,
+                usdPrice: Number(cItem.price) > 100 ? Number(cItem.price) / 12700 : Number(cItem.price),
+                numericPrice: Number(cItem.price),
+                img: cItem.image || food1,
+                category: cItem.category || 'Birinchi taomlar',
+                name: { ru: cItem.name, uz: cItem.name, en: cItem.name },
+                desc: { ru: cItem.description || '', uz: cItem.description || '', en: cItem.description || '' }
+              });
+            }
+          });
+        } catch (e) {
+          console.warn("Cached menu read error:", e);
+        }
+      }
+
+      setApiDishes(formatted);
     } catch (err) {
       console.warn("Backend menu fetch warning:", err.message);
     } finally {
@@ -98,19 +123,28 @@ export default function Menu() {
 
   const catLabels = CAT_LABELS[lang] || CAT_LABELS['uz'];
 
-  // Combine default dishes with API dishes
+  // Combine default dishes with API / cached dishes
   const getDishesForCategory = (catName) => {
     const defaults = DEFAULT_DISHES[catName] || [];
     const fromApi = apiDishes.filter(d => {
-      const c = d.category?.toLowerCase() || '';
+      const c = (d.category || '').toLowerCase();
       const target = catName.toLowerCase();
-      return c === target || (target.includes('birinchi') && c.includes('первы')) || (target.includes('ikkinchi') && c.includes('втор'));
+      return (
+        c === target ||
+        c.includes(target) ||
+        target.includes(c) ||
+        (target.includes('birinchi') && (c.includes('birinchi') || c.includes('первы') || c.includes('starter'))) ||
+        (target.includes('ikkinchi') && (c.includes('ikkinchi') || c.includes('втор') || c.includes('main'))) ||
+        (target.includes('salat') && (c.includes('salat') || c.includes('салат'))) ||
+        (target.includes('ichimlik') && (c.includes('ichimlik') || c.includes('напит') || c.includes('drink'))) ||
+        (target.includes('fast') && (c.includes('fast') || c.includes('фаст')))
+      );
     });
 
-    // Merge by ID avoiding duplicates
+    // Merge API/custom dishes first, then default dishes if not already in list
     const combined = [...fromApi];
     defaults.forEach(def => {
-      if (!combined.some(c => c.id === def.id || c.name.uz === def.name.uz)) {
+      if (!combined.some(c => c.id === def.id || (c.name.uz && c.name.uz === def.name.uz))) {
         combined.push(def);
       }
     });
@@ -154,7 +188,7 @@ export default function Menu() {
             {/* Cards grid */}
             <div className="menu-cards">
               {loading ? (
-                <div style={{ textOverflow: 'ellipsis', textAlign: 'center', width: '100%', padding: '40px', color: '#888' }}>
+                <div style={{ textAlign: 'center', width: '100%', padding: '40px', color: '#888' }}>
                   🔄 Taomlar yuklanmoqda...
                 </div>
               ) : currentItems.length === 0 ? (

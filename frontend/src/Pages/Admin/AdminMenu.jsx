@@ -146,12 +146,17 @@ export default function AdminMenu() {
           name: form.name,
           description: form.description,
           price: Number(form.price),
-          image: form.image || food1
+          image: form.image || food1,
+          categoryName: form.category
         });
       } catch (err) {
         console.warn("Backend update error:", err.message);
       }
-      setItems(prev => prev.map(i => i.id === editItem.id ? { ...i, ...itemPayload } : i));
+      setItems(prev => {
+        const updated = prev.map(i => i.id === editItem.id ? { ...i, ...itemPayload } : i);
+        localStorage.setItem('custom_menu_items', JSON.stringify(updated));
+        return updated;
+      });
       showToast("Taom muvaffaqiyatli yangilandi!");
     } else {
       // Create new item
@@ -162,13 +167,17 @@ export default function AdminMenu() {
           description: form.description,
           price: Number(form.price),
           image: form.image || food1,
-          categoryId: 1 // Default category ID
+          categoryName: form.category
         });
         if (res && res.id) createdId = res.id;
       } catch (err) {
         console.warn("Backend create error:", err.message);
       }
-      setItems(prev => [{ id: createdId, ...itemPayload }, ...prev]);
+      setItems(prev => {
+        const updated = [{ id: createdId, ...itemPayload }, ...prev];
+        localStorage.setItem('custom_menu_items', JSON.stringify(updated));
+        return updated;
+      });
       showToast("Yangi taom qo'shildi!");
     }
     closeModal();
