@@ -185,17 +185,15 @@ export default function Header({ showNav = true }) {
           </div>
 
           {/* Mobile Overlay Menu Drawer */}
-          {mobileNavOpen && (
-            <div className="header-mobile-drawer">
-              <nav className="mobile-nav-links">
-                <NavLink to="/menu"     onClick={() => setMobileNavOpen(false)} className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}>{t.menu}</NavLink>
-                <NavLink to="/novosti"  onClick={() => setMobileNavOpen(false)} className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}>{t.news}</NavLink>
-                <NavLink to="/booking"  onClick={() => setMobileNavOpen(false)} className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}>{t.booking}</NavLink>
-                <NavLink to="/about"    onClick={() => setMobileNavOpen(false)} className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}>{t.about}</NavLink>
-                <NavLink to="/contacts" onClick={() => setMobileNavOpen(false)} className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}>{t.contacts}</NavLink>
-              </nav>
-            </div>
-          )}
+          <div className={`header-mobile-drawer ${mobileNavOpen ? 'open' : ''}`}>
+            <nav className="mobile-nav-links">
+              <NavLink to="/menu"     onClick={() => setMobileNavOpen(false)} className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}>{t.menu}</NavLink>
+              <NavLink to="/novosti"  onClick={() => setMobileNavOpen(false)} className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}>{t.news}</NavLink>
+              <NavLink to="/booking"  onClick={() => setMobileNavOpen(false)} className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}>{t.booking}</NavLink>
+              <NavLink to="/about"    onClick={() => setMobileNavOpen(false)} className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}>{t.about}</NavLink>
+              <NavLink to="/contacts" onClick={() => setMobileNavOpen(false)} className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}>{t.contacts}</NavLink>
+            </nav>
+          </div>
         </div>
       )}
 
