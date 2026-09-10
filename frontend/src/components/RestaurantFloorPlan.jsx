@@ -56,21 +56,9 @@ export default function RestaurantFloorPlan({ selectedTableId, onSelect }) {
   });
 
   return (
-    <div style={{ width: '100%', overflowX: 'auto' }}>
+    <div className="floor-plan-wrapper">
       {/* ── Floor Plan Canvas ─────────────────────────────── */}
-      <div
-        style={{
-          position: 'relative',
-          width: '720px',
-          height: '440px',
-          background: '#ffffff',
-          border: '2.5px solid #111',
-          borderRadius: '10px',
-          margin: '0 auto',
-          userSelect: 'none',
-          flexShrink: 0,
-        }}
-      >
+      <div className="floor-plan-canvas">
         {/* ── Window slots on the RIGHT ─────────────────── */}
         {['16px', '162px', '308px'].map((top, i) => (
           <div

@@ -601,6 +601,29 @@
   color: #fff;
 }
 
+.floor-plan-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.floor-plan-canvas {
+  position: relative;
+  width: 720px;
+  height: 440px;
+  background: #ffffff;
+  border: 2.5px solid #111;
+  border-radius: 16px;
+  margin: 0 auto;
+  user-select: none;
+  flex-shrink: 0;
+  transform-origin: center center;
+}
+
 /* Responsive styles */
 @media (max-width: 992px) {
   .bron-hero-grid {
@@ -621,6 +644,25 @@
   .bron-leaf-1,
   .bron-leaf-2 {
     display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .floor-plan-wrapper {
+    overflow: hidden;
+    padding: 10px 0;
+  }
+
+  .floor-plan-canvas {
+    transform: scale(0.65);
+    margin-top: -65px;
+    margin-bottom: -65px;
+  }
+
+  .table-modal-content {
+    padding: 24px 16px 20px !important;
+    border-radius: 28px !important;
+    max-width: 95% !important;
   }
 }
 
@@ -658,9 +700,17 @@
     width: 100%;
     max-width: 100%;
   }
+}
+
+@media (max-width: 480px) {
+  .floor-plan-canvas {
+    transform: scale(0.48);
+    margin-top: -105px;
+    margin-bottom: -105px;
+  }
 
   .table-modal-content {
-    padding: 24px 16px;
-    border-radius: 20px;
+    padding: 18px 12px 16px !important;
+    border-radius: 24px !important;
   }
 }
