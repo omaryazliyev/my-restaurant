@@ -18,6 +18,23 @@ html, body {
   scroll-behavior: smooth;
 }
 
+html.cart-open,
+html.cart-open body {
+  overflow: hidden !important;
+}
+
+html.cart-open .home-body,
+html.cart-open .menu-body,
+html.cart-open .checkout-page-wrapper,
+html.cart-open .booking-body,
+html.cart-open .about-body,
+html.cart-open .contacts-body,
+html.cart-open .profile-body,
+html.cart-open .login-body,
+html.cart-open .register-body {
+  overflow: hidden !important;
+}
+
 #root {
   min-height: 100vh;
   display: flex;

@@ -14,12 +14,12 @@ export default function CartDrawer() {
 
   useEffect(() => {
     if (isCartOpen) {
-      document.body.style.overflow = 'hidden';
+      document.documentElement.classList.add('cart-open');
     } else {
-      document.body.style.overflow = '';
+      document.documentElement.classList.remove('cart-open');
     }
     return () => {
-      document.body.style.overflow = '';
+      document.documentElement.classList.remove('cart-open');
     };
   }, [isCartOpen]);
 
