@@ -54,16 +54,29 @@ export const AuthProvider = ({ children }) => {
     */
 
     // Standalone Frontend kirish:
+    // Admin: omar / 18062004
+    const isAdmin =
+      credentials?.username === 'omar' &&
+      credentials?.password === '18062004';
+
+    if (!isAdmin && credentials?.username !== 'omar') {
+      // Har qanday boshqa foydalanuvchi — CLIENT sifatida kiradi
+    } else if (!isAdmin) {
+      // omar bilan noto'g'ri parol
+      setLoading(false);
+      return { success: false, message: 'Username yoki parol noto\'g\'ri' };
+    }
+
     const loggedUser = {
-      id: 1,
-      username: credentials?.username || 'Oybek',
-      role: 'ADMIN',
+      id: isAdmin ? 1 : Date.now(),
+      username: credentials?.username || 'Mehmon',
+      role: isAdmin ? 'ADMIN' : 'CLIENT',
     };
-    const mockToken = 'mock-demo-token';
+    const mockToken = isAdmin ? 'admin-token-omar' : 'client-token';
     setUser(loggedUser);
     setToken(mockToken);
     setLoading(false);
-    return { success: true };
+    return { success: true, role: loggedUser.role };
   };
 
   const register = async (userData) => {

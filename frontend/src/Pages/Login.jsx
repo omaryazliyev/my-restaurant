@@ -18,11 +18,15 @@ export default function Login() {
   const handleLogin = async (e) => {
     if (e) e.preventDefault();
     setErrorMsg('');
-    const res = await login({ username: username || 'Oybek', password: password || '12345' });
+    const res = await login({ username, password });
     if (res.success) {
-      navigate('/');
+      if (res.role === 'ADMIN') {
+        navigate('/admin');
+      } else {
+        navigate('/');
+      }
     } else {
-      navigate('/');
+      setErrorMsg(res.message || 'Username yoki parol noto\'g\'ri');
     }
   };
 
