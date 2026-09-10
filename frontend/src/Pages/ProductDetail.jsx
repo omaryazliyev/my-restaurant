@@ -1,75 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
+import { menuApi } from '../services/api';
 import '../styles/ProductDetail.css';
 
-import barg1  from '../assets/images/barg1.png';
-import barg2  from '../assets/images/barg2.png';
-import barg3  from '../assets/images/barg3.png';
-import barg4  from '../assets/images/barg4.png';
-import food1  from '../assets/images/food1.png';
-import food2  from '../assets/images/food2.png';
-import food3  from '../assets/images/food3.png';
-import food4  from '../assets/images/food4.png';
+import barg1 from '../assets/images/barg1.png';
+import barg2 from '../assets/images/barg2.png';
+import barg3 from '../assets/images/barg3.png';
+import barg4 from '../assets/images/barg4.png';
+import food1 from '../assets/images/food1.png';
+import food2 from '../assets/images/food2.png';
+import food3 from '../assets/images/food3.png';
+import food4 from '../assets/images/food4.png';
+import rasm1 from '../assets/images/rasm1.png';
+import rasm2 from '../assets/images/rasm2.png';
 import pizza1 from '../assets/images/pizza1.png';
 
-// ── Asosiy mahsulot ma'lumotlari (barcha tillarda) ───────────
-const PRODUCT_DATA = {
-  name: {
-    ru: 'Дабл бургер',
-    uz: 'Dubl Burger',
-    en: 'Double Burger',
-  },
-  category: {
-    ru: 'Бургер',
-    uz: 'Burger',
-    en: 'Burger',
-  },
-  desc: {
-    ru: 'Сочный двойной бургер с двумя говяжьими котлетами, свежими овощами, хрустящим салатом и нашим фирменным соусом. Подаётся в поджаренной булочке бриошь.',
-    uz: "Ikki mol go'shtli kotlet, yangi sabzavotlar, qo'pol salat va maxsus sous bilan mazali dubl burger. Qovurilgan briosh bulkasida taqdim etiladi.",
-    en: 'A juicy double burger with two beef patties, fresh vegetables, crispy lettuce and our signature sauce. Served in a toasted brioche bun.',
-  },
-  reviewsLink: {
-    ru: '(Смотреть отзывы)',
-    uz: "(Sharhlarni ko'rish)",
-    en: '(View reviews)',
-  },
-};
-
-// ── O'xshash mahsulotlar (barcha tillarda) ───────────────────
-const SIMILAR_RAW = [
-  {
-    id: 101, usdPrice: 10.00, img: food2,
-    name: { ru: 'Куриный суп',      uz: "Tovuq sho'rva",  en: 'Chicken Soup' },
-    sub:  { ru: 'Острый с чесноком', uz: 'Sarimsoqli',     en: 'Spicy with garlic' },
-  },
-  {
-    id: 102, usdPrice: 10.00, img: food1,
-    name: { ru: 'Куриный суп',      uz: "Tovuq sho'rva",  en: 'Chicken Soup' },
-    sub:  { ru: 'Острый с чесноком', uz: 'Sarimsoqli',     en: 'Spicy with garlic' },
-  },
-  {
-    id: 103, usdPrice: 12.00, img: food3,
-    name: { ru: 'Паста Карбонара',  uz: 'Pasta Karbonara', en: 'Pasta Carbonara' },
-    sub:  { ru: 'Сливочный соус',   uz: 'Kremli sous',     en: 'Creamy sauce' },
-  },
-  {
-    id: 104, usdPrice: 14.00, img: food4,
-    name: { ru: 'Пицца Маргарита', uz: 'Margarita Pitsa', en: 'Pizza Margherita' },
-    sub:  { ru: 'Томат и базилик', uz: 'Pomidor, rayhon', en: 'Tomato & basil' },
-  },
-  {
-    id: 105, usdPrice: 9.50, img: pizza1,
-    name: { ru: 'Греческий салат', uz: 'Grek salati',     en: 'Greek Salad' },
-    sub:  { ru: 'Фета и оливки',   uz: 'Feta va zaytun',  en: 'Feta & olives' },
-  },
+const ALL_STATIC_DISHES = [
+  { id: 1, name: "Tovuq sho'rva", category: 'Birinchi taomlar', price: 127000, img: food1, desc: "Xushbo'y ziravorlar va yangi tovuq go'shtidan tayyorlangan mazali sho'rva." },
+  { id: 2, name: "Qo'ziqorin kremi", category: 'Birinchi taomlar', price: 152400, img: food2, desc: "Qaymoqli qo'ziqorin kremi pishirig'i." },
+  { id: 3, name: "Pomidor sho'rva", category: 'Birinchi taomlar', price: 120650, img: food3, desc: "Qovurilgan pomidor va rayhonli sho'rva." },
+  { id: 4, name: "Mol go'shtli bulyon", category: 'Birinchi taomlar', price: 139700, img: food4, desc: "Sekin qaynatilgan haqiqiy mol go'shtli bulyon." },
+  { id: 101, name: "Maxsus mol go'shti", category: 'Ikkinchi taomlar', price: 228600, img: food2, desc: "Tandirda pishirilgan yumshoq mol go'shti va sabzavotlar." },
+  { id: 102, name: "Losos biftek", category: 'Ikkinchi taomlar', price: 279400, img: food3, desc: "Grilda tayyorlangan yangi losos baliq bifteki." },
+  { id: 103, name: "Pasta Karbonara", category: 'Ikkinchi taomlar', price: 177800, img: food3, desc: "Kremli parmezan va bekon sousli italyan pastasi." },
+  { id: 201, name: "Sezar salati", category: 'Salatlar', price: 114300, img: rasm1, desc: "Tovuq ko'kragi, romano salati va sezar sousi." },
+  { id: 202, name: "Grek salati", category: 'Salatlar', price: 120650, img: food4, desc: "Feta pishlog'i, zaytun va yangi bodringlar." },
+  { id: 301, name: "Limon limonadi", category: 'Ichimliklar', price: 63500, img: rasm2, desc: "Yangi siqilgan limon va yalpizli muzday limonad." },
+  { id: 302, name: "Mevali Mohito", category: 'Ichimliklar', price: 82550, img: food2, desc: "O'rmon mevalari va muz bilan tayyorlangan salqin ichimlik." },
+  { id: 401, name: "Margarita Pitsa", category: 'Fast-Food', price: 177800, img: pizza1, desc: "Motsarella pishloq, yangi pomidor va rayhonli qarsillama pitsa." },
+  { id: 402, name: "BBQ Burger", category: 'Fast-Food', price: 152400, img: food2, desc: "Shirali mol go'shti kotleti va bbq sousli burger." },
 ];
 
-// ── Label kalitlari ───────────────────────────────────────────
 const LABELS = {
   ru: {
     home: 'Главная',
@@ -103,27 +68,90 @@ export default function ProductDetail() {
   const { addToCart } = useCart();
   const { lang, priceFormat } = useLanguage();
 
-  const L = LABELS[lang] || LABELS['ru'];
+  const L = LABELS[lang] || LABELS['uz'];
 
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [qty, setQty] = useState(1);
   const [favorites, setFavorites] = useState({});
   const [startIndex, setStartIndex] = useState(0);
 
-  const product = {
-    id: id || 'burger-double',
-    name:         PRODUCT_DATA.name[lang]        || PRODUCT_DATA.name.en,
-    category:     PRODUCT_DATA.category[lang]    || PRODUCT_DATA.category.en,
-    desc:         PRODUCT_DATA.desc[lang]        || PRODUCT_DATA.desc.en,
-    reviewsCount: PRODUCT_DATA.reviewsLink[lang] || PRODUCT_DATA.reviewsLink.en,
-    usdPrice:     4.00,
-    img:          food1,
+  useEffect(() => {
+    loadProductDetail();
+  }, [id]);
+
+  const loadProductDetail = async () => {
+    setLoading(true);
+    let found = null;
+
+    // 1. Fetch from backend API
+    try {
+      if (id) {
+        const res = await menuApi.getMenuItemById(id).catch(() => null);
+        if (res && res.name) {
+          found = {
+            id: res.id,
+            name: res.name,
+            category: res.category?.name || 'Taomlar',
+            desc: res.description || 'Xushbo\'y ziravorlar va sifatli masaliqlardan tayyorlangan mazali taom.',
+            price: Number(res.price),
+            img: res.image || food1,
+          };
+        }
+      }
+    } catch (err) {
+      console.warn("Backend getMenuItemById error:", err.message);
+    }
+
+    // 2. Check localStorage custom_menu_items cache
+    if (!found && id) {
+      const cached = localStorage.getItem('custom_menu_items');
+      if (cached) {
+        try {
+          const parsed = JSON.parse(cached);
+          const match = parsed.find(item => String(item.id) === String(id));
+          if (match) {
+            found = {
+              id: match.id,
+              name: match.name,
+              category: match.category || 'Taomlar',
+              desc: match.description || 'Xushbo\'y ziravorlar va sifatli masaliqlardan tayyorlangan mazali taom.',
+              price: Number(match.price),
+              img: match.image || food1,
+            };
+          }
+        } catch (e) {
+          console.warn("Cached menu error:", e);
+        }
+      }
+    }
+
+    // 3. Check ALL_STATIC_DISHES
+    if (!found) {
+      const match = ALL_STATIC_DISHES.find(s => String(s.id) === String(id));
+      if (match) {
+        found = match;
+      } else {
+        found = ALL_STATIC_DISHES[0];
+      }
+    }
+
+    setProduct(found);
+    setLoading(false);
   };
 
   const handleQtyChange = (delta) => setQty((prev) => Math.max(1, prev + delta));
 
   const handleAddToCart = () => {
+    if (!product) return;
+    const itemPrice = product.price > 100 ? product.price / 12700 : product.price;
     for (let i = 0; i < qty; i++) {
-      addToCart({ ...product, price: product.usdPrice, numericPrice: product.usdPrice });
+      addToCart({
+        ...product,
+        name: product.name,
+        price: itemPrice,
+        numericPrice: product.price
+      });
     }
   };
 
@@ -131,9 +159,28 @@ export default function ProductDetail() {
     setFavorites((prev) => ({ ...prev, [prodId]: !prev[prodId] }));
   };
 
-  const nextSlide = () => setStartIndex((prev) => Math.min(prev + 1, SIMILAR_RAW.length - 4));
+  // Similar dishes list filtered by category
+  const similarItems = ALL_STATIC_DISHES.filter(d => String(d.id) !== String(product?.id));
+  const visibleSimilar = similarItems.slice(startIndex, startIndex + 4);
+
+  const nextSlide = () => setStartIndex((prev) => Math.min(prev + 1, similarItems.length - 4));
   const prevSlide = () => setStartIndex((prev) => Math.max(prev - 1, 0));
-  const visibleSimilar = SIMILAR_RAW.slice(startIndex, startIndex + 4);
+
+  if (loading || !product) {
+    return (
+      <div className="product-detail-wrapper">
+        <Header />
+        <div className="product-detail-container" style={{ textAlign: 'center', padding: '100px 20px', color: '#888' }}>
+          🔄 Taom ma'lumotlari yuklanmoqda...
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  const displayPriceText = product.price > 100
+    ? `${product.price.toLocaleString('ru-RU')} so'm`
+    : priceFormat(product.price);
 
   return (
     <div className="product-detail-wrapper">
@@ -153,15 +200,20 @@ export default function ProductDetail() {
             <span>›</span>
             <Link to="/menu">{L.menu}</Link>
             <span>›</span>
-            <span>{product.category}</span>
+            <span>{product.name}</span>
           </div>
 
-          <h1 className="pd-main-title">{product.category}</h1>
+          <h1 className="pd-main-title">{product.name}</h1>
 
           {/* Main Grid */}
           <div className="pd-grid">
             <div className="pd-image-box">
-              <img src={product.img} alt={product.name} className="pd-main-img" />
+              <img
+                src={product.img}
+                alt={product.name}
+                className="pd-main-img"
+                onError={(e) => { e.target.src = food1; }}
+              />
             </div>
 
             <div className="pd-info-box">
@@ -169,13 +221,13 @@ export default function ProductDetail() {
 
               {/* Price & Rating */}
               <div className="pd-price-rating-row">
-                <span className="pd-price">{priceFormat(product.usdPrice)}</span>
+                <span className="pd-price">{displayPriceText}</span>
                 <div className="pd-rating-wrap">
                   <div className="pd-stars">★★★★☆</div>
-                  <span className="pd-rating-text">4.0</span>
-                  <a href="#reviews" className="pd-reviews-link" onClick={(e) => e.preventDefault()}>
-                    {product.reviewsCount}
-                  </a>
+                  <span className="pd-rating-text">4.8</span>
+                  <span className="pd-reviews-link">
+                    (Sharhlarni ko'rish)
+                  </span>
                 </div>
               </div>
 
@@ -206,34 +258,40 @@ export default function ProductDetail() {
 
               <div className="pd-similar-grid">
                 {visibleSimilar.map((item) => (
-                  <div key={item.id} className="pd-similar-card">
+                  <div key={item.id} className="pd-similar-card" onClick={() => navigate(`/product/${item.id}`)} style={{ cursor: 'pointer' }}>
                     <div className="pd-similar-img-box">
-                      <img src={item.img} alt={item.name[lang] || item.name.en} />
+                      <img src={item.img} alt={item.name} onError={(e) => { e.target.src = food1; }} />
                     </div>
 
                     <div className="pd-similar-info">
-                      <span className="pd-similar-name">{item.name[lang] || item.name.en}</span>
+                      <span className="pd-similar-name">{item.name}</span>
                       <span
                         className={`pd-similar-fav ${favorites[item.id] ? 'active' : ''}`}
-                        onClick={() => toggleFavorite(item.id)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleFavorite(item.id);
+                        }}
                         title={L.favorite}
                       >
                         {favorites[item.id] ? '♥' : '♡'}
                       </span>
                     </div>
 
-                    <div className="pd-similar-sub">{item.sub[lang] || item.sub.en}</div>
+                    <div className="pd-similar-sub">{item.category}</div>
 
                     <div className="pd-similar-bottom">
-                      <span className="pd-similar-price">{priceFormat(item.usdPrice)}</span>
+                      <span className="pd-similar-price">{item.price.toLocaleString('ru-RU')} so'm</span>
                       <button
                         className="pd-similar-cart-btn"
-                        onClick={() => addToCart({
-                          ...item,
-                          name: item.name[lang] || item.name.en,
-                          price: item.usdPrice,
-                          numericPrice: item.usdPrice,
-                        })}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          addToCart({
+                            ...item,
+                            name: item.name,
+                            price: item.price > 100 ? item.price / 12700 : item.price,
+                            numericPrice: item.price,
+                          });
+                        }}
                         title={L.addToCart}
                       >
                         🛒
@@ -246,7 +304,7 @@ export default function ProductDetail() {
               <button
                 className="pd-carousel-arrow right"
                 onClick={nextSlide}
-                disabled={startIndex >= SIMILAR_RAW.length - 4}
+                disabled={startIndex >= similarItems.length - 4}
               >›</button>
             </div>
           </div>
