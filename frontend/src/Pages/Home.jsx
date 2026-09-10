@@ -38,7 +38,7 @@ import rasm1 from '../assets/images/rasm1.png';
 import rasm2 from '../assets/images/rasm2.png';
 import rasm3 from '../assets/images/rasm3.png';
 import sergey from '../assets/images/sergey.png';
-import hazirki from '../assets/images/hazirki.png';
+import wineGlassesImg from '../assets/images/wine_glasses.png';
 
 const popularDishes = [
   {
@@ -376,7 +376,7 @@ export default function Home() {
                 </form>
               </div>
               <div className="s3-right">
-                <img src={hazirki} alt="" />
+                <img src={wineGlassesImg} alt="Wine glasses" />
               </div>
             </div>
             <img className="barg5" src={barg5} alt="" />

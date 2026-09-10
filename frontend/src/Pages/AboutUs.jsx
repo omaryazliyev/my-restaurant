@@ -16,7 +16,7 @@ import chef3    from '../assets/images/chef3.png';
 import waitress1 from '../assets/images/waitress1.png';
 
 import food1  from '../assets/images/food1.png';
-import pizza1 from '../assets/images/pizza1.png';
+import pizza1 from '../assets/images/pizza1.jpg';
 
 import rasm1  from '../assets/images/rasm1.png';
 import rasm2  from '../assets/images/rasm2.png';

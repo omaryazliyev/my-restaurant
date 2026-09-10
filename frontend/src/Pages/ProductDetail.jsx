@@ -17,7 +17,7 @@ import food3 from '../assets/images/food3.png';
 import food4 from '../assets/images/food4.png';
 import rasm1 from '../assets/images/rasm1.png';
 import rasm2 from '../assets/images/rasm2.png';
-import pizza1 from '../assets/images/pizza1.png';
+import pizza1 from '../assets/images/pizza1.jpg';
 
 const ALL_STATIC_DISHES = [
   { id: 1, name: "Tovuq sho'rva", category: 'Birinchi taomlar', price: 127000, img: food1, desc: "Xushbo'y ziravorlar va yangi tovuq go'shtidan tayyorlangan mazali sho'rva." },
