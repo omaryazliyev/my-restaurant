@@ -1,6 +1,7 @@
-import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
 import { MenuService } from './menu.service';
-import { ApiTags, ApiOperation, ApiQuery, ApiParam, ApiResponse } from '@nestjs/swagger';
+import { CreateMenuItemDto } from './dto/create-menu-item.dto';
+import { ApiTags, ApiOperation, ApiQuery, ApiParam } from '@nestjs/swagger';
 
 @ApiTags('Menu - Taomlar Menyusi')
 @Controller('menu')
@@ -28,5 +29,24 @@ export class MenuController {
     const item = await this.menuService.findOne(id);
     return this.menuService.findSimilar(item.categoryId, id);
   }
-}
 
+  @ApiOperation({ summary: 'Yangi taom qo\'shish' })
+  @Post()
+  create(@Body() dto: CreateMenuItemDto) {
+    return this.menuService.create(dto);
+  }
+
+  @ApiOperation({ summary: 'Taomni tahrirlash' })
+  @ApiParam({ name: 'id', example: 1, description: 'Taom ID si' })
+  @Patch(':id')
+  update(@Param('id', ParseIntPipe) id: number, @Body() dto: Partial<CreateMenuItemDto>) {
+    return this.menuService.update(id, dto);
+  }
+
+  @ApiOperation({ summary: 'Taomni o\'chirish' })
+  @ApiParam({ name: 'id', example: 1, description: 'Taom ID si' })
+  @Delete(':id')
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.menuService.remove(id);
+  }
+}

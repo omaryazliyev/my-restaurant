@@ -121,23 +121,43 @@ export const menuApi = {
   },
 
   createMenuItem: async (itemData) => {
-    return await request('/admin/menu', {
-      method: 'POST',
-      body: JSON.stringify(itemData),
-    });
+    try {
+      return await request('/admin/menu', {
+        method: 'POST',
+        body: JSON.stringify(itemData),
+      });
+    } catch {
+      return await request('/menu', {
+        method: 'POST',
+        body: JSON.stringify(itemData),
+      });
+    }
   },
 
   updateMenuItem: async (id, itemData) => {
-    return await request(`/admin/menu/${id}`, {
-      method: 'PATCH',
-      body: JSON.stringify(itemData),
-    });
+    try {
+      return await request(`/admin/menu/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(itemData),
+      });
+    } catch {
+      return await request(`/menu/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(itemData),
+      });
+    }
   },
 
   deleteMenuItem: async (id) => {
-    return await request(`/admin/menu/${id}`, {
-      method: 'DELETE',
-    });
+    try {
+      return await request(`/admin/menu/${id}`, {
+        method: 'DELETE',
+      });
+    } catch {
+      return await request(`/menu/${id}`, {
+        method: 'DELETE',
+      });
+    }
   },
 };
 
