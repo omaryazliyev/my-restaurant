@@ -315,14 +315,14 @@
   }
 
   .menyu {
-    width: 100%;
-    max-width: 500px;
-    gap: 16px;
-    padding: 0 16px;
+    width: auto;
+    max-width: 100%;
+    gap: 12px;
+    padding: 6px 16px;
   }
 
   .menyu a {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .barg4-menu {
@@ -371,10 +371,13 @@
   .menyu1 {
     width: 100%;
     box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    padding: 4px 0;
+    padding: 6px 0;
     margin-top: 20px;
   }
 
@@ -384,15 +387,26 @@
 
   .menyu {
     width: max-content;
-    min-width: 100%;
+    min-width: max-content;
+    max-width: none;
     box-sizing: border-box;
     display: flex;
     flex-wrap: nowrap;
-    gap: 6px 10px;
-    padding: 6px 10px;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 4px 6px;
+    padding: 5px 8px;
     margin-top: 0;
     border-radius: 27px;
-    background-color: rgba(255, 255, 255, 0.45);
+    background-color: rgba(255, 255, 255, 0.55);
+  }
+
+  .menyu a {
+    font-size: 13px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 6px 12px;
+    border-radius: 20px;
   }
 
   .menyu .pervi {
@@ -403,13 +417,6 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     border-radius: 20px;
     font-weight: 700;
-  }
-
-  .menyu a {
-    font-size: 14px;
-    white-space: nowrap;
-    flex-shrink: 0;
-    padding: 6px 12px;
   }
 
   .menu-cards {
