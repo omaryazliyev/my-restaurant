@@ -488,19 +488,22 @@ main a:hover {
 
 .s3-right {
   flex: 1;
-  min-width: 320px;
+  min-width: 280px;
+  max-width: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0;
+  padding: 20px 30px 20px 10px;
+  box-sizing: border-box;
 }
 
 .s3-right img {
-  max-width: 520px;
+  max-width: 440px;
   width: 100%;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.22));
+  display: block;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.18));
 }
 
 .barg5 { position: absolute; top: -20px; right: 20px; z-index: 1; pointer-events: none; opacity: 0.7; }

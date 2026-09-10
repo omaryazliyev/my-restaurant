@@ -13,7 +13,7 @@ import food2  from '../assets/images/food2.png';
 import food3  from '../assets/images/food3.png';
 import food4  from '../assets/images/food4.png';
 import fod    from '../assets/images/fod.png';
-import pizza1 from '../assets/images/pizza1.png';
+import pizza1 from '../assets/images/pizza1.jpg';
 import magazin from '../assets/images/magazin.png';
 import barg4  from '../assets/images/barg4.png';
 import rasm1  from '../assets/images/rasm1.png';

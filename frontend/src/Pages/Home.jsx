@@ -28,7 +28,6 @@ import heard from '../assets/images/heard.png';
 import magazin from '../assets/images/magazin.png';
 import krug from '../assets/images/krug.png';
 import vilka from '../assets/images/vilka.png';
-import pizza1 from '../assets/images/pizza1.png';
 import soup from '../assets/images/soup.png';
 import soup1 from '../assets/images/soup1.png';
 import soup2 from '../assets/images/soup2.png';
@@ -39,6 +38,7 @@ import rasm1 from '../assets/images/rasm1.png';
 import rasm2 from '../assets/images/rasm2.png';
 import rasm3 from '../assets/images/rasm3.png';
 import sergey from '../assets/images/sergey.png';
+import hazirki from '../assets/images/hazirki.png';
 
 const popularDishes = [
   {
@@ -376,7 +376,7 @@ export default function Home() {
                 </form>
               </div>
               <div className="s3-right">
-                <img src={pizza1} alt="" />
+                <img src={hazirki} alt="" />
               </div>
             </div>
             <img className="barg5" src={barg5} alt="" />
