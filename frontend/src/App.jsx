@@ -11,6 +11,13 @@ import Contacts from './Pages/Contacts';
 import ProductDetail from './Pages/ProductDetail';
 import Profile from './Pages/Profile';
 import Checkout from './Pages/Checkout';
+import AdminLayout from './Pages/Admin/AdminLayout';
+import AdminDashboard from './Pages/Admin/AdminDashboard';
+import AdminMenu from './Pages/Admin/AdminMenu';
+import AdminOrders from './Pages/Admin/AdminOrders';
+import AdminReservations from './Pages/Admin/AdminReservations';
+import AdminUsers from './Pages/Admin/AdminUsers';
+import AdminNews from './Pages/Admin/AdminNews';
 import './styles/global.css';
 import './index.css';
 
@@ -31,9 +38,21 @@ export default function App() {
         <Route path="/contacts" element={<Contacts />} />
         <Route path="/product" element={<ProductDetail />} />
         <Route path="/product/:id" element={<ProductDetail />} />
+
+        {/* Admin Panel */}
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="menu" element={<AdminMenu />} />
+          <Route path="orders" element={<AdminOrders />} />
+          <Route path="reservations" element={<AdminReservations />} />
+          <Route path="users" element={<AdminUsers />} />
+          <Route path="news" element={<AdminNews />} />
+        </Route>
+
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   );
 }
+
 
