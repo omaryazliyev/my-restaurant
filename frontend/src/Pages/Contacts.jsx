@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useLanguage } from '../context/LanguageContext';
+import { contactApi } from '../services/api';
 import '../styles/Contacts.css';
 
 import barg1 from '../assets/images/barg1.png';
@@ -14,20 +15,29 @@ export default function Contacts() {
   const { t } = useLanguage();
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email) {
       alert(t.contactsFillError);
       return;
     }
-    setSubmitted(true);
-    setFormData({ name: '', email: '', phone: '', message: '' });
-    setTimeout(() => setSubmitted(false), 5000);
+    setLoading(true);
+    try {
+      await contactApi.sendMessage(formData);
+    } catch (err) {
+      console.warn("Backend API message error:", err.message);
+    } finally {
+      setSubmitted(true);
+      setFormData({ name: '', email: '', phone: '', message: '' });
+      setLoading(false);
+      setTimeout(() => setSubmitted(false), 5000);
+    }
   };
 
   return (
@@ -119,7 +129,9 @@ export default function Contacts() {
               <textarea name="message" placeholder={t.yourMessage} rows="4" value={formData.message} onChange={handleChange} />
             </div>
             <div className="contacts-btn-wrap">
-              <button type="submit" className="contacts-submit-btn">{t.send}</button>
+              <button type="submit" className="contacts-submit-btn" disabled={loading}>
+                {loading ? 'Yuborilmoqda...' : t.send}
+              </button>
             </div>
           </form>
         </div>

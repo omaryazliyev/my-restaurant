@@ -13,5 +13,21 @@ export class UsersService {
     return this.prisma.user.findUnique({ where: { id } });
   }
 
-  // TODO: admin uchun - findAll(), qidiruv/filter bilan
+  findAll() {
+    return this.prisma.user.findMany({
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        username: true,
+        phone: true,
+        role: true,
+        createdAt: true,
+      },
+    });
+  }
+
+  remove(id: number) {
+    return this.prisma.user.delete({ where: { id } });
+  }
 }

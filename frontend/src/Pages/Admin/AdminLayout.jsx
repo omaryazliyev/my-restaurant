@@ -5,6 +5,7 @@ import '../../styles/Admin.css';
 
 const NAV_ITEMS = [
   { path: '/admin',             icon: '📊', label: 'Dashboard',        end: true },
+  { path: '/admin/categories',  icon: '📂', label: 'Kategoriyalar' },
   { path: '/admin/menu',        icon: '🍽️', label: 'Menu boshqaruvi' },
   { path: '/admin/orders',      icon: '📦', label: 'Buyurtmalar' },
   { path: '/admin/reservations',icon: '📅', label: 'Bronlar' },

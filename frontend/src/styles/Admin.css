@@ -482,12 +482,233 @@
 .admin-badge-client     { background: rgba(107, 114, 128, 0.1); color: #4b5563; border: 1px solid rgba(107, 114, 128, 0.2); }
 
 /* ── Food Image in table ── */
+.admin-food-thumb-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 183, 3, 0.25);
+  background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .admin-food-img {
-  width: 44px;
-  height: 44px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.25s ease;
+}
+
+.admin-food-thumb-wrap:hover .admin-food-img {
+  transform: scale(1.12);
+}
+
+/* ── Custom Styled Select Dropdown ── */
+.admin-select-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+}
+
+.admin-custom-select {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 11px 36px 11px 16px;
+  border-radius: 14px;
+  border: 1.5px solid rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  font-weight: 600;
+  color: #111;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.admin-custom-select:hover {
+  border-color: rgba(255, 183, 3, 0.6);
+  background: #ffffff;
+}
+
+.admin-custom-select:focus {
+  border-color: #ffb703;
+  box-shadow: 0 0 0 4px rgba(255, 183, 3, 0.2);
+  background: #ffffff;
+}
+
+.admin-custom-select option {
+  background: #ffffff;
+  color: #111;
+  padding: 10px;
+  font-weight: 500;
+}
+
+.admin-select-arrow {
+  position: absolute;
+  right: 14px;
+  pointer-events: none;
+  font-size: 10px;
+  color: #ffb703;
+  transition: transform 0.2s ease;
+}
+
+.admin-select-wrapper:hover .admin-select-arrow {
+  transform: translateY(1px);
+}
+
+/* ── Image Upload & Preview Section ── */
+.admin-img-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.admin-img-tab {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.04);
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.admin-img-tab.active {
+  background: rgba(255, 183, 3, 0.15);
+  border-color: rgba(255, 183, 3, 0.4);
+  color: #b45309;
+}
+
+.admin-file-dropzone {
+  position: relative;
+  border: 2px dashed rgba(255, 183, 3, 0.4);
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+  background: rgba(255, 183, 3, 0.04);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.admin-file-dropzone:hover {
+  border-color: #ffb703;
+  background: rgba(255, 183, 3, 0.08);
+}
+
+.admin-file-input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.admin-file-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: #333;
+  font-size: 13px;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.admin-file-label small {
+  color: #888;
+  font-weight: 400;
+  font-size: 11px;
+}
+
+.admin-img-preview-card {
+  position: relative;
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.admin-img-preview-card .preview-tag {
+  font-size: 12px;
+  font-weight: 700;
+  color: #666;
+}
+
+.admin-img-preview {
+  width: 64px;
+  height: 64px;
   border-radius: 10px;
   object-fit: cover;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ffb703;
+}
+
+.admin-img-remove-btn {
+  margin-left: auto;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.12);
+  color: #dc2626;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.admin-img-remove-btn:hover {
+  background: #dc2626;
+  color: #fff;
+}
+
+/* ── Toast Notification ── */
+.admin-toast {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 10000;
+  padding: 12px 20px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.admin-toast-success {
+  background: rgba(34, 197, 94, 0.95);
+  color: #ffffff;
+}
+
+.admin-toast-error {
+  background: rgba(239, 68, 68, 0.95);
+  color: #ffffff;
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
 }
 
 /* ── Search/Filter bar ── */

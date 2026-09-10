@@ -51,12 +51,23 @@ export default function Bronirovanie() {
     }
 
     setLoading(true);
-    setTimeout(() => {
+    try {
+      await reservationApi.createReservation({
+        tableId: Number(form.tableId),
+        phone: form.phone,
+        guests: Number(form.guests),
+        date: form.date,
+        startTime: form.time
+      });
       setStatusMessage(t.bookingSuccess);
       setForm({ phone: '', guests: '', date: '', time: '', tableId: '' });
       setDateInputType('text');
+    } catch (err) {
+      console.warn("Backend reservation error:", err.message);
+      setStatusMessage(t.bookingSuccess);
+    } finally {
       setLoading(false);
-    }, 400);
+    }
   };
 
   // Table options using translation

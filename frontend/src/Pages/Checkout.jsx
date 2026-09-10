@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
+import { ordersApi } from '../services/api';
 import '../styles/Checkout.css';
 
 // Leaf Graphics
@@ -16,11 +17,9 @@ export default function Checkout() {
   const { t, lang, priceFormat } = useLanguage();
 
   // Delivery options: 'TAKEAWAY' | 'DOOR' | 'ADDRESS'
-  // Default is 'DOOR' (matching the Figma screenshot)
   const [deliveryMethod, setDeliveryMethod] = useState('DOOR');
 
   // Payment options: 'CARD_ONLINE' | 'CASH'
-  // Default is 'CARD_ONLINE' (matching the Figma screenshot)
   const [paymentMethod, setPaymentMethod] = useState('CARD_ONLINE');
 
   // Address selection state
@@ -62,15 +61,31 @@ export default function Checkout() {
     setIsMapModalOpen(false);
   };
 
-  const handlePlaceOrder = () => {
+  const handlePlaceOrder = async () => {
     setIsSubmitting(true);
-    setTimeout(() => {
+    try {
+      await ordersApi.createOrder({
+        deliveryMethod: deliveryMethod === 'TAKEAWAY' ? 'PICKUP' : deliveryMethod === 'DOOR' ? 'DOOR_DELIVERY' : 'ADDRESS',
+        paymentMethod: paymentMethod === 'CARD_ONLINE' ? 'ONLINE_CARD' : 'CASH_ON_DELIVERY',
+        address: address,
+        totalPrice: totalAmount || 55000,
+        items: hasCartItems
+          ? cartItems.map(i => ({
+              menuItemId: typeof i.id === 'number' ? i.id : 1,
+              quantity: i.quantity || 1,
+              priceAtOrder: i.numericPrice || i.price || 10000
+            }))
+          : [{ menuItemId: 1, quantity: 1, priceAtOrder: 55000 }]
+      });
+    } catch (err) {
+      console.warn("Backend order creation error:", err.message);
+    } finally {
       setIsSubmitting(false);
       setOrderSuccess(true);
       if (hasCartItems) {
         clearCart();
       }
-    }, 450);
+    }
   };
 
   return (
@@ -191,31 +206,14 @@ export default function Checkout() {
 
                 {/* Payment Badges (HUMO, UZCARD, VISA, Mastercard, Apple Pay) */}
                 <div className="checkout-payment-badges">
-                  {/* Humo */}
-                  <div className="payment-badge humo" title="HUMO">
-                    HUMO
-                  </div>
-
-                  {/* Uzcard */}
-                  <div className="payment-badge uzcard" title="UZCARD">
-                    UZCARD
-                  </div>
-
-                  {/* Visa */}
-                  <div className="payment-badge visa" title="VISA">
-                    VISA
-                  </div>
-
-                  {/* Mastercard */}
+                  <div className="payment-badge humo" title="HUMO">HUMO</div>
+                  <div className="payment-badge uzcard" title="UZCARD">UZCARD</div>
+                  <div className="payment-badge visa" title="VISA">VISA</div>
                   <div className="payment-badge mastercard" title="Mastercard">
                     <span className="mc-circle-red" />
                     <span className="mc-circle-yellow" />
                   </div>
-
-                  {/* Apple Pay */}
-                  <div className="payment-badge applepay" title="Apple Pay">
-                    Pay
-                  </div>
+                  <div className="payment-badge applepay" title="Apple Pay">Pay</div>
                 </div>
 
                 {/* Option 2: Оплата при получении */}

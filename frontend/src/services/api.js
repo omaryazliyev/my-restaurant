@@ -35,7 +35,7 @@ async function request(endpoint, options = {}) {
 }
 
 // -------------------------------------------------------------
-// Authentication Endpoints
+// Authentication & User Endpoints
 // -------------------------------------------------------------
 export const authApi = {
   login: async (credentials) => {
@@ -49,6 +49,49 @@ export const authApi = {
     return await request('/auth/register', {
       method: 'POST',
       body: JSON.stringify(userData),
+    });
+  },
+
+  getProfile: async () => {
+    return await request('/auth/profile');
+  },
+};
+
+// -------------------------------------------------------------
+// Categories Endpoints
+// -------------------------------------------------------------
+export const categoriesApi = {
+  getCategories: async () => {
+    try {
+      return await request('/categories');
+    } catch {
+      return [
+        { id: 1, name: 'Birinchi taomlar' },
+        { id: 2, name: 'Ikkinchi taomlar' },
+        { id: 3, name: 'Salatlar' },
+        { id: 4, name: 'Ichimliklar' },
+        { id: 5, name: 'Fast-Food' }
+      ];
+    }
+  },
+
+  createCategory: async (name) => {
+    return await request('/categories', {
+      method: 'POST',
+      body: JSON.stringify({ name }),
+    });
+  },
+
+  updateCategory: async (id, name) => {
+    return await request(`/categories/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ name }),
+    });
+  },
+
+  deleteCategory: async (id) => {
+    return await request(`/categories/${id}`, {
+      method: 'DELETE',
     });
   },
 };
@@ -69,12 +112,32 @@ export const menuApi = {
     }
   },
 
+  getMenuItemById: async (id) => {
+    return await request(`/menu/${id}`);
+  },
+
   getCategories: async () => {
-    try {
-      return await request('/categories');
-    } catch {
-      return [{ id: 1, name: 'Первые' }, { id: 2, name: 'Вторые' }, { id: 3, name: 'Салаты' }, { id: 4, name: 'Напитки' }, { id: 5, name: 'Фаст-Фуд' }];
-    }
+    return categoriesApi.getCategories();
+  },
+
+  createMenuItem: async (itemData) => {
+    return await request('/admin/menu', {
+      method: 'POST',
+      body: JSON.stringify(itemData),
+    });
+  },
+
+  updateMenuItem: async (id, itemData) => {
+    return await request(`/admin/menu/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(itemData),
+    });
+  },
+
+  deleteMenuItem: async (id) => {
+    return await request(`/admin/menu/${id}`, {
+      method: 'DELETE',
+    });
   },
 };
 
@@ -92,6 +155,29 @@ export const reservationApi = {
   getMyReservations: async () => {
     return await request('/reservations/me');
   },
+
+  getAllReservations: async () => {
+    return await request('/admin/reservations');
+  },
+
+  updateReservationStatus: async (id, status) => {
+    return await request(`/admin/reservations/${id}/status`, {
+      method: 'PATCH',
+      body: JSON.stringify({ status }),
+    });
+  },
+};
+
+// -------------------------------------------------------------
+// Tables Endpoints
+// -------------------------------------------------------------
+export const tablesApi = {
+  getAvailability: async (date, time) => {
+    return await request(`/tables/availability?date=${date}&time=${time}`);
+  },
+  getAllTables: async () => {
+    return await request('/tables');
+  },
 };
 
 // -------------------------------------------------------------
@@ -108,5 +194,50 @@ export const ordersApi = {
   getMyOrders: async () => {
     return await request('/orders/me');
   },
+
+  getAllOrders: async () => {
+    return await request('/admin/orders');
+  },
+
+  updateOrderStatus: async (id, status) => {
+    return await request(`/admin/orders/${id}/status`, {
+      method: 'PATCH',
+      body: JSON.stringify({ status }),
+    });
+  },
+
+  getStats: async () => {
+    return await request('/admin/dashboard/stats');
+  },
 };
 
+// -------------------------------------------------------------
+// Contact Messages Endpoints
+// -------------------------------------------------------------
+export const contactApi = {
+  sendMessage: async (contactData) => {
+    return await request('/contact', {
+      method: 'POST',
+      body: JSON.stringify(contactData),
+    });
+  },
+
+  getAllMessages: async () => {
+    return await request('/contact/admin/messages');
+  },
+};
+
+// -------------------------------------------------------------
+// Users Management Endpoints (Admin)
+// -------------------------------------------------------------
+export const usersApi = {
+  getAllUsers: async () => {
+    return await request('/admin/users');
+  },
+
+  deleteUser: async (id) => {
+    return await request(`/admin/users/${id}`, {
+      method: 'DELETE',
+    });
+  },
+};

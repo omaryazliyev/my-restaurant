@@ -13,6 +13,7 @@ import Profile from './Pages/Profile';
 import Checkout from './Pages/Checkout';
 import AdminLayout from './Pages/Admin/AdminLayout';
 import AdminDashboard from './Pages/Admin/AdminDashboard';
+import AdminCategories from './Pages/Admin/AdminCategories';
 import AdminMenu from './Pages/Admin/AdminMenu';
 import AdminOrders from './Pages/Admin/AdminOrders';
 import AdminReservations from './Pages/Admin/AdminReservations';
@@ -42,6 +43,7 @@ export default function App() {
         {/* Admin Panel */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminDashboard />} />
+          <Route path="categories" element={<AdminCategories />} />
           <Route path="menu" element={<AdminMenu />} />
           <Route path="orders" element={<AdminOrders />} />
           <Route path="reservations" element={<AdminReservations />} />
