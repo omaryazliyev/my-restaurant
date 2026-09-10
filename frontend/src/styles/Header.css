@@ -308,26 +308,31 @@
 
 @media (max-width: 768px) {
   .header-top-inner {
-    padding: 10px 16px;
+    padding: 8px 16px;
     justify-content: space-between;
+    gap: 10px;
   }
 
   .header-contact-info {
     font-size: 13px;
-    gap: 14px;
+    gap: 12px;
   }
 
   .header-contact-item a {
-    font-size: 13px;
+    font-size: 12px;
+  }
+
+  .header-user-controls {
+    gap: 10px;
   }
 
   .header-main-inner {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: auto 1fr auto;
     grid-template-areas:
-      "logo actions"
-      "nav nav";
+      "logo nav actions";
     gap: 12px;
+    align-items: center;
     padding: 10px 16px 14px;
   }
 
@@ -336,7 +341,7 @@
   }
 
   .header-logo {
-    width: 105px;
+    width: 95px;
   }
 
   .header-actions {
@@ -347,11 +352,11 @@
   .header-nav-links {
     grid-area: nav;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
     overflow-x: auto;
-    padding: 4px 2px;
+    padding: 4px 6px;
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
@@ -362,8 +367,24 @@
   }
 
   .header-nav-link {
-    font-size: 15px;
+    font-size: 14px;
     flex-shrink: 0;
+  }
+}
+
+@media (max-width: 580px) {
+  .header-main-inner {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "logo actions"
+      "nav nav";
+    gap: 10px;
+  }
+
+  .header-nav-links {
+    justify-content: flex-start;
+    padding: 6px 0;
+    margin-top: 4px;
   }
 }
 

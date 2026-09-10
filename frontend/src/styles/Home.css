@@ -789,8 +789,14 @@ main a:hover {
   }
 
   .s2 .cards-wrapper {
-    gap: 60px 16px;
-    margin-top: 60px;
+    gap: 65px 16px;
+    margin-top: 65px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: center;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .s2 .cards-wrapper > img {
@@ -799,8 +805,30 @@ main a:hover {
 
   .s2 .card,
   .s2 .card1 {
-    width: calc(100% - 10px);
-    max-width: 280px;
+    width: 100%;
+    max-width: 100%;
+    height: 250px;
+    padding: 14px 12px;
+    border-radius: 24px;
+  }
+
+  .s2 .card .mini img,
+  .s2 .card .big img,
+  .s2 .card .big1 img,
+  .s2 .card1 .mini img,
+  .s2 .card1 .big img,
+  .s2 .card1 .big1 img {
+    width: 115px;
+    height: 115px;
+  }
+
+  .s2 .card .mini,
+  .s2 .card .big,
+  .s2 .card .big1,
+  .s2 .card1 .mini,
+  .s2 .card1 .big,
+  .s2 .card1 .big1 {
+    top: -45px;
   }
 
   .s3 {
@@ -866,7 +894,14 @@ main a:hover {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 550px) {
+  .s2 .cards-wrapper {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 60px 12px;
+  }
+}
+
+@media (max-width: 400px) {
   .tel-mail {
     display: none;
   }
@@ -884,6 +919,11 @@ main a:hover {
   .s4 h2,
   .s5 h2 {
     font-size: 24px;
+  }
+
+  .s2 .cards-wrapper {
+    grid-template-columns: 1fr;
+    max-width: 270px;
   }
 
   .foots {
