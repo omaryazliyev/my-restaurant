@@ -77,8 +77,8 @@ export default function AboutUs() {
 
           {/* Our Way */}
           <div className="about-split-row reverse" style={{ marginTop: '70px' }}>
-            <div className="about-split-img">
-              <img src={pizza1} alt={t.ourWay} />
+            <div className="about-split-img pizza-img-card">
+              <img src={pizza1} alt={t.ourWay} className="pizza-circle-img" />
             </div>
             <div className="about-split-text">
               <h2 className="about-section-title">{t.ourWay}</h2>

@@ -98,8 +98,14 @@
   height: 440px;
   border-radius: 36px;
   overflow: hidden;
-  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.12);
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
 }
 .about-split-img img {
   width: 100%;
@@ -107,7 +113,24 @@
   object-fit: cover;
   transition: transform 0.6s ease;
 }
-.about-split-img:hover img { transform: scale(1.05); }
+
+.pizza-img-card {
+  background: radial-gradient(circle at center, rgba(255, 183, 3, 0.25) 0%, rgba(255, 255, 255, 0.1) 70%) !important;
+}
+
+.pizza-circle-img {
+  width: 85% !important;
+  height: 85% !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25) !important;
+  mix-blend-mode: screen;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.about-split-img:hover .pizza-circle-img {
+  transform: scale(1.08) rotate(4deg) !important;
+}
 
 /* Menu Button */
 .about-menu-btn {
