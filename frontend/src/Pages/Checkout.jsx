@@ -240,8 +240,8 @@ export default function Checkout() {
                     : item.name;
 
                   const itemPrice = hasCartItems
-                    ? priceFormat((item.numericPrice || 0) / 12700 * (item.quantity || 1))
-                    : priceFormat(item.usdPrice);
+                    ? priceFormat((item.numericPrice || 0) * (item.quantity || 1))
+                    : priceFormat(item.usdPrice || 0);
 
                   return (
                     <React.Fragment key={idx}>

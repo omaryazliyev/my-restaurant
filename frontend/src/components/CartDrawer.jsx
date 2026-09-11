@@ -155,7 +155,7 @@ export default function CartDrawer() {
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <h4 style={{ margin: '0 0 6px 0', fontSize: '15px', fontWeight: '700', color: '#111111', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.name}</h4>
                     <span style={{ color: '#d97706', fontWeight: '800', fontSize: '15px' }}>
-                      {priceFormat(item.numericPrice * item.quantity)}
+                      {priceFormat((item.numericPrice || 0) * (item.quantity || 1))}
                     </span>
                   </div>
                   {/* Quantity Controls */}
