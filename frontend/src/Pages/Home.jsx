@@ -391,7 +391,7 @@ export default function Home() {
             {whyUsRows.map((row, ri) => (
               <div className="items-row" key={ri}>
                 {row.map((item, ii) => (
-                  <div className="item" key={ii} style={item.style}>
+                  <div className="item" key={ii}>
                     <img src={item.img} alt="" />
                     <h4>{item.title ? (item.title[lang] || item.title.ru) : (t.qualityProducts || 'Качественные продукты')}</h4>
                     <p>{item.desc ? (item.desc[lang] || item.desc.ru) : (t.qualityDesc || 'Входные билеты в музеи, для посещения достопримечательностей, памятников')}</p>

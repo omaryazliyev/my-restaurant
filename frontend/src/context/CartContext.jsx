@@ -75,7 +75,9 @@ export const CartProvider = ({ children }) => {
     setCartItems([]);
   };
 
-  const totalAmount = cartItems.reduce((sum, item) => sum + item.numericPrice * item.quantity, 0);
+  // numericPrice — so'mda saqlanadi, totalAmount — USD da (priceFormat uchun)
+  const totalAmountSom = cartItems.reduce((sum, item) => sum + (item.numericPrice || 0) * item.quantity, 0);
+  const totalAmount = totalAmountSom / 12700;
   const totalCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
@@ -89,6 +91,7 @@ export const CartProvider = ({ children }) => {
         updateQuantity,
         clearCart,
         totalAmount,
+        totalAmountSom,
         totalCount,
         notification,
       }}

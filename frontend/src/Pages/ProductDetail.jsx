@@ -178,9 +178,7 @@ export default function ProductDetail() {
     );
   }
 
-  const displayPriceText = product.price > 100
-    ? `${product.price.toLocaleString('ru-RU')} so'm`
-    : priceFormat(product.price);
+  const displayPriceText = priceFormat(product.price > 100 ? product.price / 12700 : product.price);
 
   return (
     <div className="product-detail-wrapper">
@@ -280,7 +278,7 @@ export default function ProductDetail() {
                     <div className="pd-similar-sub">{item.category}</div>
 
                     <div className="pd-similar-bottom">
-                      <span className="pd-similar-price">{item.price.toLocaleString('ru-RU')} so'm</span>
+                      <span className="pd-similar-price">{priceFormat(item.price > 100 ? item.price / 12700 : item.price)}</span>
                       <button
                         className="pd-similar-cart-btn"
                         onClick={(e) => {

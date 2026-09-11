@@ -52,7 +52,7 @@ export default function Checkout() {
 
   const totalCalculated = hasCartItems
     ? priceFormat(totalAmount)
-    : (lang === 'uz' ? '55000 so\'m' : lang === 'en' ? '$5.12' : '55000сум');
+    : priceFormat(5.12);
 
   const handleConfirmAddress = () => {
     if (tempAddress.trim()) {
@@ -240,8 +240,8 @@ export default function Checkout() {
                     : item.name;
 
                   const itemPrice = hasCartItems
-                    ? priceFormat(item.numericPrice * (item.quantity || 1))
-                    : (lang === 'ru' ? item.originalPriceText : priceFormat(item.usdPrice));
+                    ? priceFormat((item.numericPrice || 0) / 12700 * (item.quantity || 1))
+                    : priceFormat(item.usdPrice);
 
                   return (
                     <React.Fragment key={idx}>

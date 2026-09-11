@@ -199,7 +199,7 @@ export default function Menu() {
                 currentItems.map((item) => {
                   const title = typeof item.name === 'object' ? (item.name[lang] || item.name.uz || item.name.en) : item.name;
                   const description = typeof item.desc === 'object' ? (item.desc[lang] || item.desc.uz || item.desc.en) : item.desc;
-                  const displayPrice = item.numericPrice ? `${item.numericPrice.toLocaleString('ru-RU')} so'm` : priceFormat(item.usdPrice);
+                  const displayPrice = priceFormat(item.usdPrice || (item.numericPrice ? item.numericPrice / 12700 : 0));
 
                   return (
                     <div
