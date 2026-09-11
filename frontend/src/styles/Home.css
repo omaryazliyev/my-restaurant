@@ -596,21 +596,40 @@ main a:hover {
   flex: 1;
   min-width: 280px;
   max-width: 360px;
-  border-radius: 30px;
-  background-color: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  padding: 0px 25px 25px 25px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  border-radius: 28px;
+  background-color: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 18px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.85);
   position: relative;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .gala-img {
-  margin-top: -65px;
+  margin-top: 0 !important;
   width: 100%;
-  border-radius: 18px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  height: 190px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  background: transparent !important;
+}
+
+.gala-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.gala:hover .gala-img img {
+  transform: scale(1.05);
 }
 
 .gala p {
@@ -894,21 +913,22 @@ main a:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 85px;
-    margin-top: 85px;
+    gap: 24px;
+    margin-top: 40px;
   }
 
   .gala {
     min-width: 0 !important;
     max-width: 340px !important;
     width: 100% !important;
-    padding: 0 24px 24px 24px;
-    border-radius: 30px;
+    padding: 18px !important;
+    border-radius: 28px;
   }
 
   .gala-img {
-    margin-top: -65px;
+    margin-top: 0 !important;
     width: 100%;
+    height: 180px;
     border-radius: 20px;
   }
 
