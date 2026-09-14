@@ -287,6 +287,14 @@ main a:hover {
   margin: 0;
   display: flex;
   justify-content: center;
+  align-items: center;
+  width: 155px;
+  height: 155px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.22);
+  flex-shrink: 0;
 }
 
 .s2 .card .mini img,
@@ -295,11 +303,17 @@ main a:hover {
 .s2 .card1 .mini img,
 .s2 .card1 .big img,
 .s2 .card1 .big1 img {
-  width: 155px;
-  height: 155px;
-  object-fit: cover;
-  border-radius: 50%;
-  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.22));
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  border-radius: 50% !important;
+  aspect-ratio: 1 / 1 !important;
+  display: block;
 }
 
 .card-main {
@@ -850,18 +864,6 @@ main a:hover {
     position: relative;
   }
 
-  .s2 .card .mini img,
-  .s2 .card .big img,
-  .s2 .card .big1 img,
-  .s2 .card1 .mini img,
-  .s2 .card1 .big img,
-  .s2 .card1 .big1 img {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 50%;
-  }
-
   .s2 .card .mini,
   .s2 .card .big,
   .s2 .card .big1,
@@ -869,6 +871,23 @@ main a:hover {
   .s2 .card1 .big,
   .s2 .card1 .big1 {
     top: -45px;
+    width: 120px !important;
+    height: 120px !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 50% !important;
+  }
+
+  .s2 .card .mini img,
+  .s2 .card .big img,
+  .s2 .card .big1 img,
+  .s2 .card1 .mini img,
+  .s2 .card1 .big img,
+  .s2 .card1 .big1 img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+    aspect-ratio: 1 / 1 !important;
   }
 
   .s3 {
