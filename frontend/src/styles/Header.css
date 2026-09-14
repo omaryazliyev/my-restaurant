@@ -16,7 +16,7 @@
 }
 
 .header-top-inner {
-  max-width: 1300px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 14px 30px;
   display: flex;
@@ -190,7 +190,7 @@
 }
 
 .header-main-inner {
-  max-width: 1300px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 12px 30px 18px;
   display: flex;

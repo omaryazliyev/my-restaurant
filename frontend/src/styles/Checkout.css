@@ -24,8 +24,9 @@
 
 .checkout-container {
   flex: 1;
-  max-width: 1200px;
-  width: calc(100% - 40px);
+  max-width: 1280px;
+  width: 100%;
+  padding: 0 30px;
   margin: 25px auto 60px;
   position: relative;
   box-sizing: border-box;
