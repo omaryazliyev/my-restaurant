@@ -241,6 +241,168 @@
   opacity: 0.9;
 }
 
+/* ── PAYMENT GATEWAY CARDS ── */
+.payment-gateways-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+  margin-bottom: 16px;
+}
+
+.gateway-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+.gateway-card:hover {
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.gateway-card.active {
+  background: #ffffff;
+  border-color: #3b82f6;
+  box-shadow: 0 8px 22px rgba(59, 130, 246, 0.18);
+}
+
+.gateway-radio {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.gateway-card.active .gateway-radio {
+  border-color: #3b82f6;
+}
+
+.gateway-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #3b82f6;
+}
+
+.gateway-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.gateway-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.gateway-sub {
+  font-size: 10px;
+  color: #64748b;
+}
+
+.gateway-badge {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 7px;
+  border-radius: 6px;
+  color: #fff;
+}
+
+.click-badge { background: #0088cc; }
+.payme-badge { background: #00cccc; }
+.uzum-badge { background: #7000ff; }
+.cash-badge { background: #15803d; }
+
+/* CHECKOUT PROMO BOX */
+.checkout-promo-box {
+  background: rgba(248, 250, 252, 0.8);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  padding: 12px;
+  border-radius: 14px;
+  margin-bottom: 16px;
+}
+
+.checkout-promo-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 8px;
+}
+
+.promo-hint {
+  font-size: 10px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.checkout-promo-input-row {
+  display: flex;
+  gap: 8px;
+}
+
+.checkout-promo-input {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  outline: none;
+}
+
+.checkout-promo-apply-btn {
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: #0f172a;
+  color: #fff;
+  border: none;
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.checkout-promo-active {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ecfdf5;
+  border: 1px solid #10b981;
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: #047857;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.promo-remove-btn {
+  border: none;
+  background: none;
+  color: #ef4444;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.checkout-promo-err { color: #ef4444; font-size: 11px; margin-top: 6px; font-weight: 600; }
+.checkout-promo-succ { color: #10b981; font-size: 11px; margin-top: 6px; font-weight: 600; }
+
 .payment-badge.applepay {
   background: #000000;
   color: #ffffff;

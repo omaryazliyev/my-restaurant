@@ -96,13 +96,58 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = () => setCartItems([]);
 
+  const [promoCode, setPromoCode] = useState('');
+  const [discountPercent, setDiscountPercent] = useState(0);
+  const [promoError, setPromoError] = useState('');
+  const [promoSuccess, setPromoSuccess] = useState('');
+
+  // Valid promo codes table
+  const PROMO_CODES = {
+    MEHMOR2026: 10,
+    MAZA20: 20,
+    CHUQUR15: 15,
+    BONUS50: 50,
+  };
+
+  const applyPromoCode = (code) => {
+    setPromoError('');
+    setPromoSuccess('');
+    const cleanCode = (code || '').trim().toUpperCase();
+    if (!cleanCode) {
+      setPromoError('Promokod kiriting!');
+      return false;
+    }
+    if (PROMO_CODES[cleanCode]) {
+      const percent = PROMO_CODES[cleanCode];
+      setPromoCode(cleanCode);
+      setDiscountPercent(percent);
+      setPromoSuccess(`🎉 Promokod qabul qilindi! ${percent}% chegirma berildi.`);
+      showToast(`Promokod bo'yicha ${percent}% chegirma taqdim etildi!`);
+      return true;
+    } else {
+      setPromoError("Noto'g'ri yoki muddati o'tgan promokod!");
+      return false;
+    }
+  };
+
+  const removePromoCode = () => {
+    setPromoCode('');
+    setDiscountPercent(0);
+    setPromoError('');
+    setPromoSuccess('');
+  };
+
   // Hamma narsa USD da — priceFormat to'g'ri ishlaydi
   const totalAmount = cartItems.reduce(
     (sum, item) => sum + (item.numericPrice || 0) * item.quantity,
     0
   );
+  const discountAmount = totalAmount * (discountPercent / 100);
+  const finalTotalAmount = Math.max(0, totalAmount - discountAmount);
+
   // Backend uchun so'mda
   const totalAmountSom = Math.round(totalAmount * 12700);
+  const finalTotalAmountSom = Math.round(finalTotalAmount * 12700);
   const totalCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
@@ -115,10 +160,19 @@ export const CartProvider = ({ children }) => {
         removeFromCart,
         updateQuantity,
         clearCart,
-        totalAmount,      // USD — priceFormat uchun
-        totalAmountSom,   // so'm — backend uchun
+        totalAmount,         // USD — priceFormat uchun
+        discountPercent,
+        discountAmount,      // USD
+        finalTotalAmount,    // USD (chegirmadan so'ng)
+        totalAmountSom,      // so'm — backend uchun
+        finalTotalAmountSom, // so'm (chegirmadan so'ng)
         totalCount,
         notification,
+        promoCode,
+        promoError,
+        promoSuccess,
+        applyPromoCode,
+        removePromoCode,
       }}
     >
       {children}

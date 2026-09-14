@@ -38,6 +38,7 @@ export default function AdminMenu() {
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState(null);
   const [imageMode, setImageMode] = useState('file'); // 'file' or 'url'
+  const [togglingId, setTogglingId] = useState(null);
 
   const showToast = (msg, type = 'success') => {
     setToast({ msg, type });
@@ -194,6 +195,20 @@ export default function AdminMenu() {
     showToast("Taom menyudan o'chirildi", "error");
   };
 
+  const handleToggleStatus = async (item) => {
+    const newStatus = item.status === 'active' ? 'inactive' : 'active';
+    setTogglingId(item.id);
+    try {
+      await menuApi.updateMenuItem(item.id, { status: newStatus }).catch(() => null);
+    } catch {}
+    setItems(prev => prev.map(i => i.id === item.id ? { ...i, status: newStatus } : i));
+    setTogglingId(null);
+    showToast(
+      newStatus === 'active' ? `"${item.name}" faollashtirildi ✅` : `"${item.name}" o'chirildi ⏸️`,
+      newStatus === 'active' ? 'success' : 'warning'
+    );
+  };
+
   return (
     <div className="admin-menu-page">
       {/* Toast Alert */}
@@ -295,9 +310,22 @@ export default function AdminMenu() {
                       {item.description || '—'}
                     </td>
                     <td>
-                      <span className={`admin-badge ${item.status === 'active' ? 'admin-badge-confirmed' : 'admin-badge-cancelled'}`}>
-                        {item.status === 'active' ? '● Faol' : '○ Nofaol'}
-                      </span>
+                      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                        {/* Stock Toggle Button */}
+                        <button
+                          className={`admin-toggle-btn ${item.status === 'active' ? 'on' : 'off'}`}
+                          onClick={() => handleToggleStatus(item)}
+                          disabled={togglingId === item.id}
+                          title={item.status === 'active' ? "O'chirish" : 'Faollashtirish'}
+                        >
+                          <span className="admin-toggle-track">
+                            <span className="admin-toggle-thumb"></span>
+                          </span>
+                          <span className="admin-toggle-label">
+                            {togglingId === item.id ? '...' : item.status === 'active' ? 'Faol' : 'Nofaol'}
+                          </span>
+                        </button>
+                      </div>
                     </td>
                     <td>
                       <div style={{ display: 'flex', gap: 8 }}>

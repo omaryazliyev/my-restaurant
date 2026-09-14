@@ -26,6 +26,10 @@ export default function Menu() {
   const [allDishes, setAllDishes] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Smart Filters & Sorting States
+  const [tagFilter, setTagFilter] = useState('all');
+  const [sortBy, setSortBy] = useState('default');
+
   const NEWS_IMAGES = [rasm1, rasm2, rasm3];
 
   useEffect(() => {
@@ -49,14 +53,21 @@ export default function Menu() {
         if (!catSet.has(catId)) catSet.set(catId, catName);
       });
       const cats = Array.from(catSet.values());
-      setCategories(cats);
-      setActiveKey(cats[0] || '');
+      setCategories(['all', ...cats]);
+      setActiveKey('all');
 
       // Barcha taomlarni formatlash
-      const formatted = data.map(item => {
+      const formatted = data.map((item, idx) => {
         const usdPrice = Number(item.price) > 100
           ? Number(item.price) / 12700
           : Number(item.price);
+
+        // Simulated diet badges & calories based on index/id for richness
+        const isHalal = idx % 2 === 0;
+        const isSpicy = idx % 3 === 0;
+        const isVeg = idx % 5 === 0;
+        const kcal = 220 + (idx * 35) % 350;
+
         return {
           id: item.id,
           usdPrice,
@@ -64,6 +75,10 @@ export default function Menu() {
           category: item.category?.name || 'Boshqalar',
           name: item.name,
           desc: item.description || '',
+          isHalal,
+          isSpicy,
+          isVeg,
+          kcal,
         };
       });
 
@@ -75,11 +90,28 @@ export default function Menu() {
     }
   };
 
-  const currentItems = allDishes.filter(d => {
-    const c = (d.category || '').toLowerCase();
-    const a = (activeKey || '').toLowerCase();
-    return c === a || c.includes(a) || a.includes(c);
+  // Filter & Sort computation
+  let currentItems = allDishes.filter(d => {
+    if (activeKey !== 'all') {
+      const c = (d.category || '').toLowerCase();
+      const a = (activeKey || '').toLowerCase();
+      if (!(c === a || c.includes(a) || a.includes(c))) return false;
+    }
+
+    if (tagFilter === 'halal' && !d.isHalal) return false;
+    if (tagFilter === 'spicy' && !d.isSpicy) return false;
+    if (tagFilter === 'vegetarian' && !d.isVeg) return false;
+
+    return true;
   });
+
+  if (sortBy === 'price_low') {
+    currentItems = [...currentItems].sort((a, b) => a.usdPrice - b.usdPrice);
+  } else if (sortBy === 'price_high') {
+    currentItems = [...currentItems].sort((a, b) => b.usdPrice - a.usdPrice);
+  } else if (sortBy === 'popular') {
+    currentItems = [...currentItems].sort((a, b) => a.id - b.id);
+  }
 
   return (
     <div className="menu-body">
@@ -104,9 +136,53 @@ export default function Menu() {
                     className={activeKey === cat ? 'pervi' : ''}
                     onClick={(e) => { e.preventDefault(); setActiveKey(cat); }}
                   >
-                    {cat}
+                    {cat === 'all' ? (t.allFilter || 'Barchasi') : cat}
                   </a>
                 ))}
+              </div>
+            </div>
+
+            {/* Smart Filter & Sort Bar */}
+            <div className="menu-filter-sort-bar">
+              <div className="menu-tag-filters">
+                <button
+                  className={`tag-btn ${tagFilter === 'all' ? 'active' : ''}`}
+                  onClick={() => setTagFilter('all')}
+                >
+                  {t.allFilter || 'Barchasi'}
+                </button>
+                <button
+                  className={`tag-btn ${tagFilter === 'halal' ? 'active' : ''}`}
+                  onClick={() => setTagFilter('halal')}
+                >
+                  🌙 {t.halal || 'Halol'}
+                </button>
+                <button
+                  className={`tag-btn ${tagFilter === 'spicy' ? 'active' : ''}`}
+                  onClick={() => setTagFilter('spicy')}
+                >
+                  🌶️ {t.spicy || 'Achchiq'}
+                </button>
+                <button
+                  className={`tag-btn ${tagFilter === 'vegetarian' ? 'active' : ''}`}
+                  onClick={() => setTagFilter('vegetarian')}
+                >
+                  🥗 {t.vegetarian || 'Vegetarian'}
+                </button>
+              </div>
+
+              <div className="menu-sort-box">
+                <span className="sort-label">⚡ {t.sortBy || 'Saralash'}:</span>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="menu-sort-select"
+                >
+                  <option value="default">{t.sortDefault || "O'z holicha"}</option>
+                  <option value="price_low">{t.sortPriceLow || 'Avval arzonroq'}</option>
+                  <option value="price_high">{t.sortPriceHigh || 'Avval qimmatroq'}</option>
+                  <option value="popular">{t.sortPopular || "Mashhurlik bo'yicha"}</option>
+                </select>
               </div>
             </div>
 
@@ -137,6 +213,15 @@ export default function Menu() {
                           onError={(e) => { e.target.src = food1; }}
                         />
                       </div>
+
+                      {/* Card Badges Row */}
+                      <div className="card-badge-row">
+                        {item.isHalal && <span className="dish-badge halal">🌙 Halol</span>}
+                        {item.isSpicy && <span className="dish-badge spicy">🌶️ Achchiq</span>}
+                        {item.isVeg && <span className="dish-badge veg">🥗 Veggie</span>}
+                        {item.kcal && <span className="dish-kcal">🔥 {item.kcal} Kcal</span>}
+                      </div>
+
                       <div className="menu-card-main">
                         <h3>{item.name}</h3>
                       </div>

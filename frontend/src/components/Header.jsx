@@ -8,6 +8,8 @@ import tel from '../assets/images/tel.png';
 import mail from '../assets/images/mail.png';
 import logo from '../assets/images/logo.png';
 import heard from '../assets/images/heard.png';
+import { menuApi } from '../services/api';
+import food1 from '../assets/images/food1.png';
 import FlagIcon from './FlagIcon';
 import '../styles/Header.css';
 
@@ -21,22 +23,61 @@ export default function Header({ showNav = true }) {
   const navigate = useNavigate();
   const { user, isAuthenticated, logout } = useAuth();
   const { totalCount, setIsCartOpen, notification } = useCart();
-  const { lang, setLang, t } = useLanguage();
+  const { lang, setLang, t, priceFormat } = useLanguage();
 
   const [langOpen, setLangOpen] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const langRef = useRef(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [dishesList, setDishesList] = useState([]);
 
-  // Close dropdown when clicking outside
+  const langRef = useRef(null);
+  const searchRef = useRef(null);
+
+  useEffect(() => {
+    fetchDishes();
+  }, []);
+
+  const fetchDishes = async () => {
+    try {
+      const data = await menuApi.getMenuItems().catch(() => []);
+      if (Array.isArray(data)) {
+        const formatted = data.map((item) => ({
+          id: item.id,
+          name: typeof item.name === 'object' ? (item.name[lang] || item.name.ru || item.name) : item.name,
+          category: item.category?.name || 'Boshqalar',
+          usdPrice: Number(item.price) > 100 ? Number(item.price) / 12700 : Number(item.price),
+          img: item.image || food1,
+        }));
+        setDishesList(formatted);
+      }
+    } catch (err) {
+      console.warn('Failed to load menu for search:', err);
+    }
+  };
+
+  // Close dropdowns when clicking outside
   useEffect(() => {
     function handleClickOutside(e) {
       if (langRef.current && !langRef.current.contains(e.target)) {
         setLangOpen(false);
       }
+      if (searchRef.current && !searchRef.current.contains(e.target)) {
+        setSearchOpen(false);
+      }
     }
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  const searchResults = searchQuery.trim()
+    ? dishesList.filter((d) => {
+        const q = searchQuery.toLowerCase();
+        const n = String(d.name || '').toLowerCase();
+        const c = String(d.category || '').toLowerCase();
+        return n.includes(q) || c.includes(q);
+      }).slice(0, 6)
+    : [];
 
   const currentLang = LANGUAGES.find((l) => l.code === lang) || LANGUAGES[1];
 
@@ -133,6 +174,70 @@ export default function Header({ showNav = true }) {
             </nav>
 
             <div className="header-actions">
+              {/* ── Live Search Box ── */}
+              <div className="header-search-wrapper" ref={searchRef}>
+                <div className={`header-search-box ${searchOpen || searchQuery ? 'open' : ''}`}>
+                  <svg className="header-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                  <input
+                    type="text"
+                    placeholder={t.searchPlaceholder || 'Taomlarni izlash...'}
+                    value={searchQuery}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                      setSearchOpen(true);
+                    }}
+                    onFocus={() => setSearchOpen(true)}
+                    className="header-search-input"
+                  />
+                  {searchQuery && (
+                    <span className="header-search-clear" onClick={() => setSearchQuery('')}>✕</span>
+                  )}
+                </div>
+
+                {/* Popover Live Search Results */}
+                {searchOpen && searchQuery.trim().length > 0 && (
+                  <div className="header-search-popover">
+                    {searchResults.length === 0 ? (
+                      <div className="search-no-results">
+                        <span className="no-res-emoji">🔍</span>
+                        <p>{t.noSearchResults || 'Afsuski, taom topilmadi'}</p>
+                      </div>
+                    ) : (
+                      <div className="search-results-list">
+                        <div className="search-results-header">{t.searchDishes || 'Topilgan taomlar'}:</div>
+                        {searchResults.map((dish) => (
+                          <div
+                            key={dish.id}
+                            className="search-result-item"
+                            onClick={() => {
+                              navigate(`/product/${dish.id}`);
+                              setSearchQuery('');
+                              setSearchOpen(false);
+                            }}
+                          >
+                            <div className="search-img-box">
+                              <img
+                                src={dish.img}
+                                alt={dish.name}
+                                onError={(e) => { e.target.onerror = null; e.target.src = food1; }}
+                              />
+                            </div>
+                            <div className="search-item-info">
+                              <div className="search-item-title">{dish.name}</div>
+                              <div className="search-item-cat">{dish.category}</div>
+                            </div>
+                            <div className="search-item-price">{priceFormat(dish.usdPrice)}</div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+
               <div
                 onClick={() => setIsCartOpen(true)}
                 className="header-cart-icon-wrapper"

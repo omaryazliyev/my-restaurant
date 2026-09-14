@@ -1,21 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
+import { ordersApi } from '../services/api';
 import '../styles/Profile.css';
 
 // Leaf Graphics
 import barg1 from '../assets/images/barg1.png';
 import barg2 from '../assets/images/barg2.png';
 
+// Map backend status → frontend statusIndex
+const STATUS_INDEX = {
+  PENDING: 1,
+  ACCEPTED: 1,
+  PREPARING: 2,
+  READY: 3,
+  ON_THE_WAY: 3,
+  DELIVERING: 3,
+  DELIVERED: 4,
+  CANCELLED: 4,
+};
+
+const STATUS_EMOJI = {
+  PENDING: '📝',
+  ACCEPTED: '📝',
+  PREPARING: '👨‍🍳',
+  READY: '✅',
+  ON_THE_WAY: '🚴',
+  DELIVERING: '🚴',
+  DELIVERED: '🎉',
+  CANCELLED: '❌',
+};
+
 export default function Profile() {
   const navigate = useNavigate();
   const { user, isAuthenticated, logout } = useAuth();
   const { t, lang, priceFormat } = useLanguage();
 
-  const [activeTab, setActiveTab] = useState('active'); // 'active' | 'past'
+  const [activeTab, setActiveTab] = useState('active');
+  const [orders, setOrders] = useState([]);
+  const [ordersLoading, setOrdersLoading] = useState(true);
+
+  // Cashback balance: 5% of total spent (calculated from past delivered orders)
+  const [cashbackBalance, setCashbackBalance] = useState(0);
 
   // If not logged in, redirect to login
   if (!isAuthenticated) {
@@ -23,67 +52,64 @@ export default function Profile() {
     return null;
   }
 
-  // Active Orders Data
-  const activeOrders = [
-    {
-      id: 'ORD-8942',
-      date: '08.09.2026, 10:30',
-      status: 'preparing', // preparing | on_the_way | delivered
-      statusText: t.orderStatusPreparing,
-      statusEmoji: '🟡',
-      address: lang === 'uz' ? 'Toshkent sh., Amir Temur ko\'chasi, 24-uy' : lang === 'en' ? 'Tashkent, Amir Temur St., 24' : 'г. Ташкент, ул. Амира Темура, д. 24',
-      items: [
-        { name: { uz: 'Dubl burger', ru: 'Дабл бургер', en: 'Double Burger' }, qty: 2, usdPrice: 8.00 },
-        { name: { uz: 'Kartoshka fri', ru: 'Картофель фри', en: 'French Fries' }, qty: 1, usdPrice: 6.00 },
-        { name: { uz: 'Mevali Mohito', ru: 'Ягодный Мохито', en: 'Berry Mojito' }, qty: 2, usdPrice: 13.00 },
-      ],
-      totalUsd: 27.00,
-    },
-    {
-      id: 'ORD-8910',
-      date: '08.09.2026, 09:15',
-      status: 'on_the_way',
-      statusText: t.orderStatusOnTheWay,
-      statusEmoji: '🔵',
-      address: lang === 'uz' ? 'Toshkent sh., Buyuk Ipak Yo\'li, 12-uy' : lang === 'en' ? 'Tashkent, Buyuk Ipak Yoli, 12' : 'г. Ташкент, ул. Буюк Ипак Йули, д. 12',
-      items: [
-        { name: { uz: 'Tovuq sho\'rva', ru: 'Куриный суп', en: 'Chicken Soup' }, qty: 2, usdPrice: 20.00 },
-        { name: { uz: 'Sezar salati', ru: 'Салат Цезарь', en: 'Caesar Salad' }, qty: 1, usdPrice: 11.00 },
-      ],
-      totalUsd: 31.00,
-    },
-  ];
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    loadOrders();
+  }, []);
 
-  // Past / Completed Orders Data
-  const pastOrders = [
-    {
-      id: 'ORD-7621',
-      date: '05.09.2026, 19:40',
-      status: 'delivered',
-      statusText: t.orderStatusDelivered,
-      statusEmoji: '🟢',
-      address: lang === 'uz' ? 'Toshkent sh., Yunusobod 4-mavze, 18-uy' : lang === 'en' ? 'Tashkent, Yunusabad 4, 18' : 'г. Ташкент, Юнусабад 4, д. 18',
-      items: [
-        { name: { uz: 'Margarita Pitsa', ru: 'Пицца Маргарита', en: 'Pizza Margherita' }, qty: 1, usdPrice: 14.00 },
-        { name: { uz: 'Pasta Karbonara', ru: 'Паста Карбонара', en: 'Pasta Carbonara' }, qty: 2, usdPrice: 28.00 },
-      ],
-      totalUsd: 42.00,
-    },
-    {
-      id: 'ORD-6540',
-      date: '28.08.2026, 14:20',
-      status: 'delivered',
-      statusText: t.orderStatusDelivered,
-      statusEmoji: '🟢',
-      address: lang === 'uz' ? 'Toshkent sh., Chilonzor 7-mavze, 5-uy' : lang === 'en' ? 'Tashkent, Chilanzar 7, 5' : 'г. Ташкент, Чиланзар 7, д. 5',
-      items: [
-        { name: { uz: 'Ribay biftek', ru: 'Стейк Рибай', en: 'Ribeye Steak' }, qty: 1, usdPrice: 26.00 },
-        { name: { uz: 'Losos biftek', ru: 'Стейк из лосося', en: 'Salmon Steak' }, qty: 1, usdPrice: 22.00 },
-      ],
-      totalUsd: 48.00,
-    },
-  ];
+  const loadOrders = async () => {
+    setOrdersLoading(true);
+    try {
+      const data = await ordersApi.getMyOrders().catch(() => null);
+      if (Array.isArray(data) && data.length > 0) {
+        const formatted = data.map(o => {
+          const statusKey = (o.status || 'PENDING').toUpperCase();
+          const totalUsd = Number(o.totalPrice) > 100
+            ? Number(o.totalPrice) / 12700
+            : Number(o.totalPrice);
 
+          return {
+            id: `ORD-${o.id}`,
+            rawId: o.id,
+            date: o.createdAt
+              ? new Date(o.createdAt).toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+              : '—',
+            status: statusKey === 'DELIVERED' ? 'delivered' : statusKey === 'PREPARING' ? 'preparing' : statusKey === 'ON_THE_WAY' || statusKey === 'DELIVERING' ? 'on_the_way' : 'pending',
+            statusIndex: STATUS_INDEX[statusKey] || 1,
+            statusText: t[`orderStatus${statusKey.charAt(0) + statusKey.slice(1).toLowerCase()}`] || statusKey,
+            statusEmoji: STATUS_EMOJI[statusKey] || '📝',
+            address: o.address || o.deliveryAddress || '—',
+            items: Array.isArray(o.items)
+              ? o.items.map(it => ({
+                  name: { uz: it.name || it.dish?.name, ru: it.name || it.dish?.name, en: it.name || it.dish?.name },
+                  qty: it.quantity || it.qty || 1,
+                  usdPrice: Number(it.price) > 100 ? Number(it.price) / 12700 : Number(it.price),
+                }))
+              : [],
+            totalUsd,
+          };
+        });
+        setOrders(formatted);
+
+        // Calculate cashback (5% from all delivered orders)
+        const totalDelivered = formatted
+          .filter(o => o.status === 'delivered')
+          .reduce((sum, o) => sum + o.totalUsd, 0);
+        setCashbackBalance(Math.round(totalDelivered * 0.05 * 100) / 100);
+      } else {
+        setOrders([]);
+        setCashbackBalance(0);
+      }
+    } catch (err) {
+      console.warn('Orders load error:', err);
+      setOrders([]);
+    } finally {
+      setOrdersLoading(false);
+    }
+  };
+
+  const activeOrders = orders.filter(o => o.status !== 'delivered' && o.status !== 'cancelled');
+  const pastOrders = orders.filter(o => o.status === 'delivered' || o.status === 'cancelled');
   const currentList = activeTab === 'active' ? activeOrders : pastOrders;
 
   const handleLogout = () => {
@@ -112,9 +138,19 @@ export default function Profile() {
             <div className="profile-user-left">
               <div className="profile-avatar">👤</div>
               <div className="profile-info">
-                <h2>{user?.username || 'Oybek'}</h2>
-                <p>{t.phoneNumber}: +998 (90) 758-38-33</p>
+                <h2>{user?.username || user?.firstName || 'Mehmon'}</h2>
+                <p>{user?.email || user?.phone || '+998 (90) 000-00-00'}</p>
                 <span className="profile-badge">⭐ {t.clientStatus}</span>
+              </div>
+            </div>
+
+            {/* Cashback Balance Card */}
+            <div className="profile-cashback-card">
+              <div className="cashback-icon">💰</div>
+              <div className="cashback-info">
+                <div className="cashback-label">Keshbek balansi</div>
+                <div className="cashback-amount">{priceFormat(cashbackBalance)}</div>
+                <div className="cashback-hint">Har buyurtmadan 5% qaytariladi</div>
               </div>
             </div>
           </div>
@@ -125,21 +161,26 @@ export default function Profile() {
               className={`profile-tab-btn ${activeTab === 'active' ? 'active' : ''}`}
               onClick={() => setActiveTab('active')}
             >
-              🕒 {t.activeOrders} ({activeOrders.length})
+              🕒 {t.activeOrders || 'Faol buyurtmalar'} ({activeOrders.length})
             </button>
             <button
               className={`profile-tab-btn ${activeTab === 'past' ? 'active' : ''}`}
               onClick={() => setActiveTab('past')}
             >
-              📦 {t.pastOrders} ({pastOrders.length})
+              📦 {t.pastOrders || "O'tgan buyurtmalar"} ({pastOrders.length})
             </button>
           </div>
 
           {/* Orders List */}
-          {currentList.length === 0 ? (
+          {ordersLoading ? (
+            <div className="orders-empty">
+              <div className="orders-loading-spinner"></div>
+              <p style={{ color: '#888', marginTop: 16 }}>Buyurtmalar yuklanmoqda...</p>
+            </div>
+          ) : currentList.length === 0 ? (
             <div className="orders-empty">
               <div className="orders-empty-icon">🍽️</div>
-              <p>{activeTab === 'active' ? t.noActiveOrders : t.noPastOrders}</p>
+              <p>{activeTab === 'active' ? (t.noActiveOrders || 'Faol buyurtmalar yo\'q') : (t.noPastOrders || "O'tgan buyurtmalar yo'q")}</p>
             </div>
           ) : (
             <div className="orders-list">
@@ -155,6 +196,36 @@ export default function Profile() {
                       <span>{order.statusText}</span>
                     </div>
                   </div>
+
+                  {/* Order Progress Timeline */}
+                  {order.statusIndex && (
+                    <div className="order-timeline-wrapper">
+                      <div className="order-timeline">
+                        <div className={`timeline-step ${order.statusIndex >= 1 ? 'completed' : ''} ${order.statusIndex === 1 ? 'active' : ''}`}>
+                          <div className="step-node">📝</div>
+                          <div className="step-label">Qabul qilindi</div>
+                        </div>
+                        <div className={`timeline-bar ${order.statusIndex >= 2 ? 'filled' : ''}`} />
+
+                        <div className={`timeline-step ${order.statusIndex >= 2 ? 'completed' : ''} ${order.statusIndex === 2 ? 'active' : ''}`}>
+                          <div className="step-node">👨‍🍳</div>
+                          <div className="step-label">Tayyorlanmoqda</div>
+                        </div>
+                        <div className={`timeline-bar ${order.statusIndex >= 3 ? 'filled' : ''}`} />
+
+                        <div className={`timeline-step ${order.statusIndex >= 3 ? 'completed' : ''} ${order.statusIndex === 3 ? 'active' : ''}`}>
+                          <div className="step-node">🚴</div>
+                          <div className="step-label">Kuryer yo'lda</div>
+                        </div>
+                        <div className={`timeline-bar ${order.statusIndex >= 4 ? 'filled' : ''}`} />
+
+                        <div className={`timeline-step ${order.statusIndex >= 4 ? 'completed' : ''} ${order.statusIndex === 4 ? 'active' : ''}`}>
+                          <div className="step-node">🎉</div>
+                          <div className="step-label">Yetkazildi</div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   <div className="order-items-list">
                     {order.items.map((it, idx) => (

@@ -6,11 +6,16 @@ import { useLanguage } from '../context/LanguageContext';
 
 export default function CartDrawer() {
   const navigate = useNavigate();
-  const { cartItems, isCartOpen, setIsCartOpen, updateQuantity, removeFromCart, totalAmount, totalCount } = useCart();
+  const {
+    cartItems, isCartOpen, setIsCartOpen, updateQuantity, removeFromCart,
+    totalAmount, discountAmount, discountPercent, finalTotalAmount, totalCount,
+    promoCode, promoError, promoSuccess, applyPromoCode, removePromoCode
+  } = useCart();
   const { isAuthenticated } = useAuth();
   const { t, priceFormat } = useLanguage();
 
   const [errorMsg, setErrorMsg] = useState('');
+  const [promoInput, setPromoInput] = useState('');
 
   useEffect(() => {
     if (isCartOpen) {
@@ -182,10 +187,53 @@ export default function CartDrawer() {
             </div>
 
             {/* Footer / Checkout */}
-            <div style={{ borderTop: '1px solid rgba(0, 0, 0, 0.08)', paddingTop: '20px', marginTop: 'auto' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-                <span style={{ fontSize: '16px', fontWeight: '600', color: '#666' }}>{t.total}</span>
-                <span style={{ fontSize: '24px', fontWeight: '800', color: '#111111' }}>{priceFormat(totalAmount)}</span>
+            <div style={{ borderTop: '1px solid rgba(0, 0, 0, 0.08)', paddingTop: '16px', marginTop: 'auto' }}>
+              {/* Promo Code Input Box */}
+              <div style={{ marginBottom: '16px', background: '#f8fafc', padding: '12px', borderRadius: '14px', border: '1px solid rgba(0,0,0,0.06)' }}>
+                <div style={{ fontSize: '12px', fontWeight: '700', color: '#475569', marginBottom: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span>🏷️ Promokod</span>
+                  <span style={{ color: '#94a3b8', fontWeight: '500', fontSize: '11px' }}>Masalan: MEHMOR2026</span>
+                </div>
+
+                {promoCode ? (
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#ecfdf5', padding: '8px 12px', borderRadius: '10px', border: '1px solid #10b981' }}>
+                    <span style={{ color: '#047857', fontWeight: '700', fontSize: '13px' }}>✅ {promoCode} ({discountPercent}% chegirma)</span>
+                    <button onClick={removePromoCode} style={{ border: 'none', background: 'none', color: '#ef4444', cursor: 'pointer', fontWeight: 'bold', fontSize: '14px' }}>✕</button>
+                  </div>
+                ) : (
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <input
+                      type="text"
+                      placeholder="MEHMOR2026"
+                      value={promoInput}
+                      onChange={(e) => setPromoInput(e.target.value)}
+                      style={{ flex: 1, padding: '8px 12px', borderRadius: '10px', border: '1px solid #cbd5e1', outline: 'none', fontSize: '13px', fontWeight: '600', textTransform: 'uppercase' }}
+                    />
+                    <button
+                      onClick={() => applyPromoCode(promoInput)}
+                      style={{ padding: '8px 14px', borderRadius: '10px', background: '#0f172a', color: '#ffffff', border: 'none', cursor: 'pointer', fontWeight: '700', fontSize: '13px' }}
+                    >
+                      Qo'llash
+                    </button>
+                  </div>
+                )}
+
+                {promoError && <div style={{ color: '#ef4444', fontSize: '12px', marginTop: '6px', fontWeight: '600' }}>⚠️ {promoError}</div>}
+                {promoSuccess && <div style={{ color: '#10b981', fontSize: '12px', marginTop: '6px', fontWeight: '600' }}>{promoSuccess}</div>}
+              </div>
+
+              {/* Total & Discount Row */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '16px' }}>
+                {discountAmount > 0 && (
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#10b981', fontSize: '14px', fontWeight: '700' }}>
+                    <span>Chegirma ({discountPercent}%):</span>
+                    <span>-{priceFormat(discountAmount)}</span>
+                  </div>
+                )}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: '16px', fontWeight: '600', color: '#64748b' }}>{t.total}</span>
+                  <span style={{ fontSize: '24px', fontWeight: '800', color: '#0f172a' }}>{priceFormat(finalTotalAmount)}</span>
+                </div>
               </div>
 
               <button

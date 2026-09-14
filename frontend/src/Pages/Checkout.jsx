@@ -13,14 +13,18 @@ import barg2 from '../assets/images/barg2.png';
 
 export default function Checkout() {
   const navigate = useNavigate();
-  const { cartItems, clearCart, totalAmount } = useCart();
+  const {
+    cartItems, clearCart, totalAmount, discountAmount, discountPercent,
+    finalTotalAmount, promoCode, promoError, promoSuccess, applyPromoCode, removePromoCode
+  } = useCart();
   const { t, lang, priceFormat } = useLanguage();
 
   // Delivery options: 'TAKEAWAY' | 'DOOR' | 'ADDRESS'
   const [deliveryMethod, setDeliveryMethod] = useState('DOOR');
 
-  // Payment options: 'CARD_ONLINE' | 'CASH'
-  const [paymentMethod, setPaymentMethod] = useState('CARD_ONLINE');
+  // Payment Gateway: 'CLICK' | 'PAYME' | 'UZUM' | 'CASH'
+  const [paymentGateway, setPaymentGateway] = useState('CLICK');
+  const [promoInput, setPromoInput] = useState('');
 
   // Address selection state
   const [address, setAddress] = useState(
@@ -193,19 +197,70 @@ export default function Checkout() {
               <div className="checkout-section-block">
                 <h2 className="checkout-section-title">{t.paymentMethodTitle}</h2>
 
-                {/* Option 1: Картой онлайн (Default checked in Figma) */}
-                <label
-                  className="checkout-radio-label"
-                  onClick={() => setPaymentMethod('CARD_ONLINE')}
-                >
-                  <span className={`checkout-radio-icon ${paymentMethod === 'CARD_ONLINE' ? 'active' : ''}`}>
-                    {paymentMethod === 'CARD_ONLINE' && <span className="checkout-radio-dot" />}
-                  </span>
-                  <span>{t.cardOnline}</span>
-                </label>
+                <div className="payment-gateways-grid">
+                  {/* Click */}
+                  <div
+                    className={`gateway-card click ${paymentGateway === 'CLICK' ? 'active' : ''}`}
+                    onClick={() => setPaymentGateway('CLICK')}
+                  >
+                    <div className="gateway-radio">
+                      {paymentGateway === 'CLICK' && <span className="gateway-dot" />}
+                    </div>
+                    <div className="gateway-info">
+                      <span className="gateway-name">Click App</span>
+                      <span className="gateway-sub">Click Up / Uzcard / Humo</span>
+                    </div>
+                    <div className="gateway-badge click-badge">CLICK</div>
+                  </div>
+
+                  {/* Payme */}
+                  <div
+                    className={`gateway-card payme ${paymentGateway === 'PAYME' ? 'active' : ''}`}
+                    onClick={() => setPaymentGateway('PAYME')}
+                  >
+                    <div className="gateway-radio">
+                      {paymentGateway === 'PAYME' && <span className="gateway-dot" />}
+                    </div>
+                    <div className="gateway-info">
+                      <span className="gateway-name">Payme</span>
+                      <span className="gateway-sub">Payme GO / Onlayn</span>
+                    </div>
+                    <div className="gateway-badge payme-badge">payme</div>
+                  </div>
+
+                  {/* Uzum Bank */}
+                  <div
+                    className={`gateway-card uzum ${paymentGateway === 'UZUM' ? 'active' : ''}`}
+                    onClick={() => setPaymentGateway('UZUM')}
+                  >
+                    <div className="gateway-radio">
+                      {paymentGateway === 'UZUM' && <span className="gateway-dot" />}
+                    </div>
+                    <div className="gateway-info">
+                      <span className="gateway-name">Uzum Bank</span>
+                      <span className="gateway-sub">Uzum Nasiya / Card</span>
+                    </div>
+                    <div className="gateway-badge uzum-badge">uzum</div>
+                  </div>
+
+                  {/* Cash on delivery */}
+                  <div
+                    className={`gateway-card cash ${paymentGateway === 'CASH' ? 'active' : ''}`}
+                    onClick={() => setPaymentGateway('CASH')}
+                  >
+                    <div className="gateway-radio">
+                      {paymentGateway === 'CASH' && <span className="gateway-dot" />}
+                    </div>
+                    <div className="gateway-info">
+                      <span className="gateway-name">{t.cashOnDelivery}</span>
+                      <span className="gateway-sub">Yetkazilganda naqd/karta</span>
+                    </div>
+                    <div className="gateway-badge cash-badge">💵 CASH</div>
+                  </div>
+                </div>
 
                 {/* Payment Badges (HUMO, UZCARD, VISA, Mastercard, Apple Pay) */}
-                <div className="checkout-payment-badges">
+                <div className="checkout-payment-badges" style={{ marginTop: '18px' }}>
                   <div className="payment-badge humo" title="HUMO">HUMO</div>
                   <div className="payment-badge uzcard" title="UZCARD">UZCARD</div>
                   <div className="payment-badge visa" title="VISA">VISA</div>
@@ -215,17 +270,6 @@ export default function Checkout() {
                   </div>
                   <div className="payment-badge applepay" title="Apple Pay">Pay</div>
                 </div>
-
-                {/* Option 2: Оплата при получении */}
-                <label
-                  className="checkout-radio-label"
-                  onClick={() => setPaymentMethod('CASH')}
-                >
-                  <span className={`checkout-radio-icon ${paymentMethod === 'CASH' ? 'active' : ''}`}>
-                    {paymentMethod === 'CASH' && <span className="checkout-radio-dot" />}
-                  </span>
-                  <span>{t.cashOnDelivery}</span>
-                </label>
               </div>
             </div>
 
@@ -236,7 +280,7 @@ export default function Checkout() {
               <div className="checkout-items-list">
                 {displayItems.map((item, idx) => {
                   const itemName = hasCartItems
-                    ? (typeof item.name === 'object' ? (item.name[lang] || item.name.en) : item.name) + `(${item.quantity || 1})`
+                    ? (typeof item.name === 'object' ? (item.name[lang] || item.name.en) : item.name) + ` (${item.quantity || 1})`
                     : item.name;
 
                   const itemPrice = hasCartItems
@@ -254,6 +298,39 @@ export default function Checkout() {
                   );
                 })}
 
+                {/* Promo Code Input Box */}
+                <div className="checkout-promo-box">
+                  <div className="checkout-promo-title">
+                    <span>🏷️ Promokod</span>
+                    <span className="promo-hint">Masalan: MEHMOR2026</span>
+                  </div>
+                  {promoCode ? (
+                    <div className="checkout-promo-active">
+                      <span>✅ {promoCode} ({discountPercent}% chegirma)</span>
+                      <button onClick={removePromoCode} className="promo-remove-btn">✕</button>
+                    </div>
+                  ) : (
+                    <div className="checkout-promo-input-row">
+                      <input
+                        type="text"
+                        placeholder="MEHMOR2026"
+                        value={promoInput}
+                        onChange={(e) => setPromoInput(e.target.value)}
+                        className="checkout-promo-input"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => applyPromoCode(promoInput)}
+                        className="checkout-promo-apply-btn"
+                      >
+                        Qo'llash
+                      </button>
+                    </div>
+                  )}
+                  {promoError && <div className="checkout-promo-err">⚠️ {promoError}</div>}
+                  {promoSuccess && <div className="checkout-promo-succ">{promoSuccess}</div>}
+                </div>
+
                 {/* Delivery fee row */}
                 <div className="checkout-delivery-row">
                   <span className="checkout-item-name">{t.deliveryFee}</span>
@@ -261,10 +338,21 @@ export default function Checkout() {
                 </div>
                 <div className="checkout-item-divider" />
 
+                {/* Discount row if applicable */}
+                {discountAmount > 0 && (
+                  <>
+                    <div className="checkout-item-row" style={{ color: '#10b981', fontWeight: '700' }}>
+                      <span>Chegirma ({discountPercent}%):</span>
+                      <span>-{priceFormat(discountAmount)}</span>
+                    </div>
+                    <div className="checkout-item-divider" />
+                  </>
+                )}
+
                 {/* Total row */}
                 <div className="checkout-total-row">
                   <span className="checkout-total-label">{t.total}</span>
-                  <span className="checkout-total-val">{totalCalculated}</span>
+                  <span className="checkout-total-val">{priceFormat(finalTotalAmount || totalAmount)}</span>
                 </div>
 
                 {/* "Заказать" Submit Button */}

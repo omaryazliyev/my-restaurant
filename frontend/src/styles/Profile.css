@@ -214,6 +214,94 @@
   color: #2e7d32;
 }
 
+/* ── ORDER TIMELINE PROGRESS ── */
+.order-timeline-wrapper {
+  margin: 16px 0 20px;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 16px 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+}
+
+.order-timeline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.timeline-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  z-index: 2;
+}
+
+.step-node {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  border: 2px solid #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  color: #94a3b8;
+}
+
+.timeline-step.completed .step-node {
+  background: #ecfdf5;
+  border-color: #10b981;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}
+
+.timeline-step.active .step-node {
+  background: #fff7ed;
+  border-color: #f97316;
+  transform: scale(1.15);
+  box-shadow: 0 6px 16px rgba(249, 115, 22, 0.3);
+  animation: pulseStep 1.8s infinite alternate;
+}
+
+@keyframes pulseStep {
+  from { transform: scale(1.1); }
+  to { transform: scale(1.2); }
+}
+
+.step-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.timeline-step.completed .step-label {
+  color: #047857;
+}
+
+.timeline-step.active .step-label {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+.timeline-bar {
+  flex: 1;
+  height: 4px;
+  background: #e2e8f0;
+  margin: 0 6px;
+  margin-bottom: 20px;
+  border-radius: 2px;
+  transition: background 0.4s ease;
+}
+
+.timeline-bar.filled {
+  background: linear-gradient(90deg, #10b981, #34d399);
+}
+
 /* Order Items */
 .order-items-list {
   display: flex;
@@ -272,6 +360,72 @@
   font-size: 20px;
   font-weight: 800;
   color: #ffb703;
+}
+
+/* Cashback Card */
+.profile-cashback-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(135deg, #fffbeb, #fef3c7);
+  border: 1.5px solid #fcd34d;
+  border-radius: 20px;
+  padding: 16px 24px;
+  box-shadow: 0 4px 16px rgba(251, 191, 36, 0.18);
+  min-width: 200px;
+  animation: fadeSlideUp 0.4s ease;
+}
+
+.cashback-icon {
+  font-size: 32px;
+  line-height: 1;
+}
+
+.cashback-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cashback-label {
+  font-size: 12px;
+  color: #92400e;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cashback-amount {
+  font-size: 20px;
+  font-weight: 800;
+  color: #b45309;
+  line-height: 1.2;
+}
+
+.cashback-hint {
+  font-size: 11px;
+  color: #a16207;
+  margin-top: 2px;
+}
+
+/* Loading Spinner */
+.orders-loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #f1f5f9;
+  border-top-color: #ffb703;
+  border-radius: 50%;
+  animation: spinOrder 0.8s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spinOrder {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Empty Orders State */

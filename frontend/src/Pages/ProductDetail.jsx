@@ -34,6 +34,46 @@ export default function ProductDetail() {
   const [favorites, setFavorites] = useState({});
   const [startIndex, setStartIndex] = useState(0);
 
+  // Reviews & Ratings State
+  const [reviews, setReviews] = useState([]);
+  const [userRating, setUserRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
+  const [reviewText, setReviewText] = useState('');
+  const [reviewSubmitted, setReviewSubmitted] = useState(false);
+  const [reviewError, setReviewError] = useState('');
+
+  // Load reviews from localStorage (demo mode - no backend)
+  useEffect(() => {
+    if (id) {
+      const saved = localStorage.getItem(`reviews_${id}`);
+      if (saved) setReviews(JSON.parse(saved));
+    }
+  }, [id]);
+
+  const avgRating = reviews.length > 0
+    ? (reviews.reduce((s, r) => s + r.rating, 0) / reviews.length).toFixed(1)
+    : null;
+
+  const handleSubmitReview = () => {
+    if (userRating === 0) { setReviewError('Iltimos, yulduz tanlang!'); return; }
+    if (!reviewText.trim()) { setReviewError("Iltimos, sharh matnini kiriting!"); return; }
+    const newReview = {
+      id: Date.now(),
+      name: 'Siz',
+      rating: userRating,
+      text: reviewText.trim(),
+      date: new Date().toLocaleDateString('ru-RU'),
+    };
+    const updated = [newReview, ...reviews];
+    setReviews(updated);
+    localStorage.setItem(`reviews_${id}`, JSON.stringify(updated));
+    setReviewText('');
+    setUserRating(0);
+    setReviewSubmitted(true);
+    setReviewError('');
+    setTimeout(() => setReviewSubmitted(false), 4000);
+  };
+
   useEffect(() => {
     if (id) loadProduct();
   }, [id]);
@@ -265,6 +305,84 @@ export default function ProductDetail() {
               </div>
             </div>
           )}
+
+          {/* ── Reviews & Ratings Section ── */}
+          <div className="pd-reviews-section">
+            <div className="pd-reviews-header">
+              <h3 className="pd-reviews-title">⭐ Sharhlar va Reyting</h3>
+              {avgRating && (
+                <div className="pd-avg-rating">
+                  <span className="pd-avg-number">{avgRating}</span>
+                  <div className="pd-avg-stars">
+                    {[1,2,3,4,5].map(s => (
+                      <span key={s} className={`pd-star-icon ${s <= Math.round(Number(avgRating)) ? 'filled' : ''}`}>★</span>
+                    ))}
+                  </div>
+                  <span className="pd-reviews-count">({reviews.length} sharh)</span>
+                </div>
+              )}
+            </div>
+
+            {/* Submit Review Form */}
+            <div className="pd-review-form">
+              <div className="pd-review-form-title">💬 Sharh qoldiring</div>
+              <div className="pd-star-picker">
+                {[1,2,3,4,5].map(star => (
+                  <span
+                    key={star}
+                    className={`pd-star-pick ${
+                      (hoverRating || userRating) >= star ? 'active' : ''
+                    }`}
+                    onMouseEnter={() => setHoverRating(star)}
+                    onMouseLeave={() => setHoverRating(0)}
+                    onClick={() => setUserRating(star)}
+                  >★</span>
+                ))}
+                {userRating > 0 && (
+                  <span className="pd-rating-selected">{userRating}/5</span>
+                )}
+              </div>
+              <textarea
+                className="pd-review-textarea"
+                placeholder="Bu taom haqida fikringizni yozing..."
+                value={reviewText}
+                onChange={e => { setReviewText(e.target.value); setReviewError(''); }}
+                rows={3}
+              />
+              {reviewError && <div className="pd-review-error">{reviewError}</div>}
+              {reviewSubmitted && <div className="pd-review-success">✅ Sharh muvaffaqiyatli qo'shildi!</div>}
+              <button className="pd-review-submit-btn" onClick={handleSubmitReview}>
+                🚀 Sharh yuborish
+              </button>
+            </div>
+
+            {/* Reviews List */}
+            {reviews.length === 0 ? (
+              <div className="pd-reviews-empty">
+                😊 Hali sharhlar yo'q. Birinchi bo'ling!
+              </div>
+            ) : (
+              <div className="pd-reviews-list">
+                {reviews.map(rv => (
+                  <div key={rv.id} className="pd-review-card">
+                    <div className="pd-review-top">
+                      <div className="pd-reviewer-avatar">{rv.name.charAt(0)}</div>
+                      <div className="pd-reviewer-info">
+                        <div className="pd-reviewer-name">{rv.name}</div>
+                        <div className="pd-reviewer-date">{rv.date}</div>
+                      </div>
+                      <div className="pd-review-stars">
+                        {[1,2,3,4,5].map(s => (
+                          <span key={s} className={`pd-star-icon ${s <= rv.rating ? 'filled' : ''}`}>★</span>
+                        ))}
+                      </div>
+                    </div>
+                    <p className="pd-review-text">{rv.text}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
 
         </div>
       </div>
