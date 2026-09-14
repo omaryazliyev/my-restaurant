@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Home.css';
 import Header from '../components/Header';
@@ -7,7 +7,7 @@ import CustomSelect from '../components/CustomSelect';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
-import { reservationApi } from '../services/api';
+import { menuApi, reservationApi } from '../services/api';
 
 import fod from '../assets/images/fod.png';
 import barg1 from '../assets/images/barg1.png';
@@ -39,45 +39,6 @@ import rasm2 from '../assets/images/rasm2.png';
 import rasm3 from '../assets/images/rasm3.png';
 import sergey from '../assets/images/sergey.png';
 import wineGlassesImg from '../assets/images/wine_glasses.png';
-
-const popularDishes = [
-  {
-    id: 1,
-    name: { ru: 'Куриный суп', uz: "Tovuq sho'rva", en: 'Chicken Soup' },
-    desc: { ru: 'Острый с чесноком', uz: 'Sarimsoqli achchiq', en: 'Spicy with garlic' },
-    usdPrice: 10.00,
-    img: food1,
-    type: 'card',
-    imgClass: 'mini',
-  },
-  {
-    id: 2,
-    name: { ru: 'Говядина-Специал', uz: "Maxsus mol go'shti", en: 'Beef Special' },
-    desc: { ru: 'Нежная и сочная', uz: 'Yumshoq va mazali', en: 'Fresh & Tender' },
-    usdPrice: 14.00,
-    img: food2,
-    type: 'card1',
-    imgClass: 'big',
-  },
-  {
-    id: 3,
-    name: { ru: 'Паста Карбонара', uz: 'Pasta Karbonara', en: 'Pasta Carbonara' },
-    desc: { ru: 'В итальянском стиле', uz: 'Italyancha uslubda', en: 'Italian style' },
-    usdPrice: 12.50,
-    img: food3,
-    type: 'card1',
-    imgClass: 'big1',
-  },
-  {
-    id: 4,
-    name: { ru: 'Рыба на гриле', uz: 'Grilda baliq', en: 'Grilled Fish' },
-    desc: { ru: 'С лимоном и травами', uz: 'Limon va ko\'katlar', en: 'Lemon & Herbs' },
-    usdPrice: 16.00,
-    img: food4,
-    type: 'card',
-    imgClass: 'mini',
-  },
-];
 
 const whyUsRows = [
   [
@@ -154,6 +115,10 @@ export default function Home() {
   const { isAuthenticated } = useAuth();
   const { t, lang, priceFormat } = useLanguage();
 
+  const [popularDishes, setPopularDishes] = useState([]);
+  const [popularIndex, setPopularIndex] = useState(0);
+  const [loadingDishes, setLoadingDishes] = useState(true);
+
   const [bookingForm, setBookingForm] = useState({
     phone: '',
     guests: 2,
@@ -164,6 +129,49 @@ export default function Home() {
   const [bookingStatus, setBookingStatus] = useState(null);
   const [bookingError, setBookingError] = useState('');
   const [submittingBooking, setSubmittingBooking] = useState(false);
+
+  useEffect(() => {
+    fetchPopularDishes();
+  }, []);
+
+  const fetchPopularDishes = async () => {
+    setLoadingDishes(true);
+    try {
+      const data = await menuApi.getMenuItems().catch(() => []);
+      if (Array.isArray(data) && data.length > 0) {
+        const formatted = data.map((item) => {
+          const usdPrice = Number(item.price) > 100
+            ? Number(item.price) / 12700
+            : Number(item.price);
+          return {
+            id: item.id,
+            name: item.name,
+            desc: item.description || '',
+            usdPrice: usdPrice,
+            img: item.image || food1,
+          };
+        });
+        setPopularDishes(formatted);
+      }
+    } catch (err) {
+      console.warn('Failed to fetch popular dishes:', err);
+    } finally {
+      setLoadingDishes(false);
+    }
+  };
+
+  const cardTypes = ['card', 'card1', 'card1', 'card'];
+  const imgClasses = ['mini', 'big', 'big1', 'mini'];
+
+  const visibleDishes = popularDishes.slice(popularIndex, popularIndex + 4);
+
+  const handlePrevDishes = () => {
+    setPopularIndex((prev) => (prev > 0 ? prev - 1 : Math.max(0, popularDishes.length - 4)));
+  };
+
+  const handleNextDishes = () => {
+    setPopularIndex((prev) => (prev + 4 < popularDishes.length ? prev + 1 : 0));
+  };
 
   const handleBookingChange = (e) => {
     const { name, value } = e.target;
@@ -185,19 +193,6 @@ export default function Home() {
     }
 
     setSubmittingBooking(true);
-    /*
-    // Backend API vaqtincha izohga olindi:
-    try {
-      const payload = {
-        phone: bookingForm.phone,
-        guests: Number(bookingForm.guests),
-        tableId: Number(bookingForm.tableId),
-        date: bookingForm.date,
-        startTime: `${bookingForm.date}T${bookingForm.time}:00.000Z`,
-      };
-      await reservationApi.createReservation(payload);
-    } catch (err) { ... }
-    */
     setTimeout(() => {
       setBookingStatus('🎉 Стол успешно забронирован!');
       setBookingForm({ phone: '', guests: 2, date: '', time: '18:00', tableId: 1 });
@@ -231,42 +226,75 @@ export default function Home() {
           <section className="s2">
             <h2>{t.popularDishes}</h2>
             <div className="cards-wrapper">
-              <img src={leftArrow} alt="" style={{ width: 31, height: 31, cursor: 'pointer' }} />
-              {popularDishes.map((dish) => (
-                <div
-                  key={dish.id}
-                  className={dish.type}
-                  onClick={() => navigate(`/product/${dish.id}`)}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <div className={dish.imgClass}>
-                    <img src={dish.img} alt={dish.name[lang] || dish.name.ru} />
-                  </div>
-                  <div className="card-main">
-                    <h3>{dish.name[lang] || dish.name.ru}</h3>
-                  </div>
-                  <p className="card-desc">{dish.desc[lang] || dish.desc.ru}</p>
-                  <div className="card-footer">
-                    <span className="price">{priceFormat(dish.usdPrice)}</span>
-                    <div
-                      className="magazin"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        addToCart({
-                          ...dish,
-                          name: dish.name[lang] || dish.name.ru,
-                          price: dish.usdPrice,
-                        });
-                      }}
-                      style={{ cursor: 'pointer' }}
-                      title={t.addToCart}
-                    >
-                      <img src={magazin} alt="Cart" />
-                    </div>
-                  </div>
+              <img
+                src={leftArrow}
+                alt="Prev"
+                onClick={handlePrevDishes}
+                style={{ width: 31, height: 31, cursor: 'pointer', opacity: popularDishes.length > 4 ? 1 : 0.5 }}
+              />
+              {loadingDishes ? (
+                <div style={{ color: '#fff', padding: '40px', textAlign: 'center', width: '100%', fontWeight: '500' }}>
+                  Yuklanmoqda...
                 </div>
-              ))}
-              <img src={rightArrow} alt="" style={{ width: 31, height: 31, cursor: 'pointer' }} />
+              ) : visibleDishes.length === 0 ? (
+                <div style={{ color: 'rgba(255,255,255,0.8)', padding: '40px', textAlign: 'center', width: '100%', fontWeight: '500' }}>
+                  Hozircha taomlar mavjud emas
+                </div>
+              ) : (
+                visibleDishes.map((dish, idx) => {
+                  const cardType = cardTypes[idx % 4];
+                  const imgClass = imgClasses[idx % 4];
+                  const dishName = typeof dish.name === 'object' ? (dish.name[lang] || dish.name.ru || dish.name) : dish.name;
+                  const dishDesc = typeof dish.desc === 'object' ? (dish.desc[lang] || dish.desc.ru || dish.desc) : (dish.desc || '');
+
+                  return (
+                    <div
+                      key={dish.id}
+                      className={cardType}
+                      onClick={() => navigate(`/product/${dish.id}`)}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      <div className={imgClass}>
+                        <img
+                          src={dish.img}
+                          alt={dishName}
+                          onError={(e) => { e.target.onerror = null; e.target.src = food1; }}
+                        />
+                      </div>
+                      <div className="card-main">
+                        <h3>{dishName}</h3>
+                      </div>
+                      <p className="card-desc">{dishDesc}</p>
+                      <div className="card-footer">
+                        <span className="price">{priceFormat(dish.usdPrice)}</span>
+                        <div
+                          className="magazin"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            addToCart({
+                              id: dish.id,
+                              name: dishName,
+                              price: dish.usdPrice,
+                              usdPrice: dish.usdPrice,
+                              img: dish.img,
+                            });
+                          }}
+                          style={{ cursor: 'pointer' }}
+                          title={t.addToCart}
+                        >
+                          <img src={magazin} alt="Cart" />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+              <img
+                src={rightArrow}
+                alt="Next"
+                onClick={handleNextDishes}
+                style={{ width: 31, height: 31, cursor: 'pointer', opacity: popularDishes.length > 4 ? 1 : 0.5 }}
+              />
             </div>
             <div className="s2-btn-row">
               <Link to="/menu">
