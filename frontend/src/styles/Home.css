@@ -244,16 +244,32 @@ main a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 22px;
-  margin-top: 80px;
-  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 20px;
   position: relative;
+  width: 100%;
+}
+
+.s2 .cards-viewport {
+  overflow: hidden;
+  width: 1046px;
+  max-width: 100%;
+  padding: 60px 0 20px 0;
+  box-sizing: border-box;
+}
+
+.s2 .cards-track {
+  display: flex;
+  gap: 22px;
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
 }
 
 .s2 .card,
 .s2 .card1 {
   width: 245px;
   height: 285px;
+  flex-shrink: 0;
   border-radius: 34px;
   background: rgba(255, 255, 255, 0.65);
   backdrop-filter: blur(12px);

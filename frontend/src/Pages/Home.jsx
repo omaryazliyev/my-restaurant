@@ -170,7 +170,7 @@ export default function Home() {
   };
 
   const handleNextDishes = () => {
-    setPopularIndex((prev) => (prev + 4 < popularDishes.length ? prev + 1 : 0));
+    setPopularIndex((prev) => (prev < popularDishes.length - 4 ? prev + 1 : 0));
   };
 
   const handleBookingChange = (e) => {
@@ -230,70 +230,91 @@ export default function Home() {
                 src={leftArrow}
                 alt="Prev"
                 onClick={handlePrevDishes}
-                style={{ width: 31, height: 31, cursor: 'pointer', opacity: popularDishes.length > 4 ? 1 : 0.5 }}
+                style={{
+                  width: 31,
+                  height: 31,
+                  cursor: 'pointer',
+                  opacity: popularDishes.length > 4 ? 1 : 0.4,
+                  userSelect: 'none',
+                  flexShrink: 0
+                }}
               />
-              {loadingDishes ? (
-                <div style={{ color: '#fff', padding: '40px', textAlign: 'center', width: '100%', fontWeight: '500' }}>
-                  Yuklanmoqda...
-                </div>
-              ) : visibleDishes.length === 0 ? (
-                <div style={{ color: 'rgba(255,255,255,0.8)', padding: '40px', textAlign: 'center', width: '100%', fontWeight: '500' }}>
-                  Hozircha taomlar mavjud emas
-                </div>
-              ) : (
-                visibleDishes.map((dish, idx) => {
-                  const cardType = cardTypes[idx % 4];
-                  const imgClass = imgClasses[idx % 4];
-                  const dishName = typeof dish.name === 'object' ? (dish.name[lang] || dish.name.ru || dish.name) : dish.name;
-                  const dishDesc = typeof dish.desc === 'object' ? (dish.desc[lang] || dish.desc.ru || dish.desc) : (dish.desc || '');
+              <div className="cards-viewport">
+                {loadingDishes ? (
+                  <div style={{ color: '#fff', padding: '40px', textAlign: 'center', width: '100%', fontWeight: '500' }}>
+                    Yuklanmoqda...
+                  </div>
+                ) : popularDishes.length === 0 ? (
+                  <div style={{ color: 'rgba(255,255,255,0.8)', padding: '40px', textAlign: 'center', width: '100%', fontWeight: '500' }}>
+                    Hozircha taomlar mavjud emas
+                  </div>
+                ) : (
+                  <div
+                    className="cards-track"
+                    style={{ transform: `translateX(-${popularIndex * 267}px)` }}
+                  >
+                    {popularDishes.map((dish, idx) => {
+                      const cardType = cardTypes[idx % 4];
+                      const imgClass = imgClasses[idx % 4];
+                      const dishName = typeof dish.name === 'object' ? (dish.name[lang] || dish.name.ru || dish.name) : dish.name;
+                      const dishDesc = typeof dish.desc === 'object' ? (dish.desc[lang] || dish.desc.ru || dish.desc) : (dish.desc || '');
 
-                  return (
-                    <div
-                      key={dish.id}
-                      className={cardType}
-                      onClick={() => navigate(`/product/${dish.id}`)}
-                      style={{ cursor: 'pointer' }}
-                    >
-                      <div className={imgClass}>
-                        <img
-                          src={dish.img}
-                          alt={dishName}
-                          onError={(e) => { e.target.onerror = null; e.target.src = food1; }}
-                        />
-                      </div>
-                      <div className="card-main">
-                        <h3>{dishName}</h3>
-                      </div>
-                      <p className="card-desc">{dishDesc}</p>
-                      <div className="card-footer">
-                        <span className="price">{priceFormat(dish.usdPrice)}</span>
+                      return (
                         <div
-                          className="magazin"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            addToCart({
-                              id: dish.id,
-                              name: dishName,
-                              price: dish.usdPrice,
-                              usdPrice: dish.usdPrice,
-                              img: dish.img,
-                            });
-                          }}
+                          key={dish.id}
+                          className={cardType}
+                          onClick={() => navigate(`/product/${dish.id}`)}
                           style={{ cursor: 'pointer' }}
-                          title={t.addToCart}
                         >
-                          <img src={magazin} alt="Cart" />
+                          <div className={imgClass}>
+                            <img
+                              src={dish.img}
+                              alt={dishName}
+                              onError={(e) => { e.target.onerror = null; e.target.src = food1; }}
+                            />
+                          </div>
+                          <div className="card-main">
+                            <h3>{dishName}</h3>
+                          </div>
+                          <p className="card-desc">{dishDesc}</p>
+                          <div className="card-footer">
+                            <span className="price">{priceFormat(dish.usdPrice)}</span>
+                            <div
+                              className="magazin"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                addToCart({
+                                  id: dish.id,
+                                  name: dishName,
+                                  price: dish.usdPrice,
+                                  usdPrice: dish.usdPrice,
+                                  img: dish.img,
+                                });
+                              }}
+                              style={{ cursor: 'pointer' }}
+                              title={t.addToCart}
+                            >
+                              <img src={magazin} alt="Cart" />
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  );
-                })
-              )}
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
               <img
                 src={rightArrow}
                 alt="Next"
                 onClick={handleNextDishes}
-                style={{ width: 31, height: 31, cursor: 'pointer', opacity: popularDishes.length > 4 ? 1 : 0.5 }}
+                style={{
+                  width: 31,
+                  height: 31,
+                  cursor: 'pointer',
+                  opacity: popularDishes.length > 4 ? 1 : 0.4,
+                  userSelect: 'none',
+                  flexShrink: 0
+                }}
               />
             </div>
             <div className="s2-btn-row">
