@@ -1,5 +1,93 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
+/* ══════════════════════════════════════════════
+   LIGHT MODE (Default)
+══════════════════════════════════════════════ */
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f7f4;
+  --bg-glass: rgba(255, 255, 255, 0.65);
+  --bg-glass-strong: rgba(255, 255, 255, 0.85);
+  --bg-card: rgba(255, 255, 255, 0.8);
+  --bg-overlay: rgba(0, 0, 0, 0.06);
+
+  --text-primary: #1e1f25;
+  --text-secondary: #555;
+  --text-muted: #888;
+  --text-light: #aaa;
+
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-card: rgba(255, 255, 255, 0.5);
+  --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.14);
+
+  --accent: #ffb703;
+  --accent-deep: #fb8500;
+  --accent-light: rgba(255, 183, 3, 0.12);
+
+  --header-bg: rgba(255, 255, 255, 0.95);
+  --header-top-bg: #1e1f25;
+  --nav-bg: rgba(255, 255, 255, 0.98);
+  --input-bg: #fafafa;
+  --input-border: #e5e7eb;
+
+  --theme-transition: 0.35s ease;
+}
+
+/* ══════════════════════════════════════════════
+   DARK MODE
+══════════════════════════════════════════════ */
+[data-theme="dark"] {
+  --bg-primary: #0f1117;
+  --bg-secondary: #171923;
+  --bg-glass: rgba(20, 24, 36, 0.78);
+  --bg-glass-strong: rgba(22, 27, 40, 0.92);
+  --bg-card: rgba(25, 31, 48, 0.85);
+  --bg-overlay: rgba(255, 255, 255, 0.04);
+
+  --text-primary: #f0f2f8;
+  --text-secondary: #b0b8d0;
+  --text-muted: #6b7492;
+  --text-light: #4a5275;
+
+  --border-color: rgba(255, 255, 255, 0.07);
+  --border-card: rgba(255, 255, 255, 0.06);
+  --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.6);
+
+  --accent: #ffb703;
+  --accent-deep: #fb8500;
+  --accent-light: rgba(255, 183, 3, 0.15);
+
+  --header-bg: rgba(15, 17, 23, 0.97);
+  --header-top-bg: #080a10;
+  --nav-bg: rgba(15, 17, 23, 0.99);
+  --input-bg: rgba(255, 255, 255, 0.05);
+  --input-border: rgba(255, 255, 255, 0.1);
+}
+
+/* ══════════════════════════════════════════════
+   SMOOTH THEME TRANSITION
+══════════════════════════════════════════════ */
+*, *::before, *::after {
+  transition:
+    background-color var(--theme-transition),
+    border-color var(--theme-transition),
+    color var(--theme-transition),
+    box-shadow var(--theme-transition);
+}
+
+/* Exceptions — don't animate these (can feel laggy) */
+img, svg, video, canvas,
+.header-cart-icon-svg,
+.header-logo,
+.pd-main-img,
+.menu-card-img-wrap img {
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -16,6 +104,8 @@ html, body {
   min-height: 100vh;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 html.cart-open,
@@ -43,7 +133,7 @@ html.cart-open .register-body {
 }
 
 a {
-  color: rgba(8, 8, 8, 1);
+  color: var(--text-primary);
   text-decoration: none;
 }
 

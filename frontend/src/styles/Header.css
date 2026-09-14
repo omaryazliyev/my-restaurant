@@ -588,3 +588,176 @@
     gap: 12px;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   DARK / LIGHT THEME TOGGLE BUTTON
+   ═══════════════════════════════════════════════════════════ */
+
+.header-theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.theme-toggle-track {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #74b9ff, #0984e3);
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  transition: background 0.4s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.header-theme-toggle.dark .theme-toggle-track {
+  background: linear-gradient(135deg, #2d3561, #1a1f3c);
+}
+
+.theme-toggle-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(0);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  color: #f59e0b;
+  flex-shrink: 0;
+}
+
+.header-theme-toggle.dark .theme-toggle-thumb {
+  transform: translateX(24px);
+  background: #1a1f3c;
+  color: #c4d0ff;
+}
+
+/* Stars in dark mode track decoration */
+.header-theme-toggle.dark .theme-toggle-track::after {
+  content: '✦ ✧';
+  position: absolute;
+  left: 5px;
+  font-size: 7px;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 1px;
+  pointer-events: none;
+}
+
+/* Sun rays in light mode track decoration */
+.header-theme-toggle.light .theme-toggle-track::before {
+  content: '';
+  position: absolute;
+  right: 6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DARK THEME — HEADER OVERRIDES
+   ═══════════════════════════════════════════════════════════ */
+
+[data-theme="dark"] .header-top-bar {
+  background: var(--header-top-bg);
+}
+
+[data-theme="dark"] .header-contact-item a {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .header-main-nav {
+  background: var(--nav-bg);
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .header-nav-link {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .header-nav-link:hover,
+[data-theme="dark"] .header-nav-link.active {
+  color: var(--accent);
+}
+
+[data-theme="dark"] .header-search-box {
+  background: var(--input-bg);
+  border-color: var(--input-border);
+}
+
+[data-theme="dark"] .header-search-input {
+  color: var(--text-primary);
+  background: transparent;
+}
+
+[data-theme="dark"] .header-search-input::placeholder {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .header-search-popover {
+  background: #1a1f30;
+  border-color: var(--border-color);
+  box-shadow: var(--shadow-lg);
+}
+
+[data-theme="dark"] .search-result-item {
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .search-result-item:hover {
+  background: rgba(255, 183, 3, 0.08);
+}
+
+[data-theme="dark"] .search-item-title {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .search-item-cat {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .header-cart-icon-wrapper {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .header-mobile-drawer {
+  background: #0f1117;
+  border-top-color: var(--border-color);
+}
+
+[data-theme="dark"] .mobile-nav-link {
+  color: var(--text-secondary);
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .lang-dropdown {
+  background: #1a1f30;
+  border-color: var(--border-color);
+  box-shadow: var(--shadow-lg);
+}
+
+[data-theme="dark"] .lang-option {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .lang-option:hover,
+[data-theme="dark"] .lang-option--active {
+  background: rgba(255, 183, 3, 0.08);
+  color: var(--accent);
+}
+
+[data-theme="dark"] .header-login-btn {
+  background: rgba(255, 183, 3, 0.15);
+  color: var(--accent);
+}

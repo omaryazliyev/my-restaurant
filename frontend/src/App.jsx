@@ -20,7 +20,9 @@ import AdminReservations from './Pages/Admin/AdminReservations';
 import AdminUsers from './Pages/Admin/AdminUsers';
 import AdminNews from './Pages/Admin/AdminNews';
 import './styles/global.css';
+import './styles/dark-theme.css';
 import './index.css';
+
 
 export default function App() {
   return (
