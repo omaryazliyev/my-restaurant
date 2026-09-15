@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -45,7 +46,7 @@ export default function CartDrawer() {
     navigate('/checkout');
   };
 
-  return (
+  return ReactDOM.createPortal(
     <div className="cart-drawer-backdrop" onClick={() => setIsCartOpen(false)}>
       <div className="cart-drawer-content" onClick={(e) => e.stopPropagation()}>
         {/* Header */}
@@ -176,6 +177,7 @@ export default function CartDrawer() {
           </>
         )}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
