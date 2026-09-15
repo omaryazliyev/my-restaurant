@@ -569,3 +569,54 @@ body[data-theme="dark"],
   box-shadow: 0 8px 25px rgba(255, 183, 3, 0.6) !important;
 }
 
+/* ── 15. Contacts Page — Icons, Text & Inputs in Dark Mode ── */
+[data-theme="dark"] .contacts-info-icon-wrap {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .contacts-info-icon-wrap svg {
+  stroke: #ffffff !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .contacts-info-card-title {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .contacts-info-text,
+[data-theme="dark"] .contacts-info-text a {
+  color: #c0c8e0 !important;
+}
+
+[data-theme="dark"] .contacts-info-text a:hover {
+  color: #ffb703 !important;
+}
+
+/* Fix white background on all contacts form inputs */
+[data-theme="dark"] .contacts-input-group input,
+[data-theme="dark"] .contacts-input-group textarea {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  color: #ffffff !important;
+  -webkit-appearance: none !important;
+}
+
+[data-theme="dark"] .contacts-input-group input::placeholder,
+[data-theme="dark"] .contacts-input-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+[data-theme="dark"] .contacts-input-group input:focus,
+[data-theme="dark"] .contacts-input-group textarea:focus {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 183, 3, 0.5) !important;
+  outline: none !important;
+}
+
+/* Fix browser autofill white background */
+[data-theme="dark"] .contacts-input-group input:-webkit-autofill,
+[data-theme="dark"] .contacts-input-group input:-webkit-autofill:hover,
+[data-theme="dark"] .contacts-input-group input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px rgba(20, 24, 38, 0.95) inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
