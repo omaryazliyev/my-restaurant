@@ -10,6 +10,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { menuApi, reservationApi } from '../services/api';
 
 import fod from '../assets/images/fod.png';
+import pizzaFull from '../assets/images/pizza_full.png';
 import barg1 from '../assets/images/barg1.png';
 import barg2 from '../assets/images/barg2.png';
 import barg3 from '../assets/images/barg3.png';
@@ -419,7 +420,7 @@ export default function Home() {
                 </form>
               </div>
               <div className="s3-right">
-                <img src={fod} alt="Pizza" />
+                <img src={pizzaFull} alt="Pizza" />
               </div>
             </div>
             <img className="barg5" src={barg5} alt="" />
