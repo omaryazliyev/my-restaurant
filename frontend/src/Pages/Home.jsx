@@ -230,13 +230,10 @@ export default function Home() {
                 src={leftArrow}
                 alt="Prev"
                 onClick={handlePrevDishes}
+                className="slider-arrow-btn prev-arrow"
                 style={{
-                  width: 31,
-                  height: 31,
-                  cursor: 'pointer',
                   opacity: popularDishes.length > 4 ? 1 : 0.4,
                   userSelect: 'none',
-                  flexShrink: 0
                 }}
               />
               <div className="cards-viewport">
@@ -307,13 +304,10 @@ export default function Home() {
                 src={rightArrow}
                 alt="Next"
                 onClick={handleNextDishes}
+                className="slider-arrow-btn next-arrow"
                 style={{
-                  width: 31,
-                  height: 31,
-                  cursor: 'pointer',
                   opacity: popularDishes.length > 4 ? 1 : 0.4,
                   userSelect: 'none',
-                  flexShrink: 0
                 }}
               />
             </div>

@@ -520,3 +520,49 @@ body[data-theme="dark"],
 [data-theme="dark"] .footer-legal-link:hover {
   color: #ffffff !important;
 }
+
+/* ── 13. Carousel & Slider Navigation Arrows in Dark Mode ── */
+[data-theme="dark"] .slider-arrow-btn,
+[data-theme="dark"] .cards-wrapper > img,
+[data-theme="dark"] .s2 .cards-wrapper > img {
+  filter: brightness(0) invert(1) !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-theme="dark"] .slider-arrow-btn:hover,
+[data-theme="dark"] .cards-wrapper > img:hover,
+[data-theme="dark"] .s2 .cards-wrapper > img:hover {
+  background: #ffb703 !important;
+  border-color: #ffb703 !important;
+  filter: brightness(0) !important;
+  box-shadow: 0 8px 25px rgba(255, 183, 3, 0.6) !important;
+  transform: scale(1.2) !important;
+}
+
+[data-theme="dark"] .pd-carousel-arrow {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  border-radius: 50% !important;
+  width: 44px !important;
+  height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-theme="dark"] .pd-carousel-arrow:hover {
+  background: #ffb703 !important;
+  color: #0f1117 !important;
+  border-color: #ffb703 !important;
+  transform: scale(1.2) !important;
+  box-shadow: 0 8px 25px rgba(255, 183, 3, 0.6) !important;
+}
+
