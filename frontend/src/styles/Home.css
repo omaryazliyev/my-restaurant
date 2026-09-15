@@ -560,35 +560,36 @@ main a:hover {
   min-width: 320px;
   max-width: 680px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
-  padding: 10px;
+  padding: 10px 10px 10px 40px;
+  margin-left: auto;
   box-sizing: border-box;
 }
 
 .s3-right img {
-  max-width: 620px;
+  max-width: 580px;
   width: 100%;
   height: auto;
   object-fit: contain;
   display: block;
-  transform: scale(1.15);
+  transform: translateX(35px) scale(1.1);
   filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 35px rgba(255, 183, 3, 0.2));
   transition: transform 0.4s ease, filter 0.4s ease;
   animation: s3PizzaFloat 5s ease-in-out infinite;
 }
 
 .s3-right img:hover {
-  transform: scale(1.22) rotate(-2deg);
+  transform: translateX(35px) scale(1.16) rotate(-2deg);
   filter: drop-shadow(0 35px 65px rgba(255, 183, 3, 0.45));
 }
 
 @keyframes s3PizzaFloat {
   0%, 100% {
-    transform: scale(1.15) translateY(0px) rotate(0deg);
+    transform: translateX(35px) scale(1.1) translateY(0px) rotate(0deg);
   }
   50% {
-    transform: scale(1.15) translateY(-10px) rotate(-1.5deg);
+    transform: translateX(35px) scale(1.1) translateY(-10px) rotate(-1.5deg);
   }
 }
 
