@@ -51,7 +51,7 @@ export default function CartDrawer() {
         {/* Header */}
         <div className="cart-drawer-header">
           <div className="cart-drawer-title-wrap">
-            <span style={{ fontSize: '24px' }}>🛒</span>
+            <span className="cart-drawer-icon">🛒</span>
             <h2 className="cart-drawer-title">{t.cart}</h2>
             <span className="cart-drawer-badge">{totalCount}</span>
           </div>
@@ -61,23 +61,13 @@ export default function CartDrawer() {
         </div>
 
         {errorMsg && (
-          <div style={{
-            backgroundColor: 'rgba(255, 77, 79, 0.1)', color: '#ff4d4f',
-            border: '1px solid rgba(255, 77, 79, 0.3)', borderRadius: '12px',
-            padding: '12px 14px', marginBottom: '16px', fontSize: '14px',
-            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            flexWrap: 'wrap', gap: '8px',
-          }}>
+          <div className="cart-drawer-error">
             <span>{errorMsg}</span>
             {!isAuthenticated && (
               <button
                 type="button"
+                className="cart-drawer-login-btn"
                 onClick={() => { setIsCartOpen(false); navigate('/login'); }}
-                style={{
-                  backgroundColor: '#ff4d4f', color: '#fff', border: 'none',
-                  padding: '6px 14px', borderRadius: '8px', cursor: 'pointer',
-                  fontSize: '12px', fontWeight: 'bold',
-                }}
               >
                 {t.login} →
               </button>
@@ -86,17 +76,12 @@ export default function CartDrawer() {
         )}
 
         {cartItems.length === 0 ? (
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-            <div style={{ fontSize: '64px', marginBottom: '16px', opacity: 0.9 }}>🍽️</div>
-            <h3 className="cart-drawer-empty-text" style={{ fontSize: '18px', fontWeight: '700', margin: '0 0 8px 0' }}>{t.cartEmpty}</h3>
+          <div className="cart-drawer-empty">
+            <div className="cart-drawer-empty-icon">🍽️</div>
+            <h3 className="cart-drawer-empty-text">{t.cartEmpty}</h3>
             <button
+              className="cart-drawer-empty-btn"
               onClick={() => { setIsCartOpen(false); navigate('/menu'); }}
-              style={{
-                marginTop: '16px', padding: '10px 22px', borderRadius: '25px',
-                backgroundColor: '#ffb703', color: '#111', fontWeight: '700',
-                border: 'none', cursor: 'pointer', fontSize: '14px',
-                boxShadow: '0 4px 15px rgba(255, 183, 3, 0.3)',
-              }}
             >
               {t.viewMenuBtn || t.viewMenu || "Menuga o'tish"} →
             </button>
@@ -104,11 +89,11 @@ export default function CartDrawer() {
         ) : (
           <>
             {/* Cart Items */}
-            <div style={{ flex: 1, overflowY: 'auto', marginBottom: '20px', paddingRight: '4px' }}>
+            <div className="cart-drawer-items-list">
               {cartItems.map((item, idx) => (
                 <div key={idx} className="cart-drawer-item">
-                  {item.img && <img src={item.img} alt={item.name} style={{ width: '60px', height: '60px', borderRadius: '12px', objectFit: 'cover' }} />}
-                  <div style={{ flex: 1, minWidth: 0 }}>
+                  {item.img && <img src={item.img} alt={item.name} className="cart-drawer-item-img" />}
+                  <div className="cart-drawer-item-info">
                     <h4 className="cart-drawer-item-title">{item.name}</h4>
                     <span className="cart-drawer-item-price">
                       {priceFormat((item.numericPrice || 0) * (item.quantity || 1))}
@@ -121,8 +106,8 @@ export default function CartDrawer() {
                     <button className="cart-drawer-qty-btn" onClick={() => updateQuantity(item.id || item.name, 1)}>+</button>
                   </div>
                   <button
+                    className="cart-drawer-delete-btn"
                     onClick={() => removeFromCart(item.id || item.name)}
-                    style={{ background: 'none', border: 'none', color: '#ff4d4f', fontSize: '18px', cursor: 'pointer', padding: '4px', opacity: 0.8 }}
                     title="O'chirish"
                   >
                     🗑️
@@ -132,7 +117,7 @@ export default function CartDrawer() {
             </div>
 
             {/* Footer / Checkout */}
-            <div style={{ borderTop: '1px solid rgba(0, 0, 0, 0.08)', paddingTop: '16px', marginTop: 'auto' }} className="cart-drawer-footer-divider">
+            <div className="cart-drawer-footer">
               {/* Promo Code Input Box */}
               <div className="cart-drawer-promo-box">
                 <div className="cart-drawer-promo-label">
@@ -141,12 +126,12 @@ export default function CartDrawer() {
                 </div>
 
                 {promoCode ? (
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(16, 185, 129, 0.15)', padding: '8px 12px', borderRadius: '10px', border: '1px solid #10b981' }}>
-                    <span style={{ color: '#10b981', fontWeight: '700', fontSize: '13px' }}>✅ {promoCode} ({discountPercent}% chegirma)</span>
-                    <button onClick={removePromoCode} style={{ border: 'none', background: 'none', color: '#ef4444', cursor: 'pointer', fontWeight: 'bold', fontSize: '14px' }}>✕</button>
+                  <div className="cart-drawer-promo-applied">
+                    <span className="cart-drawer-promo-applied-text">✅ {promoCode} ({discountPercent}% chegirma)</span>
+                    <button className="cart-drawer-promo-remove-btn" onClick={removePromoCode}>✕</button>
                   </div>
                 ) : (
-                  <div style={{ display: 'flex', gap: '8px' }}>
+                  <div className="cart-drawer-promo-form">
                     <input
                       type="text"
                       className="cart-drawer-promo-input"
@@ -163,19 +148,19 @@ export default function CartDrawer() {
                   </div>
                 )}
 
-                {promoError && <div style={{ color: '#ef4444', fontSize: '12px', marginTop: '6px', fontWeight: '600' }}>⚠️ {promoError}</div>}
-                {promoSuccess && <div style={{ color: '#10b981', fontSize: '12px', marginTop: '6px', fontWeight: '600' }}>{promoSuccess}</div>}
+                {promoError && <div className="cart-drawer-promo-error">⚠️ {promoError}</div>}
+                {promoSuccess && <div className="cart-drawer-promo-success">{promoSuccess}</div>}
               </div>
 
               {/* Total & Discount Row */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '16px' }}>
+              <div className="cart-drawer-totals-wrap">
                 {discountAmount > 0 && (
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#10b981', fontSize: '14px', fontWeight: '700' }}>
+                  <div className="cart-drawer-discount-row">
                     <span>Chegirma ({discountPercent}%):</span>
                     <span>-{priceFormat(discountAmount)}</span>
                   </div>
                 )}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div className="cart-drawer-total-row">
                   <span className="cart-drawer-total-label">{t.total}</span>
                   <span className="cart-drawer-total-amount">{priceFormat(finalTotalAmount)}</span>
                 </div>
