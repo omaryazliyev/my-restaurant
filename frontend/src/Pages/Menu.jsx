@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Menu.css';
 import '../styles/Home.css';
@@ -26,6 +26,10 @@ export default function Menu() {
   const [allDishes, setAllDishes] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Smooth Category Slider State & Refs
+  const tabRefs = useRef({});
+  const [sliderPos, setSliderPos] = useState({ left: 0, width: 0, top: 0, height: 0 });
+
   // Smart Filters & Sorting States
   const [tagFilter, setTagFilter] = useState('all');
   const [sortBy, setSortBy] = useState('default');
@@ -35,6 +39,28 @@ export default function Menu() {
   useEffect(() => {
     fetchAll();
   }, []);
+
+  useEffect(() => {
+    const updatePillPosition = () => {
+      const activeEl = tabRefs.current[activeKey];
+      if (activeEl) {
+        setSliderPos({
+          left: activeEl.offsetLeft,
+          width: activeEl.offsetWidth,
+          top: activeEl.offsetTop,
+          height: activeEl.offsetHeight,
+        });
+      }
+    };
+
+    updatePillPosition();
+    const timer = setTimeout(updatePillPosition, 50);
+    window.addEventListener('resize', updatePillPosition);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', updatePillPosition);
+    };
+  }, [activeKey, categories, lang]);
 
   const fetchAll = async () => {
     setLoading(true);
@@ -129,9 +155,20 @@ export default function Menu() {
             {/* Category tabs — faqat backenddan kelgan kategoriyalar */}
             <div className="menyu1">
               <div className="menyu">
+                <div
+                  className="menyu-slider-pill"
+                  style={{
+                    left: `${sliderPos.left}px`,
+                    width: `${sliderPos.width}px`,
+                    top: `${sliderPos.top}px`,
+                    height: `${sliderPos.height}px`,
+                    opacity: sliderPos.width ? 1 : 0
+                  }}
+                />
                 {categories.map((cat) => (
                   <a
                     key={cat}
+                    ref={el => (tabRefs.current[cat] = el)}
                     href="#"
                     className={activeKey === cat ? 'pervi' : ''}
                     onClick={(e) => { e.preventDefault(); setActiveKey(cat); }}

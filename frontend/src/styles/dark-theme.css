@@ -137,14 +137,24 @@ body[data-theme="dark"],
   backdrop-filter: blur(14px) !important;
 }
 
+[data-theme="dark"] .menyu-slider-pill {
+  background-color: rgba(255, 255, 255, 0.22) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
 [data-theme="dark"] .menyu a {
-  color: #f0f2f8 !important;
+  color: #c0c8e0 !important;
+}
+
+[data-theme="dark"] .menyu a:hover {
+  color: #ffb703 !important;
 }
 
 [data-theme="dark"] .menyu .pervi {
-  background: rgba(255, 255, 255, 0.18) !important;
+  background: transparent !important;
   color: #ffffff !important;
-  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border: none !important;
 }
 
 [data-theme="dark"] .tag-btn {
