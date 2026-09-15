@@ -226,16 +226,16 @@ export default function Home() {
           <section className="s2">
             <h2>{t.popularDishes}</h2>
             <div className="cards-wrapper">
-              <img
-                src={leftArrow}
-                alt="Prev"
-                onClick={handlePrevDishes}
+              <button
                 className="slider-arrow-btn prev-arrow"
-                style={{
-                  opacity: popularDishes.length > 4 ? 1 : 0.4,
-                  userSelect: 'none',
-                }}
-              />
+                onClick={handlePrevDishes}
+                style={{ opacity: popularDishes.length > 4 ? 1 : 0.4 }}
+                aria-label="Oldingi"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
               <div className="cards-viewport">
                 {loadingDishes ? (
                   <div style={{ color: '#fff', padding: '40px', textAlign: 'center', width: '100%', fontWeight: '500' }}>
@@ -300,16 +300,16 @@ export default function Home() {
                   </div>
                 )}
               </div>
-              <img
-                src={rightArrow}
-                alt="Next"
-                onClick={handleNextDishes}
+              <button
                 className="slider-arrow-btn next-arrow"
-                style={{
-                  opacity: popularDishes.length > 4 ? 1 : 0.4,
-                  userSelect: 'none',
-                }}
-              />
+                onClick={handleNextDishes}
+                style={{ opacity: popularDishes.length > 4 ? 1 : 0.4 }}
+                aria-label="Keyingi"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
             </div>
             <div className="s2-btn-row">
               <Link to="/menu">

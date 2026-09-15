@@ -250,11 +250,9 @@ main a:hover {
   width: 100%;
 }
 
-.slider-arrow-btn,
-.s2 .cards-wrapper > img {
+.slider-arrow-btn {
   width: 44px !important;
   height: 44px !important;
-  padding: 10px !important;
   border-radius: 50% !important;
   background: rgba(255, 255, 255, 0.85) !important;
   backdrop-filter: blur(10px) !important;
@@ -263,16 +261,20 @@ main a:hover {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
   cursor: pointer !important;
   transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1) !important;
-  user-select: none !important;
   flex-shrink: 0 !important;
   z-index: 10 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #1a1a1a !important;
+  padding: 0 !important;
 }
 
-.slider-arrow-btn:hover,
-.s2 .cards-wrapper > img:hover {
+.slider-arrow-btn:hover {
   background: #ffb703 !important;
   transform: scale(1.15) !important;
   box-shadow: 0 6px 20px rgba(255, 183, 3, 0.4) !important;
+  color: #1a1a1a !important;
 }
 
 .s2 .cards-viewport {
