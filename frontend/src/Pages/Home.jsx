@@ -460,7 +460,9 @@ export default function Home() {
               ))}
             </div>
             <div className="pros">
-              <button>{t.viewAll}</button>
+              <Link to="/novosti">
+                <button>{t.viewAll}</button>
+              </Link>
             </div>
           </section>
         </main>
