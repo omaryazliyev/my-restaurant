@@ -59,7 +59,7 @@ export default function Novosti() {
 
           <h1 className="bron-main-title">{t.newsTitle}</h1>
 
-          <p style={{ textAlign: 'center', color: '#555', maxWidth: '600px', margin: '-20px auto 40px auto', fontSize: '16px' }}>
+          <p className="bron-subtitle" style={{ textAlign: 'center', maxWidth: '600px', margin: '-20px auto 40px auto', fontSize: '16px' }}>
             {t.newsSubtitle}
           </p>
 
@@ -70,7 +70,7 @@ export default function Novosti() {
                 <div className="bron-news-img-wrapper">
                   <img src={NEWS_IMAGES[i]} alt={title} className="bron-news-img" />
                 </div>
-                <h3 style={{ fontSize: '18px', fontWeight: '700', margin: '0 0 10px 0', color: '#000' }}>
+                <h3 className="bron-news-card-title" style={{ fontSize: '18px', fontWeight: '700', margin: '0 0 10px 0' }}>
                   {title}
                 </h3>
                 <p className="bron-news-desc">{t.newsCardText}</p>

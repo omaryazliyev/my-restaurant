@@ -673,8 +673,30 @@
   background: var(--header-top-bg);
 }
 
+[data-theme="dark"] .header-contact-item img {
+  filter: brightness(0) invert(1) !important;
+}
+
 [data-theme="dark"] .header-contact-item a {
-  color: var(--text-secondary);
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .header-lang-picker {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .lang-label {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .lang-arrow {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .header-profile-btn {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
 }
 
 [data-theme="dark"] .header-main-nav {
@@ -683,26 +705,37 @@
 }
 
 [data-theme="dark"] .header-nav-link {
-  color: var(--text-secondary);
+  color: #ffffff !important;
 }
 
-[data-theme="dark"] .header-nav-link:hover,
+[data-theme="dark"] .header-nav-link:hover {
+  color: var(--accent) !important;
+}
+
 [data-theme="dark"] .header-nav-link.active {
-  color: var(--accent);
+  color: #e63946 !important;
 }
 
 [data-theme="dark"] .header-search-box {
-  background: var(--input-bg);
-  border-color: var(--input-border);
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+[data-theme="dark"] .header-search-icon {
+  color: #ffffff !important;
 }
 
 [data-theme="dark"] .header-search-input {
-  color: var(--text-primary);
+  color: #ffffff !important;
   background: transparent;
 }
 
 [data-theme="dark"] .header-search-input::placeholder {
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+[data-theme="dark"] .header-search-clear {
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 
 [data-theme="dark"] .header-search-popover {
@@ -728,7 +761,17 @@
 }
 
 [data-theme="dark"] .header-cart-icon-wrapper {
-  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+[data-theme="dark"] .header-cart-icon-svg {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .header-mobile-toggle {
+  color: #ffffff !important;
 }
 
 [data-theme="dark"] .header-mobile-drawer {

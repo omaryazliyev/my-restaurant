@@ -1,437 +1,522 @@
 /* ═══════════════════════════════════════════════════════════
-   DARK THEME — PAGE & COMPONENT OVERRIDES
-   Hamma sahifalar uchun umumiy dark mode stiller
+   ULTIMATE GLOBAL DARK THEME SPECIFICATION (ALL PAGES & FORMS)
    ═══════════════════════════════════════════════════════════ */
 
-/* ── Menu Page ── */
+/* ── 1. Global Background Image in Dark Mode (ALL PAGES) ── */
+html[data-theme="dark"],
+body[data-theme="dark"],
+[data-theme="dark"] body,
+[data-theme="dark"] #root,
+[data-theme="dark"] .home-body,
 [data-theme="dark"] .menu-body,
-[data-theme="dark"] .menu-page-wrapper {
-  background: #0f1117;
-}
-
-[data-theme="dark"] .menu-glass-panel,
-[data-theme="dark"] .menu-top-panel {
-  background: var(--bg-glass);
-  border-color: var(--border-color);
-}
-
-[data-theme="dark"] .menu-card {
-  background: var(--bg-card);
-  border-color: var(--border-color);
-}
-
-[data-theme="dark"] .menu-card-name,
-[data-theme="dark"] .menu-card h3 {
-  color: var(--text-primary);
-}
-
-[data-theme="dark"] .menu-card-category,
-[data-theme="dark"] .menu-card p {
-  color: var(--text-muted);
-}
-
-[data-theme="dark"] .menu-category-btn,
-[data-theme="dark"] .filter-tab {
-  background: var(--bg-overlay);
-  color: var(--text-secondary);
-  border-color: var(--border-color);
-}
-
-[data-theme="dark"] .menu-category-btn.active,
-[data-theme="dark"] .filter-tab.active {
-  background: var(--accent);
-  color: #000;
-}
-
-[data-theme="dark"] .menu-search-input,
-[data-theme="dark"] .menu-input {
-  background: var(--input-bg);
-  border-color: var(--input-border);
-  color: var(--text-primary);
-}
-
-[data-theme="dark"] .menu-search-input::placeholder {
-  color: var(--text-muted);
-}
-
-/* ── Profile Page ── */
-[data-theme="dark"] .profile-page-wrapper {
-  background-color: #0f1117;
-}
-
-[data-theme="dark"] .profile-glass-card {
-  background: var(--bg-glass);
-  border-color: var(--border-color);
-}
-
-[data-theme="dark"] .profile-user-card {
-  background: var(--bg-card);
-  border-color: var(--border-color);
-}
-
-[data-theme="dark"] .profile-info h2 {
-  color: var(--text-primary);
-}
-
-[data-theme="dark"] .profile-info p {
-  color: var(--text-muted);
-}
-
-[data-theme="dark"] .profile-tabs {
-  border-color: var(--border-color);
-}
-
-[data-theme="dark"] .profile-tab-btn {
-  color: var(--text-secondary);
-}
-
-[data-theme="dark"] .profile-tab-btn.active {
-  background: var(--bg-card);
-  color: var(--text-primary);
-}
-
-[data-theme="dark"] .profile-tab-btn:hover {
-  background: var(--bg-overlay);
-  color: var(--text-primary);
-}
-
-[data-theme="dark"] .order-card {
-  background: var(--bg-card);
-  border-color: var(--border-color);
-}
-
-[data-theme="dark"] .order-header {
-  border-color: var(--border-color);
-}
-
-[data-theme="dark"] .order-id {
-  color: var(--text-primary);
-}
-
-[data-theme="dark"] .order-date {
-  color: var(--text-muted);
-}
-
-[data-theme="dark"] .order-item-row {
-  color: var(--text-secondary);
-}
-
-[data-theme="dark"] .order-footer {
-  border-color: var(--border-color);
-}
-
-[data-theme="dark"] .order-address {
-  color: var(--text-muted);
-}
-
-[data-theme="dark"] .order-timeline-wrapper {
-  background: var(--bg-overlay);
-}
-
-[data-theme="dark"] .step-node {
-  background: var(--bg-card);
-  border-color: var(--border-color);
-}
-
-[data-theme="dark"] .step-label {
-  color: var(--text-muted);
-}
-
-[data-theme="dark"] .profile-cashback-card {
-  background: linear-gradient(135deg, rgba(255, 183, 3, 0.1), rgba(251, 133, 0, 0.08));
-  border-color: rgba(255, 183, 3, 0.25);
-}
-
-/* ── ProductDetail Page ── */
-[data-theme="dark"] .product-detail-wrapper {
-  background-color: #0f1117;
-}
-
-[data-theme="dark"] .pd-glass-card {
-  background: rgba(18, 22, 36, 0.88);
-  border-color: var(--border-color);
-}
-
-[data-theme="dark"] .pd-main-title,
-[data-theme="dark"] .pd-title {
-  color: var(--text-primary);
-}
-
-[data-theme="dark"] .pd-desc-text {
-  color: var(--text-secondary);
-}
-
-[data-theme="dark"] .pd-similar-card {
-  background: var(--bg-card);
-  border-color: var(--border-color);
-}
-
-[data-theme="dark"] .pd-similar-name {
-  color: var(--text-primary);
-}
-
-[data-theme="dark"] .pd-similar-sub {
-  color: var(--text-muted);
-}
-
-[data-theme="dark"] .pd-review-form {
-  background: var(--bg-card);
-  border-color: var(--border-color);
-}
-
-[data-theme="dark"] .pd-review-textarea {
-  background: var(--input-bg);
-  border-color: var(--input-border);
-  color: var(--text-primary);
-}
-
-[data-theme="dark"] .pd-review-card {
-  background: var(--bg-card);
-  border-color: var(--border-color);
-}
-
-[data-theme="dark"] .pd-reviewer-name,
-[data-theme="dark"] .pd-review-text,
-[data-theme="dark"] .pd-reviews-title {
-  color: var(--text-primary);
-}
-
-[data-theme="dark"] .pd-reviewer-date {
-  color: var(--text-muted);
-}
-
-/* ── Home Page ── */
-[data-theme="dark"] .home-body {
-  background-color: #0f1117;
-}
-
-[data-theme="dark"] .home-popular-section {
-  background-color: var(--bg-secondary);
-}
-
-[data-theme="dark"] .popular-card,
-[data-theme="dark"] .dish-card {
-  background: var(--bg-card);
-  border-color: var(--border-color);
-}
-
-[data-theme="dark"] .popular-card h3,
-[data-theme="dark"] .dish-card h3 {
-  color: var(--text-primary);
-}
-
-[data-theme="dark"] .popular-card p,
-[data-theme="dark"] .dish-card p {
-  color: var(--text-muted);
-}
-
-/* ── Cart Drawer ── */
-[data-theme="dark"] .cart-drawer {
-  background: #0f1117;
-  border-color: var(--border-color);
-}
-
-[data-theme="dark"] .cart-drawer-title {
-  color: var(--text-primary);
-}
-
-[data-theme="dark"] .cart-item {
-  background: var(--bg-card);
-  border-color: var(--border-color);
-}
-
-[data-theme="dark"] .cart-item-name {
-  color: var(--text-primary);
-}
-
-[data-theme="dark"] .cart-total-section {
-  border-color: var(--border-color);
-}
-
-[data-theme="dark"] .promo-input {
-  background: var(--input-bg);
-  border-color: var(--input-border);
-  color: var(--text-primary);
-}
-
-/* ── Checkout Page ── */
-[data-theme="dark"] .checkout-page-wrapper {
-  background-color: #0f1117;
-}
-
-[data-theme="dark"] .checkout-glass {
-  background: var(--bg-glass);
-  border-color: var(--border-color);
-}
-
-[data-theme="dark"] .checkout-section-title {
-  color: var(--text-primary);
-}
-
-[data-theme="dark"] .checkout-input,
-[data-theme="dark"] .checkout-textarea {
-  background: var(--input-bg);
-  border-color: var(--input-border);
-  color: var(--text-primary);
-}
-
-[data-theme="dark"] .checkout-input::placeholder,
-[data-theme="dark"] .checkout-textarea::placeholder {
-  color: var(--text-muted);
-}
-
-[data-theme="dark"] .payment-card {
-  background: var(--bg-card);
-  border-color: var(--border-color);
-}
-
-[data-theme="dark"] .payment-card.selected {
-  border-color: var(--accent);
-  background: var(--accent-light);
-}
-
-/* ── Booking Page ── */
-[data-theme="dark"] .booking-body {
-  background-color: #0f1117;
-}
-
-[data-theme="dark"] .booking-glass,
-[data-theme="dark"] .booking-form-card {
-  background: var(--bg-glass);
-  border-color: var(--border-color);
-}
-
-[data-theme="dark"] .booking-input,
-[data-theme="dark"] .booking-select {
-  background: var(--input-bg);
-  border-color: var(--input-border);
-  color: var(--text-primary);
-}
-
-/* ── Footer ── */
-[data-theme="dark"] .footer-wrapper,
-[data-theme="dark"] footer {
-  background: #080a10;
-}
-
-[data-theme="dark"] .footer-title,
-[data-theme="dark"] .footer-heading {
-  color: var(--text-primary);
-}
-
-[data-theme="dark"] .footer-text,
-[data-theme="dark"] .footer-link {
-  color: var(--text-muted);
-}
-
-/* ── Login / Register Pages ── */
+[data-theme="dark"] .menu-page-wrapper,
+[data-theme="dark"] .bron-page-wrapper,
+[data-theme="dark"] .booking-body,
+[data-theme="dark"] .about-page-wrapper,
+[data-theme="dark"] .about-body,
+[data-theme="dark"] .contacts-page-wrapper,
+[data-theme="dark"] .contacts-body,
+[data-theme="dark"] .pd-page-wrapper,
+[data-theme="dark"] .product-detail-wrapper,
+[data-theme="dark"] .profile-page-wrapper,
+[data-theme="dark"] .profile-body,
+[data-theme="dark"] .checkout-page-wrapper,
 [data-theme="dark"] .login-body,
-[data-theme="dark"] .register-body {
-  background-color: #0f1117;
+[data-theme="dark"] .register-body,
+[data-theme="dark"] .admin-layout,
+[data-theme="dark"] .admin-content {
+  background: url("../assets/images/fon-dark.png") center/cover no-repeat fixed !important;
+  color: #f0f2f8 !important;
 }
 
+/* Hide light-mode blur pseudo-element overlays in Dark Mode */
+[data-theme="dark"] .home-body::before,
+[data-theme="dark"] .menu-body::before,
+[data-theme="dark"] .bron-page-wrapper::before,
+[data-theme="dark"] .about-page-wrapper::before,
+[data-theme="dark"] .contacts-page-wrapper::before,
+[data-theme="dark"] .pd-page-wrapper::before,
+[data-theme="dark"] .profile-page-wrapper::before,
+[data-theme="dark"] .checkout-page-wrapper::before,
+[data-theme="dark"] .login-body::before,
+[data-theme="dark"] .register-body::before,
+[data-theme="dark"] .admin-root::before {
+  display: none !important;
+}
+
+/* ── 2. White Logo in Dark Mode ── */
+[data-theme="dark"] .header-logo,
+[data-theme="dark"] .footer-logo {
+  filter: brightness(0) invert(1) !important;
+  transition: filter 0.3s ease;
+}
+
+/* ── 3. Outer Glass Panels & Main Page Containers (rgba(0, 0, 0, 0.3)) ── */
+[data-theme="dark"] .s1,
+[data-theme="dark"] .s1-menu,
+[data-theme="dark"] .s1-bron,
+[data-theme="dark"] .s1-about,
+[data-theme="dark"] .s1-contacts,
+[data-theme="dark"] .bron-glass-card,
+[data-theme="dark"] .about-glass-card,
+[data-theme="dark"] .contacts-glass-card,
+[data-theme="dark"] .pd-glass-card,
+[data-theme="dark"] .profile-glass-card,
+[data-theme="dark"] .profile-user-card,
+[data-theme="dark"] .checkout-glass,
+[data-theme="dark"] .booking-glass,
+[data-theme="dark"] .booking-form-card,
 [data-theme="dark"] .login-card,
-[data-theme="dark"] .register-card {
-  background: var(--bg-glass);
-  border-color: var(--border-color);
+[data-theme="dark"] .register-card,
+[data-theme="dark"] .s3-left,
+[data-theme="dark"] .contact-info-card,
+[data-theme="dark"] .contact-form-card,
+[data-theme="dark"] .bron-contact-card,
+[data-theme="dark"] .bron-news-section,
+[data-theme="dark"] .admin-glass-card,
+[data-theme="dark"] .admin-stat-card {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4) !important;
 }
 
-[data-theme="dark"] .login-input,
-[data-theme="dark"] .register-input,
+/* ── 4. Inner Cards & Content Box Elements (rgba(0, 0, 0, 0.3)) ── */
+[data-theme="dark"] .s2 .card,
+[data-theme="dark"] .s2 .card1,
+[data-theme="dark"] .menu-cards .card1,
+[data-theme="dark"] .menu-card,
+[data-theme="dark"] .item,
+[data-theme="dark"] .gala,
+[data-theme="dark"] .bron-news-card,
+[data-theme="dark"] .about-card,
+[data-theme="dark"] .pd-similar-card,
+[data-theme="dark"] .pd-review-card,
+[data-theme="dark"] .pd-review-form,
+[data-theme="dark"] .order-card,
+[data-theme="dark"] .popular-card,
+[data-theme="dark"] .dish-card,
+[data-theme="dark"] .payment-card {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* ── Team Section (Clean Avatar Photo + Name & Role Only, No Outer Card Box) ── */
+.about-team-card,
+.team-card,
+[data-theme="dark"] .about-team-card,
+[data-theme="dark"] .team-card {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+[data-theme="dark"] .about-team-title {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .about-team-name {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .about-team-role {
+  color: #c0c8e0 !important;
+}
+
+/* ── 5. Menu Page Filters, Tabs, & Sort Controls ── */
+[data-theme="dark"] .menyu {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(14px) !important;
+}
+
+[data-theme="dark"] .menyu a {
+  color: #f0f2f8 !important;
+}
+
+[data-theme="dark"] .menyu .pervi {
+  background: rgba(255, 255, 255, 0.18) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+[data-theme="dark"] .tag-btn {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #f0f2f8 !important;
+}
+
+[data-theme="dark"] .tag-btn:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .tag-btn.active {
+  background: #ffb703 !important;
+  color: #0f1117 !important;
+  border-color: #ffb703 !important;
+}
+
+[data-theme="dark"] .menu-sort-select {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)) !important;
+  color: #f0f2f8 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* ── 6. Bronirovanie / Booking Table & Schedule ── */
+[data-theme="dark"] .bron-hours-title,
+[data-theme="dark"] .bron-form-title,
+[data-theme="dark"] .bron-contact-title,
+[data-theme="dark"] .bron-news-title {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .bron-hours-table tr {
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+[data-theme="dark"] .bron-hours-table td,
+[data-theme="dark"] .bron-hours-table td.hours-time {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .bron-contact-card h4 {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .bron-contact-card p {
+  color: #c0c8e0 !important;
+}
+
+[data-theme="dark"] .bron-contact-icon {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+}
+
+/* ── 7. ALL Headings & Titles in Dark Mode (CRISP WHITE) ── */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6,
+[data-theme="dark"] .s1-main-left h1,
+[data-theme="dark"] .s1-menu h1,
+[data-theme="dark"] .s1-bron h1,
+[data-theme="dark"] .s1-about h1,
+[data-theme="dark"] .s1-contacts h1,
+[data-theme="dark"] .bron-main-title,
+[data-theme="dark"] .bron-title,
+[data-theme="dark"] .bron-hours-title,
+[data-theme="dark"] .bron-form-title,
+[data-theme="dark"] .bron-contact-title,
+[data-theme="dark"] .bron-news-title,
+[data-theme="dark"] .bron-glass-card h1,
+[data-theme="dark"] .bron-glass-card h2,
+[data-theme="dark"] .bron-glass-card h3,
+[data-theme="dark"] .bron-glass-card h4,
+[data-theme="dark"] .bron-news-card-title,
+[data-theme="dark"] .bron-news-card h3,
+[data-theme="dark"] .about-glass-card h1,
+[data-theme="dark"] .about-glass-card h2,
+[data-theme="dark"] .about-glass-card h3,
+[data-theme="dark"] .about-glass-card h4,
+[data-theme="dark"] .contacts-glass-card h1,
+[data-theme="dark"] .contacts-glass-card h2,
+[data-theme="dark"] .contacts-glass-card h3,
+[data-theme="dark"] .contacts-glass-card h4,
+[data-theme="dark"] .pd-glass-card h1,
+[data-theme="dark"] .pd-glass-card h2,
+[data-theme="dark"] .pd-glass-card h3,
+[data-theme="dark"] .pd-main-title,
+[data-theme="dark"] .pd-title,
+[data-theme="dark"] .pd-reviews-title,
+[data-theme="dark"] .pd-reviewer-name,
+[data-theme="dark"] .menu-card-main h3,
+[data-theme="dark"] .menu-cards h3,
+[data-theme="dark"] .popular-card h3,
+[data-theme="dark"] .dish-card h3,
+[data-theme="dark"] .card-main h3,
+[data-theme="dark"] .item h4,
+[data-theme="dark"] .gala-author h5,
+[data-theme="dark"] .checkout-section-title,
+[data-theme="dark"] .profile-info h2,
+[data-theme="dark"] .order-id,
+[data-theme="dark"] .cart-drawer-title,
+[data-theme="dark"] .cart-item-name,
+[data-theme="dark"] .login-card h2,
+[data-theme="dark"] .register-card h2 {
+  color: #ffffff !important;
+}
+
+/* ── 8. ALL Paragraphs, Descriptions, Subtitles, & Small Labels (SILVER/WHITE) ── */
+[data-theme="dark"] p,
+[data-theme="dark"] span,
+[data-theme="dark"] .bron-subtitle,
+[data-theme="dark"] .bron-news-desc,
+[data-theme="dark"] .bron-glass-card p,
+[data-theme="dark"] .about-glass-card p,
+[data-theme="dark"] .contacts-glass-card p,
+[data-theme="dark"] .pd-glass-card p,
+[data-theme="dark"] .pd-desc-text,
+[data-theme="dark"] .pd-review-text,
+[data-theme="dark"] .menu-cards p,
+[data-theme="dark"] .card-desc,
+[data-theme="dark"] .item p,
+[data-theme="dark"] .gala p,
+[data-theme="dark"] .popular-card p,
+[data-theme="dark"] .dish-card p,
+[data-theme="dark"] .profile-info p,
+[data-theme="dark"] .order-date,
+[data-theme="dark"] .order-address,
+[data-theme="dark"] .step-label,
+[data-theme="dark"] .sort-label,
+[data-theme="dark"] .pd-similar-sub,
+[data-theme="dark"] .pd-reviewer-date {
+  color: #c0c8e0 !important;
+}
+
+/* Breadcrumbs Links and Elements */
+[data-theme="dark"] .page-breadcrumb,
+[data-theme="dark"] .page-breadcrumb .glavni,
+[data-theme="dark"] .page-breadcrumb span,
+[data-theme="dark"] .bron-breadcrumb,
+[data-theme="dark"] .bron-breadcrumb a,
+[data-theme="dark"] .bron-breadcrumb span,
+[data-theme="dark"] .about-breadcrumb,
+[data-theme="dark"] .about-breadcrumb a,
+[data-theme="dark"] .about-breadcrumb span,
+[data-theme="dark"] .contacts-breadcrumb,
+[data-theme="dark"] .contacts-breadcrumb a,
+[data-theme="dark"] .contacts-breadcrumb span,
+[data-theme="dark"] .pd-breadcrumb,
+[data-theme="dark"] .pd-breadcrumb a,
+[data-theme="dark"] .pd-breadcrumb span {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+[data-theme="dark"] .page-breadcrumb .menu-link,
+[data-theme="dark"] .s1-menu .home-nav a,
+[data-theme="dark"] .bron-news-author span,
+[data-theme="dark"] .gala-author h5 {
+  color: #ffffff !important;
+}
+
+/* ── 9. Form Inputs, Textareas, Selects, & Custom Controls ── */
 [data-theme="dark"] input[type="text"],
 [data-theme="dark"] input[type="email"],
 [data-theme="dark"] input[type="password"],
 [data-theme="dark"] input[type="number"],
+[data-theme="dark"] input[type="date"],
+[data-theme="dark"] input[type="time"],
 [data-theme="dark"] textarea,
-[data-theme="dark"] select {
-  background: var(--input-bg);
-  border-color: var(--input-border);
-  color: var(--text-primary);
+[data-theme="dark"] select,
+[data-theme="dark"] .bron-input,
+[data-theme="dark"] .booking-input,
+[data-theme="dark"] .booking-select,
+[data-theme="dark"] .checkout-input,
+[data-theme="dark"] .checkout-textarea,
+[data-theme="dark"] .pd-review-textarea,
+[data-theme="dark"] .menu-search-input,
+[data-theme="dark"] .menu-input,
+[data-theme="dark"] .promo-input,
+[data-theme="dark"] .login-input,
+[data-theme="dark"] .register-input {
+  color: #ffffff !important;
+  border-bottom-color: rgba(255, 255, 255, 0.3) !important;
+  background: transparent !important;
 }
 
 [data-theme="dark"] input::placeholder,
-[data-theme="dark"] textarea::placeholder {
-  color: var(--text-muted);
+[data-theme="dark"] textarea::placeholder,
+[data-theme="dark"] select::placeholder,
+[data-theme="dark"] .bron-input::placeholder,
+[data-theme="dark"] .bron-input.placeholder-active {
+  color: rgba(255, 255, 255, 0.65) !important;
 }
 
-/* ── About Page ── */
-[data-theme="dark"] .about-body {
-  background-color: #0f1117;
+[data-theme="dark"] input option,
+[data-theme="dark"] select option,
+[data-theme="dark"] .bron-input option {
+  background-color: #1a1f30 !important;
+  color: #ffffff !important;
 }
 
-[data-theme="dark"] .about-glass,
-[data-theme="dark"] .about-card {
-  background: var(--bg-glass);
-  border-color: var(--border-color);
+[data-theme="dark"] label {
+  color: #c0c8e0 !important;
 }
 
-/* ── Contacts Page ── */
-[data-theme="dark"] .contacts-body {
-  background-color: #0f1117;
+[data-theme="dark"] .bron-icon-svg {
+  color: rgba(255, 255, 255, 0.85) !important;
 }
 
-/* ── Admin Panel ── */
-[data-theme="dark"] .admin-layout {
-  background: #080a10;
+[data-theme="dark"] .bron-map-link {
+  color: #ffb703 !important;
 }
 
-[data-theme="dark"] .admin-sidebar {
-  background: #0c0f1a;
-  border-color: var(--border-color);
+[data-theme="dark"] .bron-map-link:hover {
+  color: #ffffff !important;
 }
 
-[data-theme="dark"] .admin-content {
-  background: #0f1117;
+/* CustomSelect Dropdown Controls in Dark Mode */
+[data-theme="dark"] [role="button"][aria-haspopup="listbox"] span {
+  color: #ffffff !important;
 }
 
-[data-theme="dark"] .admin-glass-card {
-  background: rgba(18, 22, 36, 0.9);
-  border-color: var(--border-color);
+[data-theme="dark"] [role="listbox"] {
+  background: #1a1f30 !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
 }
 
-[data-theme="dark"] .admin-stat-card {
-  background: rgba(18, 22, 36, 0.9);
-  border-color: var(--border-color);
+[data-theme="dark"] [role="option"] {
+  color: #f0f2f8 !important;
 }
 
-[data-theme="dark"] .admin-stat-value,
-[data-theme="dark"] .admin-stat-label,
-[data-theme="dark"] .admin-section-title {
-  color: var(--text-primary);
+[data-theme="dark"] [role="option"]:hover {
+  background: rgba(255, 183, 3, 0.12) !important;
+  color: #ffb703 !important;
 }
 
-[data-theme="dark"] .admin-table th,
-[data-theme="dark"] .admin-table td {
-  border-color: var(--border-color);
-  color: var(--text-secondary);
+/* Booking inline floating input labels on Home page */
+[data-theme="dark"] .s3-left .input-box input {
+  color: #ffffff !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
 }
 
-[data-theme="dark"] .admin-table th {
-  background: rgba(255, 255, 255, 0.04);
+[data-theme="dark"] .s3-left .input-box label {
+  color: #a0aec0 !important;
 }
 
-[data-theme="dark"] .admin-table tbody tr:hover {
-  background: rgba(255, 183, 3, 0.05);
+[data-theme="dark"] .s3-left .input-box input:focus ~ label,
+[data-theme="dark"] .s3-left .input-box input:valid ~ label {
+  color: #ffb703 !important;
 }
 
-[data-theme="dark"] .admin-search-input,
-[data-theme="dark"] .admin-form-input,
-[data-theme="dark"] .admin-form-textarea,
-[data-theme="dark"] .admin-custom-select {
-  background: var(--input-bg);
-  border-color: var(--input-border);
-  color: var(--text-primary);
+/* ── 10. Buttons, Prices, & Badges ── */
+[data-theme="dark"] .s1-main-left button,
+[data-theme="dark"] .s2-btn-row button,
+[data-theme="dark"] .s3-left button,
+[data-theme="dark"] .s5 button,
+[data-theme="dark"] .bron-submit-btn,
+[data-theme="dark"] .booking-submit-btn,
+[data-theme="dark"] .contacts-submit-btn,
+[data-theme="dark"] .checkout-submit-btn,
+[data-theme="dark"] .pd-add-cart-btn {
+  background-color: #ffb703 !important;
+  color: #0f1117 !important;
+  font-weight: 700 !important;
 }
 
-[data-theme="dark"] .admin-modal {
-  background: #131826;
-  border-color: var(--border-color);
+[data-theme="dark"] .s1-main-left button:hover,
+[data-theme="dark"] .s2-btn-row button:hover,
+[data-theme="dark"] .s3-left button:hover,
+[data-theme="dark"] .s5 button:hover,
+[data-theme="dark"] .bron-submit-btn:hover,
+[data-theme="dark"] .booking-submit-btn:hover,
+[data-theme="dark"] .contacts-submit-btn:hover,
+[data-theme="dark"] .checkout-submit-btn:hover,
+[data-theme="dark"] .pd-add-cart-btn:hover {
+  background-color: #fb8500 !important;
+  box-shadow: 0 8px 24px rgba(251, 133, 0, 0.4) !important;
 }
 
-[data-theme="dark"] .admin-modal-title {
-  color: var(--text-primary);
+[data-theme="dark"] .card-footer .price,
+[data-theme="dark"] .menu-card-footer .price {
+  color: #ffb703 !important;
 }
 
-[data-theme="dark"] .admin-form-label {
-  color: var(--text-secondary);
+[data-theme="dark"] .card-footer .magazin,
+[data-theme="dark"] .menu-card-footer .magazin {
+  background-color: #ffb703 !important;
+}
+
+[data-theme="dark"] .card-footer .magazin img,
+[data-theme="dark"] .menu-card-footer .magazin img {
+  filter: brightness(0);
+}
+
+/* ── 11. Cart Drawer & Profile Timeline ── */
+[data-theme="dark"] .cart-drawer {
+  background: rgba(18, 22, 36, 0.96) !important;
+  backdrop-filter: blur(24px) !important;
+  border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .cart-item {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="dark"] .cart-total-section {
+  border-top-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .profile-tab-btn {
+  color: #b0b8d0 !important;
+}
+
+[data-theme="dark"] .profile-tab-btn.active {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .order-timeline-wrapper {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+[data-theme="dark"] .step-node {
+  background: #1a1f30 !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* ── 12. Footer Dark Theme Overrides ── */
+[data-theme="dark"] .site-footer {
+  background: rgba(15, 18, 28, 0.95) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .footer-col-title {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .footer-link-item {
+  color: #b0b8d0 !important;
+}
+
+[data-theme="dark"] .footer-link-item:hover {
+  color: #ffb703 !important;
+}
+
+[data-theme="dark"] .footer-contact-item {
+  color: #b0b8d0 !important;
+}
+
+[data-theme="dark"] .footer-contact-link {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .footer-contact-link:hover {
+  color: #ffb703 !important;
+}
+
+[data-theme="dark"] .footer-bottom {
+  border-top-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .footer-copyright {
+  color: #8b95b5 !important;
+}
+
+[data-theme="dark"] .footer-legal-link {
+  color: #b0b8d0 !important;
+}
+
+[data-theme="dark"] .footer-legal-link:hover {
+  color: #ffffff !important;
 }
