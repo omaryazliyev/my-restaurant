@@ -173,12 +173,29 @@ main a:hover {
 }
 
 .s1-main img {
-  max-width: 480px;
+  max-width: 530px;
   width: 100%;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.22));
+  filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.32));
+  transition: transform 0.4s ease, filter 0.4s ease;
+  animation: heroPizzaFloat 5s ease-in-out infinite;
 }
+
+.s1-main img:hover {
+  transform: scale(1.04) rotate(2deg);
+  filter: drop-shadow(0 30px 55px rgba(255, 183, 3, 0.35));
+}
+
+@keyframes heroPizzaFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(1.5deg);
+  }
+}
+
 
 /* Decorative Leaves in Hero - non-blocking */
 .barg1 {
