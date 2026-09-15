@@ -572,13 +572,30 @@ main a:hover {
 }
 
 .s3-right img {
-  max-width: 440px;
+  max-width: 480px;
   width: 100%;
   height: auto;
   object-fit: contain;
   display: block;
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.18));
+  filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.28));
+  transition: transform 0.4s ease, filter 0.4s ease;
+  animation: s3PizzaFloat 5s ease-in-out infinite;
 }
+
+.s3-right img:hover {
+  transform: scale(1.05) rotate(-2deg);
+  filter: drop-shadow(0 30px 55px rgba(255, 183, 3, 0.35));
+}
+
+@keyframes s3PizzaFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-1.5deg);
+  }
+}
+
 
 .barg5 { position: absolute; top: -20px; right: 20px; z-index: 1; pointer-events: none; opacity: 0.7; }
 .barg6 { position: absolute; top: 220px; left: 10px; z-index: 1; pointer-events: none; opacity: 0.7; }

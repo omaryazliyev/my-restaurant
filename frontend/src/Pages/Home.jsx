@@ -419,7 +419,7 @@ export default function Home() {
                 </form>
               </div>
               <div className="s3-right">
-                <img src={wineGlassesImg} alt="Wine glasses" />
+                <img src={fod} alt="Pizza" />
               </div>
             </div>
             <img className="barg5" src={barg5} alt="" />
