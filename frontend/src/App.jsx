@@ -19,6 +19,7 @@ import AdminOrders from './Pages/Admin/AdminOrders';
 import AdminReservations from './Pages/Admin/AdminReservations';
 import AdminUsers from './Pages/Admin/AdminUsers';
 import AdminNews from './Pages/Admin/AdminNews';
+import ScrollToTop from './components/ScrollToTop';
 import './styles/global.css';
 import './styles/dark-theme.css';
 import './index.css';
@@ -27,6 +28,7 @@ import './index.css';
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
