@@ -539,6 +539,13 @@ body[data-theme="dark"],
   transform: scale(1.2) !important;
 }
 
+/* ── 14. Why-Us Section Card Icons (white in dark mode) ── */
+[data-theme="dark"] .item img,
+[data-theme="dark"] .s4 .item img {
+  filter: brightness(0) invert(1) !important;
+  opacity: 0.95 !important;
+}
+
 [data-theme="dark"] .pd-carousel-arrow {
   color: #ffffff !important;
   background: rgba(255, 255, 255, 0.2) !important;
