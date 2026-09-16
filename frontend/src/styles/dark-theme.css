@@ -1109,4 +1109,56 @@ body[data-theme="dark"],
   border-color: rgba(255, 183, 3, 0.3) !important;
 }
 
+/* Admin Lang Picker in Dark Mode */
+[data-theme="dark"] .admin-lang-picker {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+}
+
+[data-theme="dark"] .admin-lang-picker:hover {
+  background: rgba(255, 255, 255, 0.14) !important;
+  border-color: rgba(255, 183, 3, 0.5) !important;
+}
+
+[data-theme="dark"] .admin-lang-arrow {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .admin-lang-dropdown {
+  background: #181d2e !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-theme="dark"] .admin-lang-option {
+  color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .admin-lang-option:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .admin-lang-option.active {
+  background: rgba(255, 183, 3, 0.18) !important;
+  color: #ffb703 !important;
+}
+
+/* Admin Day/Night Toggle in Dark Mode */
+[data-theme="dark"] .admin-theme-toggle-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+}
+
+[data-theme="dark"] .admin-theme-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.14) !important;
+  border-color: #ffb703 !important;
+  box-shadow: 0 4px 14px rgba(255, 183, 3, 0.3) !important;
+}
+
+
 

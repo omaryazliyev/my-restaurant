@@ -1,7 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Outlet, NavLink, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
+import { useTheme } from '../../context/ThemeContext';
+import FlagIcon from '../../components/FlagIcon';
 import '../../styles/Admin.css';
+
+const LANGUAGES = [
+  { code: 'uz', label: "O'zbekcha" },
+  { code: 'ru', label: 'Русский' },
+  { code: 'en', label: 'English' },
+];
 
 const NAV_ITEMS = [
   { path: '/admin',             icon: '📊', label: 'Dashboard',        end: true },
@@ -15,8 +24,23 @@ const NAV_ITEMS = [
 
 export default function AdminLayout() {
   const { user, logout } = useAuth();
+  const { lang, setLang } = useLanguage();
+  const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
+  const langRef = useRef(null);
+
+  // Close language dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (langRef.current && !langRef.current.contains(e.target)) {
+        setLangOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Role guard
   if (!user || user.role !== 'ADMIN') {
@@ -30,6 +54,8 @@ export default function AdminLayout() {
   };
 
   const closeSidebar = () => setSidebarOpen(false);
+
+  const currentLang = LANGUAGES.find((l) => l.code === lang) || LANGUAGES[0];
 
   const now = new Date();
   const timeStr = now.toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' });
@@ -106,6 +132,46 @@ export default function AdminLayout() {
             {NAV_ITEMS.find(n => window.location.pathname === n.path || window.location.pathname.startsWith(n.path + '/'))?.label || 'Admin Panel'}
           </span>
           <div className="admin-topbar-right">
+            {/* Language Selector */}
+            <div className="admin-lang-picker" ref={langRef} onClick={() => setLangOpen(v => !v)}>
+              <span className="admin-lang-flag">
+                <FlagIcon code={currentLang.code} width={18} height={12} />
+              </span>
+              <span className="admin-lang-label">{currentLang.label}</span>
+              <span className="admin-lang-arrow">{langOpen ? '▴' : '▾'}</span>
+
+              {langOpen && (
+                <div className="admin-lang-dropdown">
+                  {LANGUAGES.map((l) => (
+                    <div
+                      key={l.code}
+                      className={`admin-lang-option ${l.code === lang ? 'active' : ''}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setLang(l.code);
+                        setLangOpen(false);
+                      }}
+                    >
+                      <FlagIcon code={l.code} width={18} height={12} />
+                      <span>{l.label}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Dark / Light Theme Toggle */}
+            <button
+              type="button"
+              className="admin-theme-toggle-btn"
+              onClick={toggleTheme}
+              title={isDark ? "Yorug' rejim (Kun)" : "Qorong'i rejim (Tun)"}
+              aria-label="Toggle Theme"
+            >
+              <span className="admin-theme-icon">{isDark ? '☀️' : '🌙'}</span>
+              <span className="admin-theme-text">{isDark ? 'Kun' : 'Tun'}</span>
+            </button>
+
             <span className="admin-topbar-time">📅 {dateStr} · {timeStr}</span>
             <Link to="/home" className="admin-home-btn">🌐 Sayt</Link>
           </div>
