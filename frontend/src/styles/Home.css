@@ -531,9 +531,13 @@ main a:hover {
 
 .s3-left .map-link {
   font-size: 14px;
-  color: #000;
+  color: #fff;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.s3-left .map-link:hover {
+  color: #ffb703;
 }
 
 .s3-left button {
