@@ -179,35 +179,8 @@ export default function Menu() {
               </div>
             </div>
 
-            {/* Smart Filter & Sort Bar */}
-            <div className="menu-filter-sort-bar">
-              <div className="menu-tag-filters">
-                <button
-                  className={`tag-btn ${tagFilter === 'all' ? 'active' : ''}`}
-                  onClick={() => setTagFilter('all')}
-                >
-                  {t.allFilter || 'Barchasi'}
-                </button>
-                <button
-                  className={`tag-btn ${tagFilter === 'halal' ? 'active' : ''}`}
-                  onClick={() => setTagFilter('halal')}
-                >
-                  🌙 {t.halal || 'Halol'}
-                </button>
-                <button
-                  className={`tag-btn ${tagFilter === 'spicy' ? 'active' : ''}`}
-                  onClick={() => setTagFilter('spicy')}
-                >
-                  🌶️ {t.spicy || 'Achchiq'}
-                </button>
-                <button
-                  className={`tag-btn ${tagFilter === 'vegetarian' ? 'active' : ''}`}
-                  onClick={() => setTagFilter('vegetarian')}
-                >
-                  🥗 {t.vegetarian || 'Vegetarian'}
-                </button>
-              </div>
-
+            {/* Smart Sort Bar */}
+            <div className="menu-filter-sort-bar" style={{ justifyContent: 'flex-end' }}>
               <div className="menu-sort-box">
                 <span className="sort-label">⚡ {t.sortBy || 'Saralash'}:</span>
                 <select
@@ -249,14 +222,6 @@ export default function Menu() {
                           alt={item.name}
                           onError={(e) => { e.target.src = food1; }}
                         />
-                      </div>
-
-                      {/* Card Badges Row */}
-                      <div className="card-badge-row">
-                        {item.isHalal && <span className="dish-badge halal">🌙 Halol</span>}
-                        {item.isSpicy && <span className="dish-badge spicy">🌶️ Achchiq</span>}
-                        {item.isVeg && <span className="dish-badge veg">🥗 Veggie</span>}
-                        {item.kcal && <span className="dish-kcal">🔥 {item.kcal} Kcal</span>}
                       </div>
 
                       <div className="menu-card-main">
