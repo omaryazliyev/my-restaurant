@@ -166,7 +166,7 @@ export default function Header({ showNav = true }) {
       {/* MAIN NAV BAR */}
       {showNav && (
         <div className="header-main-nav">
-          <div className="header-main-inner">
+          <div className={`header-main-inner ${searchOpen ? 'search-active' : ''}`}>
             <Link to="/home" className="header-logo-link">
               <img src={logo} alt="logo" className="header-logo" />
             </Link>

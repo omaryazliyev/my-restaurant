@@ -602,6 +602,23 @@
     flex-shrink: 0;
   }
 
+  /* ── Mobile Search Active Overlay (Hide Logo & Controls when Search Open) ── */
+  .header-main-inner.search-active .header-logo-link {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+
+  .header-main-inner.search-active .header-theme-toggle,
+  .header-main-inner.search-active .header-cart-icon-wrapper,
+  .header-main-inner.search-active .header-mobile-toggle {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+
   /* ── Mobile Compact Search Icon Button ── */
   .header-search-wrapper {
     position: relative;
@@ -616,6 +633,7 @@
     border-radius: 50%;
     cursor: pointer;
     flex-shrink: 0;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .header-search-input {
@@ -626,19 +644,29 @@
     display: none;
   }
 
-  /* When search is open on mobile: expand floating over action controls */
+  /* When search is open on mobile: full clean overlay spanning top bar */
   .header-search-box.open {
     position: absolute;
     right: 0;
+    left: calc(-100vw + 160px);
     top: 50%;
     transform: translateY(-50%);
-    width: calc(100vw - 160px);
-    max-width: 250px;
-    height: 40px;
-    padding: 6px 14px;
-    border-radius: 20px;
+    width: auto;
+    max-width: none;
+    height: 44px;
+    padding: 6px 16px;
+    border-radius: 22px;
     justify-content: flex-start;
-    z-index: 300;
+    background: #ffffff !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.22) !important;
+    border: 1px solid rgba(0, 0, 0, 0.12) !important;
+    z-index: 500;
+  }
+
+  [data-theme="dark"] .header-search-box.open {
+    background: #181d2d !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6) !important;
   }
 
   .header-search-box.open .header-search-input {
@@ -648,13 +676,17 @@
 
   .header-search-box.open .header-search-clear {
     display: inline-block;
+    padding: 4px 8px;
+    font-size: 14px;
+    cursor: pointer;
   }
 
   .header-search-popover {
     width: calc(100vw - 32px);
-    max-width: 320px;
+    max-width: 100%;
     right: 0;
     left: auto;
+    z-index: 600;
   }
 }
 
@@ -669,8 +701,7 @@
   }
 
   .header-search-box.open {
-    width: calc(100vw - 145px);
-    max-width: 230px;
+    left: calc(-100vw + 140px);
   }
 }
 

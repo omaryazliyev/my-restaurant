@@ -579,17 +579,17 @@
 
   .menu-cards {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 65px 14px;
-    margin-top: 70px;
+    gap: 55px 12px;
+    margin-top: 60px;
     padding: 0 4px;
   }
 
   .menu-cards .card1 {
     margin-top: 0;
     height: auto;
-    min-height: 205px;
-    padding: 82px 14px 14px 14px;
-    border-radius: 26px;
+    min-height: 200px;
+    padding: 70px 12px 14px 12px;
+    border-radius: 24px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -599,21 +599,22 @@
 
   .menu-cards .card1 .big {
     position: absolute;
-    top: -45px;
+    top: -42px;
     left: 50%;
     transform: translateX(-50%);
     margin: 0;
-    width: 120px;
-    height: 120px;
+    width: 105px;
+    height: 105px;
     z-index: 2;
+    border-radius: 50%;
   }
 
   .menu-cards .card1 .big img {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 50%;
-    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
+    width: 105px !important;
+    height: 105px !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.22));
   }
 
   .menu-card-main {
@@ -633,19 +634,26 @@
 
   .menu-cards p {
     margin-top: 4px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     font-size: 12px;
     color: #666;
     line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .menu-card-footer {
     margin-top: auto;
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .menu-card-footer .price {
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 800;
   }
 
@@ -653,31 +661,53 @@
     width: 36px;
     height: 34px;
     border-radius: 9px;
+    flex-shrink: 0;
   }
 }
 
 /* ── Mobile: 380px va undan kichik ── */
 @media (max-width: 380px) {
   .menu-cards {
-    grid-template-columns: 1fr;
-    max-width: 290px;
-    margin: 70px auto 40px;
-    gap: 65px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 48px 10px;
+    margin-top: 55px;
+    padding: 0 2px;
   }
 
   .menu-cards .card1 {
-    height: 260px;
-    padding: 18px;
+    height: auto;
+    min-height: 190px;
+    padding: 64px 10px 12px 10px;
+    border-radius: 22px;
   }
 
   .menu-cards .card1 .big {
-    width: 130px;
-    height: 130px;
-    top: -50px;
+    width: 95px;
+    height: 95px;
+    top: -36px;
   }
 
   .menu-cards .card1 .big img {
-    width: 130px;
-    height: 130px;
+    width: 95px !important;
+    height: 95px !important;
+  }
+
+  .menu-card-main h3 {
+    font-size: 14px;
+  }
+
+  .menu-cards p {
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
+
+  .menu-card-footer .price {
+    font-size: 14px;
+  }
+
+  .menu-card-footer .magazin {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
   }
 }
