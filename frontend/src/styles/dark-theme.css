@@ -1159,6 +1159,39 @@ body[data-theme="dark"],
   border-color: #ffb703 !important;
   box-shadow: 0 4px 14px rgba(255, 183, 3, 0.3) !important;
 }
+/* ── 16. About Us Buttons in Dark Mode (White Glass + Black Text) ── */
+[data-theme="dark"] .about-menu-btn,
+[data-theme="dark"] .about-view-btn {
+  background: rgba(255, 255, 255, 0.88) !important;
+  color: #000000 !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15) !important;
+  font-weight: 800 !important;
+}
 
+[data-theme="dark"] .about-menu-btn:hover,
+[data-theme="dark"] .about-view-btn:hover {
+  background: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: 0 12px 30px rgba(255, 255, 255, 0.3) !important;
+  transform: translateY(-2px) !important;
+}
 
+/* ── 17. About Us Gallery / News Cards in Dark Mode ── */
+[data-theme="dark"] .about-news-card {
+  background: rgba(255, 255, 255, 0.88) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4) !important;
+}
 
+[data-theme="dark"] .about-news-text {
+  color: #111111 !important;
+  font-weight: 500 !important;
+}
+
+[data-theme="dark"] .about-news-author span {
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
